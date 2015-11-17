@@ -13,13 +13,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        // http://httpbin.org/delay/5
+        let testURL = TestCall.Endpoint.Delay(2).url()
+        TestCall.execute(testURL, completion: queryCompleted)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    func queryCompleted(result: TestCallResult) {
+        print("Result: \(result.url)")
+    }
 
 }
 

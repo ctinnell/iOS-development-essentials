@@ -12,6 +12,7 @@
 		842CC0781BF4A20B008D30CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842CC0761BF4A20B008D30CC /* Main.storyboard */; };
 		842CC07A1BF4A20B008D30CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 842CC0791BF4A20B008D30CC /* Assets.xcassets */; };
 		842CC07D1BF4A20B008D30CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842CC07B1BF4A20B008D30CC /* LaunchScreen.storyboard */; };
+		849C76041BF9E5E300B1A702 /* TestCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C76031BF9E5E300B1A702 /* TestCall.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		842CC0791BF4A20B008D30CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		842CC07C1BF4A20B008D30CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		842CC07E1BF4A20B008D30CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		849C76031BF9E5E300B1A702 /* TestCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestCall.swift; path = Model/TestCall.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		842CC0711BF4A20B008D30CC /* 01-Swift-Asynchronous Network Access */ = {
 			isa = PBXGroup;
 			children = (
+				849C76051BF9E5ED00B1A702 /* Model */,
 				842CC0721BF4A20B008D30CC /* AppDelegate.swift */,
 				842CC0741BF4A20B008D30CC /* ViewController.swift */,
 				842CC0761BF4A20B008D30CC /* Main.storyboard */,
@@ -62,6 +65,14 @@
 				842CC07E1BF4A20B008D30CC /* Info.plist */,
 			);
 			path = "01-Swift-Asynchronous Network Access";
+			sourceTree = "<group>";
+		};
+		849C76051BF9E5ED00B1A702 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				849C76031BF9E5E300B1A702 /* TestCall.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				842CC0751BF4A20B008D30CC /* ViewController.swift in Sources */,
+				849C76041BF9E5E300B1A702 /* TestCall.swift in Sources */,
 				842CC0731BF4A20B008D30CC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,6 +298,7 @@
 				842CC0831BF4A20B008D30CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
