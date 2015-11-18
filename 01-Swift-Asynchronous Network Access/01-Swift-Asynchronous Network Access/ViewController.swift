@@ -16,10 +16,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    func queryCompleted(result: TestCallResult) {
-        print("Result: \(result.url)")
-    }
-
     func activityIndicator(tag: Int) -> UIActivityIndicatorView? {
         return self.view.viewWithTag(tag) as? UIActivityIndicatorView
     }
@@ -39,11 +35,11 @@ class ViewController: UIViewController {
     @IBAction func processRequests(sender: AnyObject) {
         for var x=1; x<=10; x++ {
             startAnimateActivityIndicator(tagStart + x)
-            let testURL = TestCall.Endpoint.Delay(2).url()
+            let randomUnit: UInt32 = 11 
+            let testURL = TestCall.Endpoint.Delay(Int(arc4random_uniform(randomUnit))).url()
             TestCall.execute(testURL, index:x) {(result, index) in
                 print("Result: \(result.url)")
                 self.stopAnimatingActivityIndicator(self.tagStart + index)
-                print ("Stop Animating: \(index)")
             }
         }
     }
