@@ -38,7 +38,7 @@ struct TestCall {
         }
     }
     
-    static func execute(url: NSURL, completion: (TestCallResult)->()) {
+    static func execute(url: NSURL, index:Int, completion: (TestCallResult, Int)->()) {
         let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: sessionConfig)
         let request = NSURLRequest(URL: url)
@@ -54,7 +54,7 @@ struct TestCall {
                     catch let jsonError as NSError {
                         print("Error serializing response. Error: \(jsonError)")
                     }
-                    completion(TestCallResult(url: url))
+                    completion(TestCallResult(url: url), index)
                 }
             } else {
                 print("Error: url:\(url) error\(error)")
