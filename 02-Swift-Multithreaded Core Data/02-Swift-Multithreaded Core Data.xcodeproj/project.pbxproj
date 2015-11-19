@@ -14,6 +14,9 @@
 		8434DF3F1BFD3DE80042C6C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8434DF3D1BFD3DE80042C6C1 /* LaunchScreen.storyboard */; };
 		8434DF481BFD3E7F0042C6C1 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434DF471BFD3E7F0042C6C1 /* CoreDataManager.swift */; };
 		8434DF4F1BFD48310042C6C1 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8434DF4D1BFD48310042C6C1 /* CoreDataModel.xcdatamodeld */; };
+		8434DF521BFD67A00042C6C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8434DF511BFD67A00042C6C1 /* CoreData.framework */; };
+		8434DF591BFD680A0042C6C1 /* Person+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434DF561BFD680A0042C6C1 /* Person+CoreDataProperties.m */; };
+		8434DF5A1BFD680A0042C6C1 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 8434DF581BFD680A0042C6C1 /* Person.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,12 @@
 		8434DF471BFD3E7F0042C6C1 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		8434DF4E1BFD48310042C6C1 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		8434DF501BFD48480042C6C1 /* CoreDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		8434DF511BFD67A00042C6C1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		8434DF541BFD68090042C6C1 /* 02-Swift-Multithreaded Core Data-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "02-Swift-Multithreaded Core Data-Bridging-Header.h"; sourceTree = "<group>"; };
+		8434DF551BFD680A0042C6C1 /* Person+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Person+CoreDataProperties.h"; sourceTree = "<group>"; };
+		8434DF561BFD680A0042C6C1 /* Person+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Person+CoreDataProperties.m"; sourceTree = "<group>"; };
+		8434DF571BFD680A0042C6C1 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		8434DF581BFD680A0042C6C1 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8434DF521BFD67A00042C6C1 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +55,7 @@
 			children = (
 				8434DF331BFD3DE70042C6C1 /* 02-Swift-Multithreaded Core Data */,
 				8434DF321BFD3DE70042C6C1 /* Products */,
+				8434DF531BFD67AB0042C6C1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,6 +76,7 @@
 				8434DF381BFD3DE70042C6C1 /* Main.storyboard */,
 				8434DF3B1BFD3DE70042C6C1 /* Assets.xcassets */,
 				8434DF3D1BFD3DE80042C6C1 /* LaunchScreen.storyboard */,
+				8434DF541BFD68090042C6C1 /* 02-Swift-Multithreaded Core Data-Bridging-Header.h */,
 				8434DF401BFD3DE80042C6C1 /* Info.plist */,
 			);
 			path = "02-Swift-Multithreaded Core Data";
@@ -73,10 +85,31 @@
 		8434DF461BFD3E720042C6C1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8434DF5B1BFD68230042C6C1 /* Person */,
 				8434DF471BFD3E7F0042C6C1 /* CoreDataManager.swift */,
 				8434DF4D1BFD48310042C6C1 /* CoreDataModel.xcdatamodeld */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		8434DF531BFD67AB0042C6C1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8434DF511BFD67A00042C6C1 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			path = "02-Swift-Multithreaded Core Data";
+			sourceTree = "<group>";
+		};
+		8434DF5B1BFD68230042C6C1 /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				8434DF571BFD680A0042C6C1 /* Person.h */,
+				8434DF581BFD680A0042C6C1 /* Person.m */,
+				8434DF551BFD680A0042C6C1 /* Person+CoreDataProperties.h */,
+				8434DF561BFD680A0042C6C1 /* Person+CoreDataProperties.m */,
+			);
+			name = Person;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,9 +184,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8434DF5A1BFD680A0042C6C1 /* Person.m in Sources */,
 				8434DF481BFD3E7F0042C6C1 /* CoreDataManager.swift in Sources */,
 				8434DF371BFD3DE70042C6C1 /* ViewController.swift in Sources */,
 				8434DF4F1BFD48310042C6C1 /* CoreDataModel.xcdatamodeld in Sources */,
+				8434DF591BFD680A0042C6C1 /* Person+CoreDataProperties.m in Sources */,
 				8434DF351BFD3DE70042C6C1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,10 +302,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "02-Swift-Multithreaded Core Data/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.claytinnell.-2-Swift-Multithreaded-Core-Data";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "02-Swift-Multithreaded Core Data/02-Swift-Multithreaded Core Data-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -278,10 +316,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "02-Swift-Multithreaded Core Data/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.claytinnell.-2-Swift-Multithreaded-Core-Data";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "02-Swift-Multithreaded Core Data/02-Swift-Multithreaded Core Data-Bridging-Header.h";
 			};
 			name = Release;
 		};
