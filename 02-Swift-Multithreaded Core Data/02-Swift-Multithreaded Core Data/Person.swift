@@ -1,15 +1,17 @@
 //
-//  Person.m
+//  Person.swift
 //  02-Swift-Multithreaded Core Data
 //
-//  Created by Clay Tinnell on 11/18/15.
+//  Created by Clay Tinnell on 11/19/15.
 //  Copyright © 2015 Clay Tinnell. All rights reserved.
 //
 
-#import "Person.h"
+import Foundation
+import CoreData
 
-@implementation Person
+@objc(Person)
+class Person: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
 
-@end
+}

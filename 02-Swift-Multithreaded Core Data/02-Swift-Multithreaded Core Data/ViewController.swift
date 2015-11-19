@@ -14,6 +14,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let application = UIApplication.sharedApplication().delegate as? AppDelegate
         application?.coreDataManager
+        if let moc = application?.coreDataManager.managedObjectContext {
+            Person.deleteAllObjects(moc)
+            Person.loadTestData(moc)
+        }
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
