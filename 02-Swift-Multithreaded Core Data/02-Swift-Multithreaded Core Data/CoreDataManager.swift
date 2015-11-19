@@ -16,7 +16,7 @@ public class CoreDataManager {
     public var managedObjectContext: NSManagedObjectContext?
     public var privateManagedObjectContext: NSManagedObjectContext?
     
-    private let productName = "CoreDataModel"
+    private let modelName = "CoreDataModel"
 
     public init() {
         managedObjectModel = initializeManagedObjectModel()
@@ -27,14 +27,14 @@ public class CoreDataManager {
     
     private func initializeManagedObjectModel() -> NSManagedObjectModel? {
         var model: NSManagedObjectModel?
-        if let modelURL = NSBundle.mainBundle().URLForResource(productName, withExtension: "momd") {
+        if let modelURL = NSBundle.mainBundle().URLForResource(modelName, withExtension: "momd") {
             model = NSManagedObjectModel(contentsOfURL: modelURL)
         }
         return model
     }
     
     private func initializePersistentStoreCoordinator() -> NSPersistentStoreCoordinator? {
-        let url = NSURL.fileURLWithPath((self.applicationDocumentsDirectory() as NSString).stringByAppendingPathComponent("\(productName).sqlite"))
+        let url = NSURL.fileURLWithPath((self.applicationDocumentsDirectory() as NSString).stringByAppendingPathComponent("\(modelName).sqlite"))
         let options = [NSMigratePersistentStoresAutomaticallyOption:1, NSInferMappingModelAutomaticallyOption:1]
         var storeCoordinator: NSPersistentStoreCoordinator?
         
@@ -46,6 +46,7 @@ public class CoreDataManager {
             catch let persistentStoreError as NSError {
                 print("Unable to add Persistent Store!!!")
                 print("\(persistentStoreError)")
+                return nil
             }
         }
         else {
@@ -60,19 +61,19 @@ public class CoreDataManager {
             }
             catch let error as NSError {
                 print("Unable to encrypt database: \(error): \(error.userInfo)")
+                return nil
             }
         }
         return storeCoordinator
     }
     
-    private func initializeManagedObjectContext() -> NSManagedObjectContext? {
-        var objectContext: NSManagedObjectContext?
-        objectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-        objectContext?.persistentStoreCoordinator = persistentStoreCoordinator
+    private func initializeManagedObjectContext() -> NSManagedObjectContext {
+        let objectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        objectContext.persistentStoreCoordinator = persistentStoreCoordinator
         return objectContext
     }
     
-    private func initializePrivateManagedObjectContext() -> NSManagedObjectContext? {
+    private func initializePrivateManagedObjectContext() -> NSManagedObjectContext {
         let privateContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         privateContext.persistentStoreCoordinator = self.persistentStoreCoordinator
         return privateContext
