@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84024E6D1BFF2E1800FFBD96 /* PersonListViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84024E6C1BFF2E1800FFBD96 /* PersonListViewControllerTableViewController.swift */; };
 		8434DF351BFD3DE70042C6C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434DF341BFD3DE70042C6C1 /* AppDelegate.swift */; };
 		8434DF371BFD3DE70042C6C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434DF361BFD3DE70042C6C1 /* ViewController.swift */; };
 		8434DF3A1BFD3DE70042C6C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8434DF381BFD3DE70042C6C1 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84024E6C1BFF2E1800FFBD96 /* PersonListViewControllerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonListViewControllerTableViewController.swift; sourceTree = "<group>"; };
 		8434DF311BFD3DE70042C6C1 /* 02-Swift-Multithreaded Core Data.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "02-Swift-Multithreaded Core Data.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8434DF341BFD3DE70042C6C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8434DF361BFD3DE70042C6C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				8434DF461BFD3E720042C6C1 /* Model */,
 				8434DF341BFD3DE70042C6C1 /* AppDelegate.swift */,
 				8434DF361BFD3DE70042C6C1 /* ViewController.swift */,
+				84024E6C1BFF2E1800FFBD96 /* PersonListViewControllerTableViewController.swift */,
 				8434DF381BFD3DE70042C6C1 /* Main.storyboard */,
 				8434DF3B1BFD3DE70042C6C1 /* Assets.xcassets */,
 				8434DF3D1BFD3DE80042C6C1 /* LaunchScreen.storyboard */,
@@ -189,6 +192,7 @@
 				8434DF611BFDE0060042C6C1 /* Person+CoreDataProperties.swift in Sources */,
 				8434DF5E1BFDDF790042C6C1 /* PersonDataObject.swift in Sources */,
 				8434DF621BFDE0060042C6C1 /* Person.swift in Sources */,
+				84024E6D1BFF2E1800FFBD96 /* PersonListViewControllerTableViewController.swift in Sources */,
 				8434DF4F1BFD48310042C6C1 /* CoreDataModel.xcdatamodeld in Sources */,
 				8434DF351BFD3DE70042C6C1 /* AppDelegate.swift in Sources */,
 			);
@@ -345,6 +349,7 @@
 				8434DF451BFD3DE80042C6C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

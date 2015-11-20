@@ -21,7 +21,7 @@ extension Person {
             if let error = fetchError {
                 print("Error with Fetch Request: \(error.description)")
             }
-            else if results.count == 0 {
+            else if results?.count == 0 {
                 createPerson("Bill Gates", email: "billgates@microsoft.com", managedObjectContext: moc)
                 createPerson("Tim Cook", email: "timcook@apple.com", managedObjectContext: moc)
             }
@@ -48,7 +48,7 @@ extension Person {
         }
     }
     
-    class func allObjects(moc: NSManagedObjectContext) -> ([Person], NSError?) {
+    class func allObjects(moc: NSManagedObjectContext) -> ([Person]?, NSError?) {
         let fetchRequest = NSFetchRequest(entityName: entityName())
         let entityDescription = NSEntityDescription.entityForName(entityName(), inManagedObjectContext: moc)
         fetchRequest.entity = entityDescription
@@ -64,8 +64,8 @@ extension Person {
     
     class func deleteAllObjects(moc: NSManagedObjectContext) -> NSError? {
         let (objects, error) = allObjects(moc)
-        if error == nil && objects.count > 0 {
-            for object in objects {
+        if error == nil && objects?.count > 0 {
+            for object in objects! {
                 moc.deleteObject(object)
             }
             do {
