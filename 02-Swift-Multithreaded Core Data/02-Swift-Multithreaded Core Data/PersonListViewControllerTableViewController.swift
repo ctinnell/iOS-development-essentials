@@ -14,6 +14,7 @@ class PersonListViewControllerTableViewController: UITableViewController {
 
     let application = UIApplication.sharedApplication().delegate as? AppDelegate
     var people: [Person]?
+    var coreDataManager: CoreDataManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,9 @@ class PersonListViewControllerTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        initializePeople()
+        coreDataManager = CoreDataManager() {
+            self.initializePeople()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,10 +52,8 @@ class PersonListViewControllerTableViewController: UITableViewController {
     }
     
     func initializePeople() {
-        //application?.coreDataManager
-        if let coreDataManager = application?.coreDataManager {
-            
-            // because this calls an asynchronous write, a completion block is required
+        // because this calls an asynchronous write, a completion block is required
+        if let coreDataManager = coreDataManager {
             Person.deleteAllObjects(coreDataManager) {
                 Person.loadTestData(coreDataManager) {
                     self.loadPeople()
@@ -62,7 +63,7 @@ class PersonListViewControllerTableViewController: UITableViewController {
     }
     
     func loadPeople() {
-        if let moc = application?.coreDataManager.managedObjectContext {
+        if let coreDataManager = coreDataManager, moc = coreDataManager.managedObjectContext {
             (people,_) = Person.allObjects(moc)
         }
         self.tableView.reloadData()

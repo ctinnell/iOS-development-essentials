@@ -18,11 +18,18 @@ public class CoreDataManager {
     
     private let modelName = "CoreDataModel"
 
-    public init() {
-        managedObjectModel = initializeManagedObjectModel()
-        persistentStoreCoordinator = initializePersistentStoreCoordinator()
-        managedObjectContext = initializeManagedObjectContext()
-        privateManagedObjectContext = initializePrivateManagedObjectContext()
+    public init(completion: (()->())?) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { () -> Void in
+            self.managedObjectModel = self.initializeManagedObjectModel()
+            self.persistentStoreCoordinator = self.initializePersistentStoreCoordinator()
+            self.managedObjectContext = self.initializeManagedObjectContext()
+            self.privateManagedObjectContext = self.initializePrivateManagedObjectContext()
+            if let completion = completion {
+                dispatch_sync(dispatch_get_main_queue(), { () -> Void in
+                    completion()
+                })
+            }
+        }
     }
     
     public func save(completion: (()->())?) {
