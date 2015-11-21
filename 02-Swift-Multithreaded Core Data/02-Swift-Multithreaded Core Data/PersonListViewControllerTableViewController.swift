@@ -5,6 +5,8 @@
 //  Created by Clay Tinnell on 11/20/15.
 //  Copyright © 2015 Clay Tinnell. All rights reserved.
 //
+//  This sample app demonstrates performing Core Data writes on a private thread, 
+//  while retrieiving objects for the UI on the main thread.
 
 import UIKit
 
@@ -15,12 +17,11 @@ class PersonListViewControllerTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializePeople()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        loadPeople()
+        initializePeople()
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,10 +49,15 @@ class PersonListViewControllerTableViewController: UITableViewController {
     }
     
     func initializePeople() {
-        application?.coreDataManager
-        if let moc = application?.coreDataManager.managedObjectContext {
-            Person.deleteAllObjects(moc)
-            Person.loadTestData(moc)
+        //application?.coreDataManager
+        if let coreDataManager = application?.coreDataManager {
+            
+            // because this calls an asynchronous write, a completion block is required
+            Person.deleteAllObjects(coreDataManager) {
+                Person.loadTestData(coreDataManager) {
+                    self.loadPeople()
+                }
+            }
         }
     }
     

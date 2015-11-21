@@ -15,15 +15,28 @@ extension Person {
         return "Person"
     }
     
-    class func loadTestData(managedObjectContext: NSManagedObjectContext?) {
-        if let moc = managedObjectContext {
-            let (results, fetchError) = allObjects(moc)
+    class func loadTestData(coreDataManager: CoreDataManager, completion:(()->())?) {
+        if let context = coreDataManager.managedObjectContext, privateContext = coreDataManager.privateManagedObjectContext {
+            let (results, fetchError) = allObjects(context)
             if let error = fetchError {
                 print("Error with Fetch Request: \(error.description)")
             }
             else if results?.count == 0 {
-                createPerson("Bill Gates", email: "billgates@microsoft.com", managedObjectContext: moc)
-                createPerson("Tim Cook", email: "timcook@apple.com", managedObjectContext: moc)
+                createPerson("Bill Gates", email: "billgates@microsoft.com", managedObjectContext: privateContext)
+                createPerson("Jimmy John", email: "jimmyjohn@gmail.com", managedObjectContext: privateContext)
+                createPerson("Clark Kent", email: "clarkkent@gmail.com", managedObjectContext: privateContext)
+                createPerson("Luke Skywalker", email: "skywalker@gmail.com", managedObjectContext: privateContext)
+                createPerson("Rocky Balboa", email: "rockyb@gmail.com", managedObjectContext: privateContext)
+                createPerson("Yoda", email: "yoda@gmail.com", managedObjectContext: privateContext)
+                createPerson("Jason Stephens", email: "jasonstephens@gmail.com", managedObjectContext: privateContext)
+                createPerson("Luke Bryan", email: "lukebryan@gmail.com", managedObjectContext: privateContext)
+                createPerson("Bryan Adams", email: "bryanadams@gmail.com", managedObjectContext: privateContext)
+                createPerson("Jim Smith", email: "jimsmith@gmail.com", managedObjectContext: privateContext)
+                createPerson("Dawn Day", email: "dawnday@gmail.com", managedObjectContext: privateContext)
+                createPerson("Alana Coryn", email: "alanacoryn@gmail.com", managedObjectContext: privateContext)
+                createPerson("Elizabeth Deluth", email: "elizabethdeluth@gmail.com", managedObjectContext: privateContext)
+                createPerson("Brandon Cooker", email: "brandoncooker@gmail.com", managedObjectContext: privateContext)
+               coreDataManager.save(completion)
             }
             else {
                 print("data already loaded")
@@ -37,14 +50,6 @@ extension Person {
 
             person.name = name
             person.email = email
-            
-            do {
-                try moc.save()
-            }
-            catch let saveError as NSError {
-                print("Error with managed object context: \(saveError)")
-                return
-            }
         }
     }
     
@@ -62,20 +67,23 @@ extension Person {
         }
     }
     
-    class func deleteAllObjects(moc: NSManagedObjectContext) -> NSError? {
-        let (objects, error) = allObjects(moc)
-        if error == nil && objects?.count > 0 {
-            for object in objects! {
-                moc.deleteObject(object)
+    class func deleteAllObjects(coreDataManager: CoreDataManager, completion:(()->())?) -> NSError? {
+        if let privateContext = coreDataManager.privateManagedObjectContext {
+            let (objects, error) = allObjects(privateContext)
+            if error == nil && objects?.count > 0 {
+                for object in objects! {
+                    privateContext.deleteObject(object)
+                }
+                coreDataManager.save(completion)
             }
-            do {
-                try moc.save()
+            else {
+                if let completion = completion {
+                    completion()
+                }
             }
-            catch let saveError as NSError {
-                print("Error with managed object context: \(saveError)")
-                return saveError
-            }
+            return error
         }
-        return error
+        return nil
     }
+
 }

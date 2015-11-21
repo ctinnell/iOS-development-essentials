@@ -25,6 +25,38 @@ public class CoreDataManager {
         privateManagedObjectContext = initializePrivateManagedObjectContext()
     }
     
+    public func save(completion: (()->())?) {
+        if let privateManagedObjectContext = privateManagedObjectContext, managedObjectContext = managedObjectContext {
+            if privateManagedObjectContext.hasChanges || managedObjectContext.hasChanges {
+                managedObjectContext.performBlockAndWait({ () -> Void in
+                    do {
+                        try managedObjectContext.save()
+                    }
+                    catch let saveError as NSError {
+                        print("Error with managed object context: \(saveError)")
+                        return
+                    }
+                })
+                
+                privateManagedObjectContext.performBlock({ () -> Void in
+                    do {
+                        try privateManagedObjectContext.save()
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            if let completion = completion {
+                                completion()
+                            }
+                        })
+                    }
+                    catch let asynchSaveError as NSError {
+                        print("Error with managed object context: \(asynchSaveError)")
+                        return
+                    }
+                    
+                })
+            }
+        }
+    }
+    
     private func initializeManagedObjectModel() -> NSManagedObjectModel? {
         var model: NSManagedObjectModel?
         if let modelURL = NSBundle.mainBundle().URLForResource(modelName, withExtension: "momd") {
