@@ -54,6 +54,8 @@ class PersonListViewControllerTableViewController: UITableViewController {
     func initializePeople() {
         // because this calls an asynchronous write, a completion block is required
         if let coreDataManager = coreDataManager {
+            //Deleting and reloading all people on each screen load just to demonstrate the 
+            // asynchronous nature of the stack.
             Person.deleteAllObjects(coreDataManager) {
                 Person.loadTestData(coreDataManager) {
                     self.loadPeople()
