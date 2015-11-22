@@ -20,7 +20,7 @@ class BoxViewController: UIViewController {
     
     var panels: [UIView]?
     
-    var previousSliderValue = 0.0;
+    var previousRotationSliderValue = 0.0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,9 +83,10 @@ class BoxViewController: UIViewController {
     }
     
 
-    @IBAction func sliderValueChanged(sender: UISlider) {
-        rotate(Double(Double(sender.value) - Double(previousSliderValue)))
-        previousSliderValue = Double(sender.value)
+    @IBAction func rotationSliderValueChanged(sender: UISlider) {
+        let sliderValue = Double(sender.value)
+        rotate(sliderValue - previousRotationSliderValue)
+        previousRotationSliderValue = sliderValue
     }
     
 

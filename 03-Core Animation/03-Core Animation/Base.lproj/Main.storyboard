@@ -58,7 +58,7 @@
                                     <constraint firstAttribute="height" constant="400" id="7nK-XZ-fvN"/>
                                 </constraints>
                             </view>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="365" translatesAutoresizingMaskIntoConstraints="NO" id="xMD-ED-sT4">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="360" translatesAutoresizingMaskIntoConstraints="NO" id="xMD-ED-sT4">
                                 <rect key="frame" x="98" y="524" width="404" height="31"/>
                                 <animations/>
                                 <constraints>
@@ -66,7 +66,7 @@
                                     <constraint firstAttribute="width" constant="400" id="nJG-ho-IPZ"/>
                                 </constraints>
                                 <connections>
-                                    <action selector="sliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="2vL-Gx-lsL"/>
+                                    <action selector="rotationSliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="vVC-94-ydO"/>
                                 </connections>
                             </slider>
                         </subviews>
