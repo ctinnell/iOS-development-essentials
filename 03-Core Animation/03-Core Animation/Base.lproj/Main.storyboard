@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Y6D-RW-aLp">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -8,7 +8,7 @@
         <!--Box View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="BoxViewController" customModule="_3_Core_Animation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="boxViewController" id="BYZ-38-t0r" customClass="BoxViewController" customModule="_3_Core_Animation" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -59,22 +59,22 @@
                                 </constraints>
                             </view>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="360" translatesAutoresizingMaskIntoConstraints="NO" id="xMD-ED-sT4" userLabel="Rotation Slider">
-                                <rect key="frame" x="98" y="524" width="404" height="31"/>
+                                <rect key="frame" x="126" y="515" width="350" height="31"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="JGz-fk-wGh"/>
-                                    <constraint firstAttribute="width" constant="400" id="nJG-ho-IPZ"/>
+                                    <constraint firstAttribute="width" constant="346" id="nJG-ho-IPZ"/>
                                 </constraints>
                                 <connections>
                                     <action selector="rotationSliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="vVC-94-ydO"/>
                                 </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="50" maxValue="200" translatesAutoresizingMaskIntoConstraints="NO" id="dlM-Nk-6Me" userLabel="Separation Slider">
-                                <rect key="frame" x="98" y="569" width="404" height="31"/>
+                                <rect key="frame" x="125" y="562" width="350" height="31"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rNe-QF-eqo"/>
-                                    <constraint firstAttribute="width" constant="400" id="yUD-37-hey"/>
+                                    <constraint firstAttribute="width" constant="346" id="yUD-37-hey"/>
                                 </constraints>
                                 <connections>
                                     <action selector="separationSliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="9aa-Pe-A93"/>
@@ -84,11 +84,11 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="xMD-ED-sT4" firstAttribute="top" secondItem="P72-4k-npa" secondAttribute="bottom" constant="24" id="6QF-zR-ZiS"/>
-                            <constraint firstItem="xMD-ED-sT4" firstAttribute="leading" secondItem="P72-4k-npa" secondAttribute="leading" id="QkB-72-0S2"/>
+                            <constraint firstItem="xMD-ED-sT4" firstAttribute="top" secondItem="P72-4k-npa" secondAttribute="bottom" constant="15" id="6QF-zR-ZiS"/>
+                            <constraint firstItem="xMD-ED-sT4" firstAttribute="leading" secondItem="P72-4k-npa" secondAttribute="leading" constant="28" id="QkB-72-0S2"/>
                             <constraint firstItem="P72-4k-npa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aRp-gq-Zur"/>
-                            <constraint firstItem="dlM-Nk-6Me" firstAttribute="top" secondItem="xMD-ED-sT4" secondAttribute="bottom" constant="15" id="cNh-1M-lqK"/>
-                            <constraint firstItem="dlM-Nk-6Me" firstAttribute="leading" secondItem="xMD-ED-sT4" secondAttribute="leading" id="cn1-iR-qXQ"/>
+                            <constraint firstItem="dlM-Nk-6Me" firstAttribute="top" secondItem="xMD-ED-sT4" secondAttribute="bottom" constant="17" id="cNh-1M-lqK"/>
+                            <constraint firstItem="dlM-Nk-6Me" firstAttribute="leading" secondItem="xMD-ED-sT4" secondAttribute="leading" constant="-1" id="cn1-iR-qXQ"/>
                             <constraint firstItem="P72-4k-npa" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="irV-iP-g2X"/>
                         </constraints>
                     </view>
@@ -104,7 +104,58 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="414" y="405"/>
+            <point key="canvasLocation" x="249" y="612"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="11A-iR-7PS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Y6D-RW-aLp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jbF-Xp-Dd9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="M0s-zv-yzg" kind="relationship" relationship="rootViewController" id="f3K-jT-2Vb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d73-Vu-bkm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1148" y="595"/>
+        </scene>
+        <!--Menu Table View Controller-->
+        <scene sceneID="TKR-d9-FXF">
+            <objects>
+                <tableViewController id="M0s-zv-yzg" customClass="MenuTableViewController" customModule="_3_Core_Animation" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="gV7-i4-80Q">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="UIW-KH-FPM">
+                                <rect key="frame" x="0.0" y="114" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UIW-KH-FPM" id="K5x-IU-f0K">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="M0s-zv-yzg" id="zhV-2i-jSA"/>
+                            <outlet property="delegate" destination="M0s-zv-yzg" id="Z7v-vh-kqc"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Ks0-UN-BY7"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Frr-uB-kgo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-460" y="595"/>
         </scene>
     </scenes>
 </document>

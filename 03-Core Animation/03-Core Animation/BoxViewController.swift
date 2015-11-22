@@ -71,7 +71,6 @@ class BoxViewController: UIViewController {
     
     func rotate(degrees: Double) {
         let radians = CGFloat(degrees * M_PI/180)
-        
         var perspective = CATransform3DRotate(containerView.layer.sublayerTransform, radians, 1, 0, 0)
         perspective = CATransform3DRotate(perspective, radians, 0, 1, 0)
         containerView.layer.sublayerTransform = perspective
