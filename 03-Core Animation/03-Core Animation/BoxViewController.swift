@@ -21,25 +21,20 @@ class BoxViewController: UIViewController {
     var panels: [UIView]?
     
     var previousRotationSliderValue = 0.0;
+    var previousSeparationSliderValue = 0.0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
         panels = [bluePanel, yellowPanel, redPanel, greenPanel, grayPanel, brownPanel]
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         centerPanels()
-        transformPanelsApart()
+        addPespective()
+        transformPanels(50.0)
         rotate(45.0)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func centerPanels() {
@@ -48,12 +43,14 @@ class BoxViewController: UIViewController {
         }
     }
     
-    func transformPanelsApart() {
+    func addPespective() {
         var perspective = CATransform3DIdentity
-        let adjustment = CGFloat(50.0)
         perspective.m34 = -1.0 / 500.0
         containerView.layer.sublayerTransform = perspective
-        
+    }
+    
+    func transformPanels(position: Double) {
+        let adjustment = CGFloat(position)
         
         yellowPanel.layer.transform = CATransform3DMakeTranslation(0, 0, adjustment)
         
@@ -70,8 +67,6 @@ class BoxViewController: UIViewController {
         grayPanel.layer.transform = CATransform3DRotate(transform, CGFloat(-M_PI_2), 0, 1, 0)
         
         brownPanel.layer.transform = CATransform3DMakeTranslation(0, 0, adjustment * -1)
-        
-        
     }
     
     func rotate(degrees: Double) {
@@ -90,4 +85,8 @@ class BoxViewController: UIViewController {
     }
     
 
+    @IBAction func separationSliderValueChanged(sender: UISlider) {
+        let sliderValue = Double(sender.value)
+        transformPanels(sliderValue)
+    }
 }

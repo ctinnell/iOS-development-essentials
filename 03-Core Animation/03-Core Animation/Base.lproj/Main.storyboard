@@ -58,7 +58,7 @@
                                     <constraint firstAttribute="height" constant="400" id="7nK-XZ-fvN"/>
                                 </constraints>
                             </view>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="360" translatesAutoresizingMaskIntoConstraints="NO" id="xMD-ED-sT4">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="360" translatesAutoresizingMaskIntoConstraints="NO" id="xMD-ED-sT4" userLabel="Rotation Slider">
                                 <rect key="frame" x="98" y="524" width="404" height="31"/>
                                 <animations/>
                                 <constraints>
@@ -69,6 +69,17 @@
                                     <action selector="rotationSliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="vVC-94-ydO"/>
                                 </connections>
                             </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="50" maxValue="200" translatesAutoresizingMaskIntoConstraints="NO" id="dlM-Nk-6Me" userLabel="Separation Slider">
+                                <rect key="frame" x="98" y="569" width="404" height="31"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="rNe-QF-eqo"/>
+                                    <constraint firstAttribute="width" constant="400" id="yUD-37-hey"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="separationSliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="9aa-Pe-A93"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -76,6 +87,8 @@
                             <constraint firstItem="xMD-ED-sT4" firstAttribute="top" secondItem="P72-4k-npa" secondAttribute="bottom" constant="24" id="6QF-zR-ZiS"/>
                             <constraint firstItem="xMD-ED-sT4" firstAttribute="leading" secondItem="P72-4k-npa" secondAttribute="leading" id="QkB-72-0S2"/>
                             <constraint firstItem="P72-4k-npa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aRp-gq-Zur"/>
+                            <constraint firstItem="dlM-Nk-6Me" firstAttribute="top" secondItem="xMD-ED-sT4" secondAttribute="bottom" constant="15" id="cNh-1M-lqK"/>
+                            <constraint firstItem="dlM-Nk-6Me" firstAttribute="leading" secondItem="xMD-ED-sT4" secondAttribute="leading" id="cn1-iR-qXQ"/>
                             <constraint firstItem="P72-4k-npa" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="irV-iP-g2X"/>
                         </constraints>
                     </view>
