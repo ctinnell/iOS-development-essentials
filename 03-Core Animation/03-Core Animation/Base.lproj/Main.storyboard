@@ -134,7 +134,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="UIW-KH-FPM">
                                 <rect key="frame" x="0.0" y="114" width="600" height="44"/>
@@ -170,7 +170,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5J-u8-ZxO">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5J-u8-ZxO" userLabel="ContainerView">
                                 <rect key="frame" x="147" y="96" width="306" height="408"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ParisTower" translatesAutoresizingMaskIntoConstraints="NO" id="Mj6-5D-Sfl">
@@ -197,6 +197,10 @@
                             <constraint firstItem="B5J-u8-ZxO" firstAttribute="top" secondItem="fJp-C4-nIP" secondAttribute="bottom" constant="76" id="lyA-g5-2T1"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="containerView" destination="B5J-u8-ZxO" id="aYo-vC-pFz"/>
+                        <outlet property="towerImageView" destination="Mj6-5D-Sfl" id="Fmi-Fa-MFX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="meS-qn-Cdi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
