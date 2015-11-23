@@ -24,13 +24,20 @@ class MenuTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
 
-        cell.textLabel?.text = "Rotating Cube"
+        switch indexPath.row {
+        case 0:
+            cell.textLabel?.text = "Rotating Cube"
+        case 1:
+            cell.textLabel?.text = "Folding View"
+        default:
+            cell.textLabel?.text = " "
+        }
         
         return cell
     }
@@ -45,6 +52,8 @@ class MenuTableViewController: UITableViewController {
         switch indexPath.row {
         case 0:
             presentViewController("boxViewController")
+        case 1:
+            presentViewController("foldingViewController")
             
         default:
             print("Unexpected: Index not found...")
