@@ -13,6 +13,7 @@ class FoldingViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var towerImageView: UIImageView!
     
+    var topImage: AnyObject?
     var topView: UIView?
     var bottomView: UIView?
     
@@ -28,8 +29,6 @@ class FoldingViewController: UIViewController {
         
         addPespective()
         splitImagesAcrossHorizontalAxis()
-
-        //foldTopView(30.0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,7 +46,15 @@ class FoldingViewController: UIViewController {
     func foldTopView(degrees: Double) {
         let radians = CGFloat(degrees * M_PI/180)
         if let view = topView {
-            //view.layer.transform = CATransform3DRotate(view.layer.transform, radians, -1, 0, 0)
+            if degrees >= 90 && view.layer.contents != nil {
+                topImage = view.layer.contents
+                view.layer.contents = nil
+                view.layer.backgroundColor = UIColor.grayColor().CGColor
+            }
+            else if degrees < 90 && view.layer.contents == nil {
+                view.layer.contents = topImage
+            }
+
             let transform = CATransform3DMakeTranslation(0, 0, 0)
             view.layer.transform = CATransform3DRotate(transform, radians, -1, 0, 0)
         }
@@ -78,10 +85,10 @@ class FoldingViewController: UIViewController {
             let bottomFrame = bottomFrameFromImage(towerImageView)
             
             topView = viewFromImage(image, frame: frame, coordinates: CGRectMake(0.0, 0.0, 1.0, 0.5))
-            containerView.addSubview(topView!)
-            
+
             bottomView = viewFromImage(image, frame: bottomFrame, coordinates: CGRectMake(0.0, 0.5, 1.0, 0.5))
             containerView.addSubview(bottomView!)
+            containerView.addSubview(topView!)
             
             topView?.layer.borderColor = UIColor.blackColor().CGColor
             bottomView?.layer.borderColor = UIColor.blackColor().CGColor
@@ -117,14 +124,5 @@ class FoldingViewController: UIViewController {
         let sliderValue = Double(sender.value)
         foldTopView(sliderValue)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
