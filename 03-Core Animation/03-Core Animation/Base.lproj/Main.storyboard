@@ -179,7 +179,7 @@
                                     </imageView>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="B5J-u8-ZxO" secondAttribute="height" multiplier="3:4" id="CLi-tQ-cdv"/>
                                     <constraint firstAttribute="bottom" secondItem="Mj6-5D-Sfl" secondAttribute="bottom" id="Hqo-0l-tyw"/>
@@ -188,13 +188,23 @@
                                     <constraint firstItem="Mj6-5D-Sfl" firstAttribute="leading" secondItem="B5J-u8-ZxO" secondAttribute="leading" id="whm-aE-Gvi"/>
                                 </constraints>
                             </view>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="fg8-sQ-YcM">
+                                <rect key="frame" x="145" y="544" width="310" height="31"/>
+                                <animations/>
+                                <connections>
+                                    <action selector="foldSliderValueChanged:" destination="TPG-iQ-aB3" eventType="valueChanged" id="Gyd-e7-EPW"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="B5J-u8-ZxO" firstAttribute="centerX" secondItem="ikQ-Za-sw2" secondAttribute="centerX" id="OpC-XA-fTh"/>
+                            <constraint firstItem="fg8-sQ-YcM" firstAttribute="leading" secondItem="B5J-u8-ZxO" secondAttribute="leading" id="VSL-LL-oD9"/>
                             <constraint firstItem="B5J-u8-ZxO" firstAttribute="centerY" secondItem="ikQ-Za-sw2" secondAttribute="centerY" id="lnu-Fc-oPA"/>
                             <constraint firstItem="B5J-u8-ZxO" firstAttribute="top" secondItem="fJp-C4-nIP" secondAttribute="bottom" constant="76" id="lyA-g5-2T1"/>
+                            <constraint firstItem="Rza-bS-2kt" firstAttribute="top" secondItem="fg8-sQ-YcM" secondAttribute="bottom" constant="26" id="s9e-gR-30D"/>
+                            <constraint firstItem="fg8-sQ-YcM" firstAttribute="width" secondItem="Mj6-5D-Sfl" secondAttribute="width" id="w6u-Db-Wmn"/>
                         </constraints>
                     </view>
                     <connections>

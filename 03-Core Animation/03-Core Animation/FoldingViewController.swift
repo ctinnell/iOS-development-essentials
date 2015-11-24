@@ -13,6 +13,9 @@ class FoldingViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var towerImageView: UIImageView!
     
+    var topView: UIView?
+    var bottomView: UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         towerImageView.hidden = true
@@ -25,6 +28,8 @@ class FoldingViewController: UIViewController {
         
         addPespective()
         splitImagesAcrossHorizontalAxis()
+
+        //foldTopView(30.0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,16 +39,56 @@ class FoldingViewController: UIViewController {
 
     func addPespective() {
         var perspective = CATransform3DIdentity
-        perspective.m34 = -1.0 / 500.0
+//        perspective.m34 = -1.0 / 500.0
+        perspective.m34 = -1.0 / 800.0
         containerView.layer.sublayerTransform = perspective
+    }
+    
+    func foldTopView(degrees: Double) {
+        let radians = CGFloat(degrees * M_PI/180)
+        if let view = topView {
+            //view.layer.transform = CATransform3DRotate(view.layer.transform, radians, -1, 0, 0)
+            let transform = CATransform3DMakeTranslation(0, 0, 0)
+            view.layer.transform = CATransform3DRotate(transform, radians, -1, 0, 0)
+        }
+
+    }
+    
+    func setAnchorPoint(anchorPoint: CGPoint, forView view: UIView) {
+        var newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x, view.bounds.size.height * anchorPoint.y)
+        var oldPoint = CGPointMake(view.bounds.size.width * view.layer.anchorPoint.x, view.bounds.size.height * view.layer.anchorPoint.y)
+        
+        newPoint = CGPointApplyAffineTransform(newPoint, view.transform)
+        oldPoint = CGPointApplyAffineTransform(oldPoint, view.transform)
+        
+        var position = view.layer.position
+        position.x -= oldPoint.x
+        position.x += newPoint.x
+        
+        position.y -= oldPoint.y
+        position.y += newPoint.y
+        
+        view.layer.position = position
+        view.layer.anchorPoint = anchorPoint
     }
     
     func splitImagesAcrossHorizontalAxis() {
         if let image = towerImageView.image {
             let frame = topFrameFromImage(towerImageView)
             let bottomFrame = bottomFrameFromImage(towerImageView)
-            containerView.addSubview(viewFromImage(image, frame: frame, coordinates: CGRectMake(0.0, 0.0, 1.0, 0.5)))
-            containerView.addSubview(viewFromImage(image, frame: bottomFrame, coordinates: CGRectMake(0.0, 0.5, 1.0, 0.5)))
+            
+            topView = viewFromImage(image, frame: frame, coordinates: CGRectMake(0.0, 0.0, 1.0, 0.5))
+            containerView.addSubview(topView!)
+            
+            bottomView = viewFromImage(image, frame: bottomFrame, coordinates: CGRectMake(0.0, 0.5, 1.0, 0.5))
+            containerView.addSubview(bottomView!)
+            
+            topView?.layer.borderColor = UIColor.blackColor().CGColor
+            bottomView?.layer.borderColor = UIColor.blackColor().CGColor
+            topView?.layer.borderWidth = 1.0
+            bottomView?.layer.borderWidth = 1.0
+            setAnchorPoint(CGPoint(x: 1.0, y: 1.0), forView: topView!)
+            
         }
     }
     
@@ -54,7 +99,7 @@ class FoldingViewController: UIViewController {
         view.layer.contentsScale = image.scale
         view.layer.contentsGravity = kCAGravityResizeAspect
         view.layer.contentsRect = coordinates
-        view.layer.masksToBounds = true
+        view.layer.masksToBounds = false
     
         return view
     }
@@ -68,6 +113,10 @@ class FoldingViewController: UIViewController {
     }
 
 
+    @IBAction func foldSliderValueChanged(sender: UISlider) {
+        let sliderValue = Double(sender.value)
+        foldTopView(sliderValue)
+    }
     /*
     // MARK: - Navigation
 
