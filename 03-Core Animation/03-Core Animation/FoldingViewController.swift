@@ -23,6 +23,7 @@ class FoldingViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+        addPespective()
         splitImagesAcrossHorizontalAxis()
     }
 
@@ -31,6 +32,12 @@ class FoldingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func addPespective() {
+        var perspective = CATransform3DIdentity
+        perspective.m34 = -1.0 / 500.0
+        containerView.layer.sublayerTransform = perspective
+    }
+    
     func splitImagesAcrossHorizontalAxis() {
         if let image = towerImageView.image {
             let frame = topFrameFromImage(towerImageView)
