@@ -23,13 +23,10 @@ class FoldingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         towerImageView.hidden = true
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
         addPespective()
         splitImagesAcrossHorizontalAxis()
     }
@@ -104,8 +101,16 @@ class FoldingViewController: UIViewController {
         view.layer.anchorPoint = anchorPoint
     }
     
+    func removeSplitImages() {
+        if let topView = topView, bottomView = bottomView {
+            topView.removeFromSuperview()
+            bottomView.removeFromSuperview()
+        }
+    }
+    
     func splitImagesAcrossHorizontalAxis() {
         if let image = towerImageView.image {
+            removeSplitImages()
             let frame = topFrameFromImage(towerImageView)
             let bottomFrame = bottomFrameFromImage(towerImageView)
             
