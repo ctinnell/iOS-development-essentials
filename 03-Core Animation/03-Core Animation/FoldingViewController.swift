@@ -45,32 +45,46 @@ class FoldingViewController: UIViewController {
         containerView.layer.sublayerTransform = perspective
     }
     
-    func foldTopView(degrees: Double) {
-        let radians = CGFloat(degrees * M_PI/180)
+    func addCoverImage() {
         if let view = topView {
+            viewHasCoverImage = true
+            topImage = view.layer.contents
+            view.addSubview(coverImageView)
+            view.layer.backgroundColor = UIColor.whiteColor().CGColor
+            view.clipsToBounds = true
+            coverImageView.contentMode = .ScaleAspectFit
+            coverImageView.frame = CGRectMake(0, 0, containerView.bounds.size.width, containerView.bounds.size.height/2)
+            coverImageView.center = CGPoint(x: view.frame.size.width / 2, y: coverImageView.center.y)
+            let transform = CATransform3DMakeTranslation(0, 0, 0)
+            coverImageView.layer.transform = CATransform3DRotate(transform, CGFloat(180 * M_PI/180), 1, 0, 0)
+            view.layer.contents = nil
+        }
+    }
+    
+    func removeCoverImage() {
+        if let view = topView {
+            view.layer.contents = topImage
+            coverImageView.removeFromSuperview()
+            viewHasCoverImage = false
+        }
+    }
+    
+    func foldTopView(degrees: Double) {
+        if let view = topView {
+            //only add the cover image when it becomes visible
             if degrees >= 90 && !viewHasCoverImage {
-                viewHasCoverImage = true
-                topImage = view.layer.contents
-                 view.addSubview(coverImageView)
-                view.layer.backgroundColor = UIColor.whiteColor().CGColor
-                view.clipsToBounds = true
-                coverImageView.contentMode = .ScaleAspectFit
-                coverImageView.center = CGPoint(x: view.frame.size.width / 2, y: coverImageView.center.y)
-                let transform = CATransform3DMakeTranslation(0, 0, 0)
-                coverImageView.layer.transform = CATransform3DRotate(transform, CGFloat(180 * M_PI/180), 1, 0, 0)
-                view.layer.contents = nil
-
+                addCoverImage()
             }
+            //remove the cover image when it passes the visibility point
             else if degrees < 90 && viewHasCoverImage  {
-                view.layer.contents = topImage
-                coverImageView.removeFromSuperview()
-                viewHasCoverImage = false
+                removeCoverImage()
             }
-
+            
+            //Convert degrees to radians and incrementally fold the view.
+            let radians = CGFloat(degrees * M_PI/180)
             let transform = CATransform3DMakeTranslation(0, 0, 0)
             view.layer.transform = CATransform3DRotate(transform, radians, -1, 0, 0)
         }
-
     }
     
     func setHorizontalAnchorPoint(anchorPoint: CGPoint, forView view: UIView) {
