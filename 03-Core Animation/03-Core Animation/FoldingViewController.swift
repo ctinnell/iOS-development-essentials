@@ -16,6 +16,9 @@ class FoldingViewController: UIViewController {
     var topImage: AnyObject?
     var topView: UIView?
     var bottomView: UIView?
+    var viewHasCoverImage = false
+    
+    var coverImageView = UIImageView(image: UIImage(named: "parisPeace"))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +41,6 @@ class FoldingViewController: UIViewController {
 
     func addPespective() {
         var perspective = CATransform3DIdentity
-//        perspective.m34 = -1.0 / 500.0
         perspective.m34 = -1.0 / 800.0
         containerView.layer.sublayerTransform = perspective
     }
@@ -46,13 +48,23 @@ class FoldingViewController: UIViewController {
     func foldTopView(degrees: Double) {
         let radians = CGFloat(degrees * M_PI/180)
         if let view = topView {
-            if degrees >= 90 && view.layer.contents != nil {
+            if degrees >= 90 && !viewHasCoverImage {
+                viewHasCoverImage = true
                 topImage = view.layer.contents
+                 view.addSubview(coverImageView)
+                view.layer.backgroundColor = UIColor.whiteColor().CGColor
+                view.clipsToBounds = true
+                coverImageView.contentMode = .ScaleAspectFit
+                coverImageView.center = CGPoint(x: view.frame.size.width / 2, y: coverImageView.center.y)
+                let transform = CATransform3DMakeTranslation(0, 0, 0)
+                coverImageView.layer.transform = CATransform3DRotate(transform, CGFloat(180 * M_PI/180), 1, 0, 0)
                 view.layer.contents = nil
-                view.layer.backgroundColor = UIColor.grayColor().CGColor
+
             }
-            else if degrees < 90 && view.layer.contents == nil {
+            else if degrees < 90 && viewHasCoverImage  {
                 view.layer.contents = topImage
+                coverImageView.removeFromSuperview()
+                viewHasCoverImage = false
             }
 
             let transform = CATransform3DMakeTranslation(0, 0, 0)
@@ -61,21 +73,20 @@ class FoldingViewController: UIViewController {
 
     }
     
-    func setAnchorPoint(anchorPoint: CGPoint, forView view: UIView) {
+    func setHorizontalAnchorPoint(anchorPoint: CGPoint, forView view: UIView) {
         var newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x, view.bounds.size.height * anchorPoint.y)
         var oldPoint = CGPointMake(view.bounds.size.width * view.layer.anchorPoint.x, view.bounds.size.height * view.layer.anchorPoint.y)
         
         newPoint = CGPointApplyAffineTransform(newPoint, view.transform)
         oldPoint = CGPointApplyAffineTransform(oldPoint, view.transform)
         
-        var position = view.layer.position
-        position.x -= oldPoint.x
-        position.x += newPoint.x
+        var viewPosition = view.layer.position
+        viewPosition.x -= oldPoint.x
+        viewPosition.x += newPoint.x
         
-        position.y -= oldPoint.y
-        position.y += newPoint.y
-        
-        view.layer.position = position
+        viewPosition.y -= oldPoint.y
+        viewPosition.y += newPoint.y
+        view.layer.position = viewPosition
         view.layer.anchorPoint = anchorPoint
     }
     
@@ -94,7 +105,7 @@ class FoldingViewController: UIViewController {
             bottomView?.layer.borderColor = UIColor.blackColor().CGColor
             topView?.layer.borderWidth = 1.0
             bottomView?.layer.borderWidth = 1.0
-            setAnchorPoint(CGPoint(x: 1.0, y: 1.0), forView: topView!)
+            setHorizontalAnchorPoint(CGPoint(x: 1.0, y: 1.0), forView: topView!)
             
         }
     }
