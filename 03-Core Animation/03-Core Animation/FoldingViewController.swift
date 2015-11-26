@@ -20,6 +20,7 @@ class FoldingViewController: UIViewController {
     
     var coverImageView = UIImageView(image: UIImage(named: "parisPeace"))
     
+    // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
         towerImageView.hidden = true
@@ -27,22 +28,24 @@ class FoldingViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        initialize()
+    }
+
+
+    // MARK: - Initialization
+    private func initialize() {
         addPespective()
         splitImagesAcrossHorizontalAxis()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    func addPespective() {
+    
+    // MARK: - Core Graphics
+    private func addPespective() {
         var perspective = CATransform3DIdentity
         perspective.m34 = -1.0 / 800.0
         containerView.layer.sublayerTransform = perspective
     }
     
-    func addCoverImage() {
+    private func addCoverImage() {
         if let view = topView {
             viewHasCoverImage = true
             topImage = view.layer.contents
@@ -58,7 +61,7 @@ class FoldingViewController: UIViewController {
         }
     }
     
-    func removeCoverImage() {
+    private func removeCoverImage() {
         if let view = topView {
             view.layer.contents = topImage
             coverImageView.removeFromSuperview()
@@ -66,7 +69,7 @@ class FoldingViewController: UIViewController {
         }
     }
     
-    func foldTopView(degrees: Double) {
+    private func foldTopView(degrees: Double) {
         if let view = topView {
             //only add the cover image when it becomes visible
             if degrees >= 90 && !viewHasCoverImage {
@@ -84,7 +87,7 @@ class FoldingViewController: UIViewController {
         }
     }
     
-    func setHorizontalAnchorPoint(anchorPoint: CGPoint, forView view: UIView) {
+    private func setHorizontalAnchorPoint(anchorPoint: CGPoint, forView view: UIView) {
         var newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x, view.bounds.size.height * anchorPoint.y)
         var oldPoint = CGPointMake(view.bounds.size.width * view.layer.anchorPoint.x, view.bounds.size.height * view.layer.anchorPoint.y)
         
@@ -101,14 +104,14 @@ class FoldingViewController: UIViewController {
         view.layer.anchorPoint = anchorPoint
     }
     
-    func removeSplitImages() {
+    private func removeSplitImages() {
         if let topView = topView, bottomView = bottomView {
             topView.removeFromSuperview()
             bottomView.removeFromSuperview()
         }
     }
     
-    func splitImagesAcrossHorizontalAxis() {
+    private func splitImagesAcrossHorizontalAxis() {
         if let image = towerImageView.image {
             removeSplitImages()
             let frame = topFrameFromImage(towerImageView)
@@ -129,7 +132,7 @@ class FoldingViewController: UIViewController {
         }
     }
     
-    func viewFromImage(image: UIImage, frame: CGRect, coordinates: CGRect) -> UIView {
+    private func viewFromImage(image: UIImage, frame: CGRect, coordinates: CGRect) -> UIView {
         let view = UIView(frame: frame)
         
         view.layer.contents = image.CGImage
@@ -141,15 +144,15 @@ class FoldingViewController: UIViewController {
         return view
     }
     
-    func topFrameFromImage(imageView: UIImageView) -> CGRect {
+    private func topFrameFromImage(imageView: UIImageView) -> CGRect {
         return CGRectMake(0.0, 0.0, imageView.frame.size.width, imageView.frame.size.height/2)
     }
 
-    func bottomFrameFromImage(imageView: UIImageView) -> CGRect {
+    private func bottomFrameFromImage(imageView: UIImageView) -> CGRect {
         return CGRectMake(0.0, imageView.frame.size.height/2, imageView.frame.size.width, imageView.frame.size.height/2)
     }
 
-
+    // MARK: - IBActions
     @IBAction func foldSliderValueChanged(sender: UISlider) {
         let sliderValue = Double(sender.value)
         foldTopView(sliderValue)

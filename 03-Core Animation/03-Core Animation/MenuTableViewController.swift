@@ -42,12 +42,6 @@ class MenuTableViewController: UITableViewController {
         return cell
     }
     
-    func presentViewController(identifier: String) {
-        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier(identifier) {
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
- 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
         case 0:
@@ -57,6 +51,13 @@ class MenuTableViewController: UITableViewController {
             
         default:
             print("Unexpected: Index not found...")
+        }
+    }
+    
+    // MARK: - Navigation
+    private func presentViewController(identifier: String) {
+        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier(identifier) {
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 

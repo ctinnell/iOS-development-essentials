@@ -23,6 +23,7 @@ class BoxViewController: UIViewController {
     var previousRotationSliderValue = 0.0;
     var previousSeparationSliderValue = 0.0;
     
+    // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
         panels = [bluePanel, yellowPanel, redPanel, greenPanel, grayPanel, brownPanel]
@@ -30,26 +31,31 @@ class BoxViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+        initialize()
+    }
+    
+    // MARK: - Initialization
+    private func initialize() {
         centerPanels()
         addPespective()
         transformPanels(50.0)
         rotate(45.0)
     }
     
-    func centerPanels() {
+    // MARK: - Panel Manipulation
+    private func centerPanels() {
         for panel in panels! {
             panel.center = CGPointMake(containerView.bounds.width/2, containerView.bounds.height/2)
         }
     }
     
-    func addPespective() {
+    private func addPespective() {
         var perspective = CATransform3DIdentity
         perspective.m34 = -1.0 / 500.0
         containerView.layer.sublayerTransform = perspective
     }
     
-    func transformPanels(position: Double) {
+    private func transformPanels(position: Double) {
         let adjustment = CGFloat(position)
         
         yellowPanel.layer.transform = CATransform3DMakeTranslation(0, 0, adjustment)
@@ -69,7 +75,7 @@ class BoxViewController: UIViewController {
         brownPanel.layer.transform = CATransform3DMakeTranslation(0, 0, adjustment * -1)
     }
     
-    func rotate(degrees: Double) {
+    private func rotate(degrees: Double) {
         let radians = CGFloat(degrees * M_PI/180)
         var perspective = CATransform3DRotate(containerView.layer.sublayerTransform, radians, 1, 0, 0)
         perspective = CATransform3DRotate(perspective, radians, 0, 1, 0)
@@ -77,6 +83,7 @@ class BoxViewController: UIViewController {
     }
     
 
+    // MARK: - IBActions
     @IBAction func rotationSliderValueChanged(sender: UISlider) {
         let sliderValue = Double(sender.value)
         rotate(sliderValue - previousRotationSliderValue)
