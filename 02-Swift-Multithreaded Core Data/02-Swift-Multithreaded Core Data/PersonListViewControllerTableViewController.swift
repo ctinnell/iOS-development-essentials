@@ -22,9 +22,7 @@ class PersonListViewControllerTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        coreDataManager = CoreDataManager() {
-            self.initializePeople()
-        }
+        initialize()
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,8 +30,34 @@ class PersonListViewControllerTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
+    // MARK: - Initialization
+    private func initialize() {
+        coreDataManager = CoreDataManager() {
+            self.initializePeople()
+        }
+    }
+    
+    private func initializePeople() {
+        // because this calls an asynchronous write, a completion block is required
+        if let coreDataManager = coreDataManager {
+            //Deleting and reloading all people on each screen load just to demonstrate the
+            // asynchronous nature of the stack.
+            Person.deleteAllObjects(coreDataManager) {
+                Person.loadTestData(coreDataManager) {
+                    self.loadPeople()
+                }
+            }
+        }
+    }
+    
+    private func loadPeople() {
+        if let coreDataManager = coreDataManager, moc = coreDataManager.managedObjectContext {
+            (people,_) = Person.allObjects(moc)
+        }
+        self.tableView.reloadData()
+    }
+    
+    // MARK: - UITableView Data Source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -51,24 +75,4 @@ class PersonListViewControllerTableViewController: UITableViewController {
         return cell
     }
     
-    func initializePeople() {
-        // because this calls an asynchronous write, a completion block is required
-        if let coreDataManager = coreDataManager {
-            //Deleting and reloading all people on each screen load just to demonstrate the 
-            // asynchronous nature of the stack.
-            Person.deleteAllObjects(coreDataManager) {
-                Person.loadTestData(coreDataManager) {
-                    self.loadPeople()
-                }
-            }
-        }
-    }
-    
-    func loadPeople() {
-        if let coreDataManager = coreDataManager, moc = coreDataManager.managedObjectContext {
-            (people,_) = Person.allObjects(moc)
-        }
-        self.tableView.reloadData()
-    }
-
 }

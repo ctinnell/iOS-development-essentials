@@ -18,6 +18,7 @@ public class CoreDataManager {
     
     private let modelName = "CoreDataModel"
 
+    // MARK: - Public
     public init(completion: (()->())?) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { () -> Void in
             self.managedObjectModel = self.initializeManagedObjectModel()
@@ -64,6 +65,7 @@ public class CoreDataManager {
         }
     }
     
+    // MARK: - Private
     private func initializeManagedObjectModel() -> NSManagedObjectModel? {
         var model: NSManagedObjectModel?
         if let modelURL = NSBundle.mainBundle().URLForResource(modelName, withExtension: "momd") {
