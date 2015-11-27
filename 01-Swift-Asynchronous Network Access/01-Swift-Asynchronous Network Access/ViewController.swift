@@ -12,26 +12,29 @@ class ViewController: UIViewController {
 
     let tagStart = 1000
     
+    // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    func activityIndicator(tag: Int) -> UIActivityIndicatorView? {
+    // MARK: - Activity Indicator
+    private func activityIndicator(tag: Int) -> UIActivityIndicatorView? {
         return self.view.viewWithTag(tag) as? UIActivityIndicatorView
     }
     
-    func startAnimateActivityIndicator(tag: Int) {
+    private func startAnimateActivityIndicator(tag: Int) {
         dispatch_async(dispatch_get_main_queue()) {
             self.activityIndicator(tag)?.startAnimating()
         }
     }
 
-    func stopAnimatingActivityIndicator(tag: Int) {
+    private func stopAnimatingActivityIndicator(tag: Int) {
         dispatch_async(dispatch_get_main_queue()) {
             self.activityIndicator(tag)?.stopAnimating()
         }
     }
-
+    
+    // MARK: - IBActions
     @IBAction func processRequests(sender: AnyObject) {
         for var x=1; x<=10; x++ {
             startAnimateActivityIndicator(tagStart + x)
