@@ -1,14 +1,14 @@
 //
-//  ViewController.swift
-//  04-Keyframe Animation
+//  LoginAnimationViewController.swift
+//  03-Core Animation
 //
-//  Created by Clay Tinnell on 11/27/15.
+//  Created by Clay Tinnell on 11/28/15.
 //  Copyright © 2015 Clay Tinnell. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class LoginAnimationViewController: UIViewController {
 
     @IBOutlet weak var emailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -40,5 +40,5 @@ class ViewController: UIViewController, UITextFieldDelegate {
         animation.additive = true
         textField.layer.addAnimation(animation, forKey: "shakeAnimation")
     }
-}
 
+}

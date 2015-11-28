@@ -216,6 +216,64 @@
             </objects>
             <point key="canvasLocation" x="-467" y="1342"/>
         </scene>
+        <!--Login Animation View Controller-->
+        <scene sceneID="BdV-Wc-tGO">
+            <objects>
+                <viewController storyboardIdentifier="loginAnimationViewController" id="sFe-uj-IaJ" customClass="LoginAnimationViewController" customModule="_3_Core_Animation" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5Jb-dq-mj3"/>
+                        <viewControllerLayoutGuide type="bottom" id="yZh-SC-POu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sIV-pD-Yvk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z05-0F-zdc">
+                                <rect key="frame" x="153" y="90" width="294" height="40"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="294" id="7mJ-TD-Yrr"/>
+                                    <constraint firstAttribute="height" constant="40" id="ZAO-Vt-d8X"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="sFe-uj-IaJ" id="jn2-yf-srp"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pwv-yT-bsj">
+                                <rect key="frame" x="153" y="159" width="294" height="40"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="294" id="fol-AQ-QdD"/>
+                                    <constraint firstAttribute="height" constant="40" id="wD8-zi-J7h"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="sFe-uj-IaJ" id="0ET-7e-be1"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Z05-0F-zdc" firstAttribute="top" secondItem="5Jb-dq-mj3" secondAttribute="bottom" constant="70" id="2do-yz-YQf"/>
+                            <constraint firstItem="Z05-0F-zdc" firstAttribute="centerX" secondItem="sIV-pD-Yvk" secondAttribute="centerX" id="8Zh-UT-Jmt"/>
+                            <constraint firstItem="Pwv-yT-bsj" firstAttribute="leading" secondItem="Z05-0F-zdc" secondAttribute="leading" id="J8g-MD-gmO"/>
+                            <constraint firstItem="Pwv-yT-bsj" firstAttribute="top" secondItem="Z05-0F-zdc" secondAttribute="bottom" constant="29" id="btp-6Z-G26"/>
+                            <constraint firstItem="Pwv-yT-bsj" firstAttribute="width" secondItem="Z05-0F-zdc" secondAttribute="width" id="gEV-iM-upf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emailAddressTextField" destination="Z05-0F-zdc" id="Zao-sA-LZu"/>
+                        <outlet property="passwordTextField" destination="Pwv-yT-bsj" id="6iK-o3-kta"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5VX-hV-4Do" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1148" y="2081"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ParisTower" width="612" height="816"/>

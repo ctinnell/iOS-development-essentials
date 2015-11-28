@@ -24,7 +24,7 @@ class MenuTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -35,6 +35,8 @@ class MenuTableViewController: UITableViewController {
             cell.textLabel?.text = "Rotating Cube"
         case 1:
             cell.textLabel?.text = "Folding View"
+        case 2:
+            cell.textLabel?.text = "Login Keyframe Animation"
         default:
             cell.textLabel?.text = " "
         }
@@ -48,7 +50,8 @@ class MenuTableViewController: UITableViewController {
             presentViewController("boxViewController")
         case 1:
             presentViewController("foldingViewController")
-            
+        case 2:
+            presentViewController("loginAnimationViewController")
         default:
             print("Unexpected: Index not found...")
         }
