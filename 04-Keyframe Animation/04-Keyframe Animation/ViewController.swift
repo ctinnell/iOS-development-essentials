@@ -8,15 +8,28 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    // MARK - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
+    // MARK - UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if let passwordText = passwordTextField.text {
+            authenticate(passwordText)
+        }
+        return true
+    }
+    
+    // MARK - Authentication
+    func authenticate(password: String) -> Bool {
+        return password == "password1234"
+    }
 
 }
 
