@@ -10,6 +10,7 @@ import UIKit
 
 class MenuTableViewController: UITableViewController {
 
+    //MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -18,7 +19,7 @@ class MenuTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
 
-    // MARK: - Table view data source
+    // MARK: - UITableViewDataSource
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -44,6 +45,7 @@ class MenuTableViewController: UITableViewController {
         return cell
     }
     
+    // MARK: - UITableViewDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
         case 0:
