@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84D15CBC1C0C5E850076586C /* FallingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D15CBB1C0C5E850076586C /* FallingAnimationViewController.swift */; };
 		84D289E51C09ECFE009C1500 /* LoginAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D289E41C09ECFE009C1500 /* LoginAnimationViewController.swift */; };
 		84D98DFF1C00A32A00DFED66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D98DFE1C00A32A00DFED66 /* AppDelegate.swift */; };
 		84D98E041C00A32A00DFED66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D98E021C00A32A00DFED66 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84D15CBB1C0C5E850076586C /* FallingAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallingAnimationViewController.swift; sourceTree = "<group>"; };
 		84D289E41C09ECFE009C1500 /* LoginAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginAnimationViewController.swift; sourceTree = "<group>"; };
 		84D98DFB1C00A32A00DFED66 /* 03-Core Animation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "03-Core Animation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D98DFE1C00A32A00DFED66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				84D98E121C00AA8100DFED66 /* BoxViewController.swift */,
 				84D98E161C024B4000DFED66 /* FoldingViewController.swift */,
 				84D289E41C09ECFE009C1500 /* LoginAnimationViewController.swift */,
+				84D15CBB1C0C5E850076586C /* FallingAnimationViewController.swift */,
 				84D98E021C00A32A00DFED66 /* Main.storyboard */,
 				84D98E051C00A32A00DFED66 /* Assets.xcassets */,
 				84D98E071C00A32A00DFED66 /* LaunchScreen.storyboard */,
@@ -153,6 +156,7 @@
 				84D98DFF1C00A32A00DFED66 /* AppDelegate.swift in Sources */,
 				84D289E51C09ECFE009C1500 /* LoginAnimationViewController.swift in Sources */,
 				84D98E151C023D5600DFED66 /* MenuTableViewController.swift in Sources */,
+				84D15CBC1C0C5E850076586C /* FallingAnimationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
