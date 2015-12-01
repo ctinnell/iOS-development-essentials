@@ -10,4 +10,18 @@ import UIKit
 
 class Twitter: NSObject {
 
+    enum TwitterEndpoint {
+        case Authorization
+        
+        func baseURL() -> NSURL {
+            return NSURL(string: "http://api.twitter.com")!
+        }
+        
+        func url() -> NSURL {
+            switch self {
+            case .Authorization:
+                return baseURL().URLByAppendingPathComponent("/oauth/authorization")
+            }
+        }
+    }
 }
