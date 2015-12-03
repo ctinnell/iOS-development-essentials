@@ -93,6 +93,10 @@ class Twitter: NSObject {
         return str.stringByAddingPercentEncodingWithAllowedCharacters(allowedCS)
     }
     
+    private func oauthSignatureBaseString(requestMethod: String, url: String, paramsString: String) -> String {
+        let baseString = "\(requestMethod)&\(url)&\(paramsString)".uppercaseString
+        return baseString
+    }
     
     private func oauthSignature(endpoint: TwitterEndpoint, parameters: [String:String]) -> String {
         var oAuthSignature = " "
@@ -101,12 +105,17 @@ class Twitter: NSObject {
 
         //Collecting the request method and URL
         let requestMethod = "POST"
-        let url = endpoint.url()
+        let urlString = "\(endpoint.url())"
         
         //Collecting parameters
         let paramsString = parametersString(parameters)
         
         //Creating the signature base string
+        let signatureBaseString = oauthSignatureBaseString(requestMethod, url: urlString, paramsString: paramsString)
+        
+        //Get the signing key
+        
+        
         
         return oAuthSignature
         
