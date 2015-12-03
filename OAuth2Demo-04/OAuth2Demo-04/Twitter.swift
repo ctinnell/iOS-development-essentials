@@ -12,6 +12,9 @@ class Twitter: NSObject {
 
     var oauthConsumerKey: String
     var oauthConsumerSecret: String
+    
+    var oauthTokenSecret: String?
+    
     var oauthCallback: String
     
     var oauthAccessToken: String?
@@ -98,6 +101,14 @@ class Twitter: NSObject {
         return baseString
     }
     
+    private func oauthSignatureSigningKey() -> String {
+        var signingKey = "\(oauthConsumerSecret)&"
+        if let oauthTokenSecret = oauthTokenSecret {
+            signingKey += oauthTokenSecret
+        }
+        return signingKey
+    }
+    
     private func oauthSignature(endpoint: TwitterEndpoint, parameters: [String:String]) -> String {
         var oAuthSignature = " "
         
@@ -114,7 +125,7 @@ class Twitter: NSObject {
         let signatureBaseString = oauthSignatureBaseString(requestMethod, url: urlString, paramsString: paramsString)
         
         //Get the signing key
-        
+        let signingKey = oauthSignatureSigningKey()
         
         
         return oAuthSignature
