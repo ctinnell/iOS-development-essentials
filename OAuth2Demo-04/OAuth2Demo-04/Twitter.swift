@@ -43,7 +43,7 @@ class Twitter: NSObject {
     }
     
     // MARK: -
-    func parametersByAddingOauthParameters(parameters: [String:String]) -> [String:String]  {
+    private func parametersByAddingOauthParameters(parameters: [String:String]) -> [String:String]  {
         var updatedParms = parameters
         updatedParms["oauth_callback"] = oauthCallback
         updatedParms["oauth_consumer_key"] = oauthConsumerKey
@@ -61,7 +61,7 @@ class Twitter: NSObject {
         return updatedParms
     }
     
-    func parametersString(parameters: [String:String]) -> String {
+    private func parametersString(parameters: [String:String]) -> String {
         var updatedParms = [String:String]()
         var parmsString = ""
         
@@ -88,12 +88,13 @@ class Twitter: NSObject {
         return parmsString
     }
 
-    func encodedString(str: String) -> String? {
+    private func encodedString(str: String) -> String? {
         let allowedCS = NSCharacterSet.URLQueryAllowedCharacterSet()
         return str.stringByAddingPercentEncodingWithAllowedCharacters(allowedCS)
     }
     
-    func oauthSignature(endpoint: TwitterEndpoint, parameters: [String:String]) -> String {
+    
+    private func oauthSignature(endpoint: TwitterEndpoint, parameters: [String:String]) -> String {
         var oAuthSignature = " "
         
         //https://dev.twitter.com/oauth/overview/creating-signatures
@@ -106,6 +107,7 @@ class Twitter: NSObject {
         let paramsString = parametersString(parameters)
         
         //Creating the signature base string
+        
         return oAuthSignature
         
     }
