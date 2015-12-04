@@ -102,14 +102,18 @@ class Twitter: NSObject {
     }
     
     private func oauthSignatureSigningKey() -> String {
-        var signingKey = "\(oauthConsumerSecret)&"
-        if let oauthTokenSecret = oauthTokenSecret {
-            signingKey += oauthTokenSecret
+        var signingKey = "\(encodedString(oauthConsumerSecret)!)&"
+        if let oauthTokenSecret = oauthTokenSecret, encodedSecret = encodedString(oauthTokenSecret) {
+            signingKey += encodedSecret
         }
         return signingKey
     }
     
-    private func oauthSignature(endpoint: TwitterEndpoint, parameters: [String:String]) -> String {
+    private func oauthSignature(baseString: String, signingKey: String) -> String {
+        return baseString.encrypt_HMAC_SHA1(signingKey)
+    }
+    
+    private func oauthAuthorization(endpoint: TwitterEndpoint, parameters: [String:String]) -> String {
         var oAuthSignature = " "
         
         //https://dev.twitter.com/oauth/overview/creating-signatures
@@ -127,6 +131,8 @@ class Twitter: NSObject {
         //Get the signing key
         let signingKey = oauthSignatureSigningKey()
         
+        //Calculate the signature
+        let signature = oauthSignature(signatureBaseString, signingKey: signingKey)
         
         return oAuthSignature
         
