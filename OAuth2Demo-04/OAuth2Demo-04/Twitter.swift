@@ -64,7 +64,7 @@ class Twitter: NSObject {
         return updatedParms
     }
     
-    private func parametersString(parameters: [String:String]) -> String {
+    private func parametersAuthorizationString(parameters: [String:String]) -> String {
         var updatedParms = [String:String]()
         var parmsString = ""
         
@@ -121,8 +121,7 @@ class Twitter: NSObject {
         return characterSet
     }
     
-    private func oauthAuthorization(endpoint: TwitterEndpoint, parameters: [String:String]) -> String {
-        let oAuthSignature = " "
+    private func oauthSignature(endpoint: TwitterEndpoint, parameters: [String:String]) -> String {
         
         //https://dev.twitter.com/oauth/overview/creating-signatures
 
@@ -131,7 +130,7 @@ class Twitter: NSObject {
         let urlString = "\(endpoint.url())"
         
         //Collecting parameters
-        let paramsString = parametersString(parameters)
+        let paramsString = parametersAuthorizationString(parameters)
         
         //Creating the signature base string
         let signatureBaseString = oauthSignatureBaseString(requestMethod, url: urlString, paramsString: paramsString)
@@ -144,15 +143,23 @@ class Twitter: NSObject {
         let signature = oauthSignature(signatureBaseString, signingKey: signingKey)
         print("Signature\n\(signature)\n")
         
-        return oAuthSignature
-        
+        return signature
+    }
+    
+    private func parameterStringForHeader(parameters: [String:String]) -> String {
+        return " "
     }
     
     func authenticate() {
-        let parameters = parametersByAddingOauthParameters([String : String]())
+        var parameters = parametersByAddingOauthParameters([String : String]())
+        print("Parameters\n\(parameters)\n")
+
         let twitterEndpoint = TwitterEndpoint.RequestToken
-        let authentication = oauthAuthorization(twitterEndpoint, parameters: parameters)
-        
+        let signature = oauthSignature(twitterEndpoint, parameters: parameters)
+        parameters["oauth_signature"] = signature
+
+        //Need to generate header parameters
+        let parametersString = parameterStringForHeader(parameters)
     }
     
 }
