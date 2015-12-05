@@ -61,6 +61,7 @@ class Twitter: NSObject {
         else if let oauthRequestToken = oauthRequestToken {
             updatedParms["oauth_token"] = oauthRequestToken
         }
+        
         return updatedParms
     }
     
@@ -147,12 +148,23 @@ class Twitter: NSObject {
     }
     
     private func parameterStringForHeader(parameters: [String:String]) -> String {
-        return " "
+        var parameterString = "OAuth "
+        var loopCounter = 0
+
+        let sortedParms = parameters.sort {$0.0 < $1.0}
+
+        for (key, value) in sortedParms {
+            if let encodedKey = encodedString(key), let encodedValue = encodedString(value) {
+                if loopCounter > 0 { parameterString += "," }
+                parameterString = "\(parameterString)\(encodedKey)=\"\(encodedValue)\""
+            }
+            loopCounter++
+        }
+        return parameterString
     }
     
     func authenticate() {
         var parameters = parametersByAddingOauthParameters([String : String]())
-        print("Parameters\n\(parameters)\n")
 
         let twitterEndpoint = TwitterEndpoint.RequestToken
         let signature = oauthSignature(twitterEndpoint, parameters: parameters)
@@ -160,6 +172,7 @@ class Twitter: NSObject {
 
         //Need to generate header parameters
         let parametersString = parameterStringForHeader(parameters)
+        print("Parameter String\n\(parametersString)\n")
     }
     
 }
