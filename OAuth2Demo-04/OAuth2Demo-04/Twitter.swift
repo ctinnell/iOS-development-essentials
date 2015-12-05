@@ -21,7 +21,7 @@ class Twitter: NSObject {
     var oauthRequestToken: String?
     
     enum TwitterEndpoint {
-        case Authorization
+        case Authorize(String)
         case RequestToken
         
         func baseURL() -> NSURL {
@@ -32,8 +32,10 @@ class Twitter: NSObject {
             switch self {
             case .RequestToken:
                 return baseURL().URLByAppendingPathComponent("/oauth/request_token")
-            case .Authorization:
-                return baseURL().URLByAppendingPathComponent("/oauth/authorization")
+            case .Authorize(let oauthToken):
+               var urlString = String(baseURL())
+               urlString += "/oauth/authorize?oauth_token=\(oauthToken)"
+               return NSURL(string: urlString)!
             }
         }
     }
@@ -163,7 +165,17 @@ class Twitter: NSObject {
         return parameterString
     }
     
-    func authenticate() {
+    func tokenDictionaryFromResponse(str: String) -> [String:String] {
+        var dict = [String:String]()
+        let components = str.componentsSeparatedByString("&")
+        for component in components {
+            let keysAndValues = component.componentsSeparatedByString("=")
+            dict[keysAndValues[0]] = keysAndValues[1]
+        }
+        return dict
+    }
+    
+    func authenticate(completion: (String)->()) {
         var parameters = parametersByAddingOauthParameters([String : String]())
 
         let twitterEndpoint = TwitterEndpoint.RequestToken
@@ -186,6 +198,12 @@ class Twitter: NSObject {
                         print("\n************************************************")
                         print("We got Tokens!\n\(dataString)")
                         print("************************************************")
+                        let tokens = self.tokenDictionaryFromResponse(dataString)
+                        if let oathToken = tokens["oauth_token"] {
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                completion(oathToken)
+                            })                            
+                        }
                     }
                 }
             } else {
