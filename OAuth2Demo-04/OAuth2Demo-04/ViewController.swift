@@ -25,6 +25,11 @@ class ViewController: UIViewController {
     private func authenticate() {
         
     }
-
+    
+    //PRAGMA: - IBActions
+    @IBAction func authenticationButtonPressed(sender: AnyObject) {
+        let oauthapi = Twitter(oauthConsumerKey: "xlL6qvKwhfIq74kpYm5Xpwque", oauthConsumerSecret: "NguEuRRTGnlvs9BM8oL5uSHcBVMuB8UKGwhNUtICusJT1cFxb4", oauthCallback: "myapp://twitter_access_tokens/")
+        oauthapi.authenticate()
+    }
 }
 

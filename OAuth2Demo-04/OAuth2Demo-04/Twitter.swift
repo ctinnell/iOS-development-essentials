@@ -52,7 +52,7 @@ class Twitter: NSObject {
         updatedParms["oauth_consumer_key"] = oauthConsumerKey
         updatedParms["oauth_nonce"] = NSUUID().UUIDString
         updatedParms["oauth_signature_method"] = "HMAC-SHA1"
-        updatedParms["oauth_timestamp"] = "\(NSDate().timeIntervalSince1970)"
+        updatedParms["oauth_timestamp"] = "\(Int(NSDate().timeIntervalSince1970))"
         updatedParms["oauth_version"] = "1.0"
         
         if let oauthAccessToken = oauthAccessToken {
@@ -71,7 +71,7 @@ class Twitter: NSObject {
         //1. Percent encode every key and value that will be signed
         for (key,value) in parameters {
             if let encodedKey = encodedString(key), encodedValue = encodedString(value) {
-                updatedParms[encodedKey] = updatedParms[encodedValue]
+                updatedParms[encodedKey] = encodedValue
             }
         }
         
@@ -84,20 +84,22 @@ class Twitter: NSObject {
             if loopCounter > 0
             {
                 parmsString = parmsString + "&"
-                loopCounter++
             }
-            parmsString = "(\(parmsString)\(key)=\(value)"
+            parmsString = "\(parmsString)\(key)=\(value)"
+            loopCounter++
         }
         return parmsString
     }
 
     private func encodedString(str: String) -> String? {
-        let allowedCS = NSCharacterSet.URLQueryAllowedCharacterSet()
-        return str.stringByAddingPercentEncodingWithAllowedCharacters(allowedCS)
+        return str.stringByAddingPercentEncodingWithAllowedCharacters(rfc3986AllowableCharacterSet())
     }
     
     private func oauthSignatureBaseString(requestMethod: String, url: String, paramsString: String) -> String {
-        let baseString = "\(requestMethod)&\(url)&\(paramsString)".uppercaseString
+        var baseString = ""
+        if let encodedUrl = encodedString(url), encodedParamsString = encodedString(paramsString) {
+            baseString = "\(requestMethod)&\(encodedUrl)&\(encodedParamsString)"
+        }
         return baseString
     }
     
@@ -113,8 +115,14 @@ class Twitter: NSObject {
         return baseString.encrypt_HMAC_SHA1(signingKey)
     }
     
+    private func rfc3986AllowableCharacterSet() -> NSCharacterSet {
+        let characterSet = NSMutableCharacterSet.alphanumericCharacterSet()
+        characterSet.addCharactersInString("-._~")
+        return characterSet
+    }
+    
     private func oauthAuthorization(endpoint: TwitterEndpoint, parameters: [String:String]) -> String {
-        var oAuthSignature = " "
+        let oAuthSignature = " "
         
         //https://dev.twitter.com/oauth/overview/creating-signatures
 
@@ -127,14 +135,23 @@ class Twitter: NSObject {
         
         //Creating the signature base string
         let signatureBaseString = oauthSignatureBaseString(requestMethod, url: urlString, paramsString: paramsString)
-        
+        print("Signature Base String\n\(signatureBaseString)\n")
         //Get the signing key
         let signingKey = oauthSignatureSigningKey()
+        print("Signing Key\n\(signingKey)\n")
         
         //Calculate the signature
         let signature = oauthSignature(signatureBaseString, signingKey: signingKey)
+        print("Signature\n\(signature)\n")
         
         return oAuthSignature
+        
+    }
+    
+    func authenticate() {
+        let parameters = parametersByAddingOauthParameters([String : String]())
+        let twitterEndpoint = TwitterEndpoint.RequestToken
+        let authentication = oauthAuthorization(twitterEndpoint, parameters: parameters)
         
     }
     
