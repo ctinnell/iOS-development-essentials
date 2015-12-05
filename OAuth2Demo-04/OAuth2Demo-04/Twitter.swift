@@ -173,6 +173,28 @@ class Twitter: NSObject {
         //Need to generate header parameters
         let parametersString = parameterStringForHeader(parameters)
         print("Parameter String\n\(parametersString)\n")
+        
+        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+        let request = NSMutableURLRequest(URL: twitterEndpoint.url())
+        request.HTTPMethod = "POST"
+        request.setValue(parametersString, forHTTPHeaderField: "Authorization")
+        
+        let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+            if(error == nil) {
+                if let data = data, dataString = String(data: data, encoding: NSUTF8StringEncoding) {
+                    do {
+                        print("\n************************************************")
+                        print("We got Tokens!\n\(dataString)")
+                        print("************************************************")
+                    }
+                }
+            } else {
+                print("Error: url:\(twitterEndpoint) error\(error)")
+            }
+            
+        }
+        
+        task.resume()
     }
     
 }
