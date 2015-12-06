@@ -20,6 +20,10 @@ class Twitter: NSObject {
     var oauthAccessToken: String?
     var oauthRequestToken: String?
     
+    var screenName: String?
+    var userId: String?
+    var oauthAccessTokenSecret: String?
+    
     enum TwitterEndpoint {
         case Authorize(String)
         case RequestToken
@@ -178,7 +182,7 @@ class Twitter: NSObject {
         return dict
     }
     
-    func accessToken(verifier: String, completion: (String,String)->()) {
+    func generateAccessToken(verifier: String, completion: (String,String)->()) {
         var parameters = ["oauth_verifier":verifier]
         parameters = parametersByAddingOauthParameters(parameters)
         
@@ -200,12 +204,19 @@ class Twitter: NSObject {
                 if let data = data, dataString = String(data: data, encoding: NSUTF8StringEncoding) {
                     do {
                         let dict = self.tokenDictionaryFromResponse(dataString)
-                        print("\n************************************************")
-                        print("Access Token\n\(dict["oauth_token"]!)\n")
-                        print("Token Secret\n\(dict["oauth_token_secret"]!)\n")
-                        print("User Id\n\(dict["user_id"]!)\n")
-                        print("Screen Name\n\(dict["screen_name"]!)")
-                        print("************************************************")
+                        self.oauthAccessToken = dict["oauth_token"]
+                        self.oauthAccessTokenSecret = dict["oauth_token_secret"]
+                        self.screenName = dict["screen_name"]
+                        self.userId = dict["user_id"]
+                        if let oauthAccessToken = self.oauthAccessToken, oauthAccessTokenSecret = self.oauthAccessTokenSecret,
+                            screenName = self.screenName, userId = self.userId {
+                                print("\n************************************************")
+                                print("Access Token\n\(oauthAccessToken)\n")
+                                print("Token Secret\n\(oauthAccessTokenSecret)\n")
+                                print("User Id\n\(userId)\n")
+                                print("Screen Name\n\(screenName)")
+                                print("************************************************")
+                        }
 
                     }
                 }

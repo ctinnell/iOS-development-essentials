@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let responseDict = viewController.oauthapi.tokenDictionaryFromResponse(query)
                 if let verifier = responseDict["oauth_verifier"], let token = responseDict["oauth_token"] {
                     viewController.oauthapi.oauthRequestToken = token
-                    viewController.oauthapi.accessToken(verifier) { (authToken, authSecret) in
+                    viewController.oauthapi.generateAccessToken(verifier) { (authToken, authSecret) in
                         print("Auth Token\n\(authToken)\n")
                         print("Auth Secret\n\(authSecret)\n")
                     }
