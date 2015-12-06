@@ -23,6 +23,7 @@ class Twitter: NSObject {
     enum TwitterEndpoint {
         case Authorize(String)
         case RequestToken
+        case AccessToken
         
         func baseURL() -> NSURL {
             return NSURL(string: "https://api.twitter.com")!
@@ -36,6 +37,8 @@ class Twitter: NSObject {
                var urlString = String(baseURL())
                urlString += "/oauth/authorize?oauth_token=\(oauthToken)"
                return NSURL(string: urlString)!
+            case .AccessToken:
+                return baseURL().URLByAppendingPathComponent("/oauth/access_token")
             }
         }
     }
@@ -173,6 +176,47 @@ class Twitter: NSObject {
             dict[keysAndValues[0]] = keysAndValues[1]
         }
         return dict
+    }
+    
+    func accessToken(verifier: String, completion: (String,String)->()) {
+        var parameters = ["oauth_verifier":verifier]
+        parameters = parametersByAddingOauthParameters(parameters)
+        
+        let twitterEndpoint = TwitterEndpoint.AccessToken
+        let signature = oauthSignature(twitterEndpoint, parameters: parameters)
+        parameters["oauth_signature"] = signature
+        
+        //Need to generate header parameters
+        let parametersString = parameterStringForHeader(parameters)
+        print("Parameter String\n\(parametersString)\n")
+        
+        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+        let request = NSMutableURLRequest(URL: twitterEndpoint.url())
+        request.HTTPMethod = "POST"
+        request.setValue(parametersString, forHTTPHeaderField: "Authorization")
+        
+        let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+            if(error == nil) {
+                if let data = data, dataString = String(data: data, encoding: NSUTF8StringEncoding) {
+                    do {
+                        let dict = self.tokenDictionaryFromResponse(dataString)
+                        print("\n************************************************")
+                        print("Access Token\n\(dict["oauth_token"]!)\n")
+                        print("Token Secret\n\(dict["oauth_token_secret"]!)\n")
+                        print("User Id\n\(dict["user_id"]!)\n")
+                        print("Screen Name\n\(dict["screen_name"]!)")
+                        print("************************************************")
+
+                    }
+                }
+            } else {
+                print("Error: url:\(twitterEndpoint) error\(error)")
+            }
+            
+        }
+        
+        task.resume()
+        
     }
     
     func authenticate(completion: (String)->()) {
