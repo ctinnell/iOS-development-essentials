@@ -9,20 +9,11 @@
 import UIKit
 
 class TweetTimelineTableViewController: UITableViewController {
-
     
-    var screenName: String?
-    var oauthRequestToken: String?
-    var oauthAccessTokenSecret: String?
+    var oauthapi: Twitter?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {

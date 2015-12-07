@@ -18,6 +18,29 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if let _ = oauthapi.oauthRequestToken {
+            return true
+        }
+        else {
+            let alertController = UIAlertController(title: "Authentication Missing", message: "You must first authenticate to view timeline.", preferredStyle: .Alert)
+            let alertAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+            alertController.addAction(alertAction)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+            return false
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if let tweetTimelineViewController = segue.destinationViewController as? TweetTimelineTableViewController {
+            tweetTimelineViewController.oauthapi = oauthapi
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -40,5 +63,9 @@ class ViewController: UIViewController {
             self.presentViewController(vc, animated: true, completion: nil)
         }
     }
+    
+    
+    
+    
 }
 
