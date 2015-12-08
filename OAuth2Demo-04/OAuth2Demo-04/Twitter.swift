@@ -190,6 +190,7 @@ class Twitter: NSObject {
         return parameterString
     }
     
+    //MARK: - Public
     func tokenDictionaryFromResponse(str: String) -> [String:String] {
         var dict = [String:String]()
         let components = str.componentsSeparatedByString("&")
@@ -248,22 +249,29 @@ class Twitter: NSObject {
         
     }
     
-    func authenticate(completion: (String)->()) {
+    private func signedRequestAndSession(endpoint: TwitterEndpoint) -> (NSURLRequest, NSURLSession) {
         var parameters = parametersByAddingOauthParameters([String : String]())
-
+        
         let twitterEndpoint = TwitterEndpoint.RequestToken
         let signature = oauthSignature(twitterEndpoint, parameters: parameters)
         parameters["oauth_signature"] = signature
-
+        
         //Need to generate header parameters
         let parametersString = parameterStringForHeader(parameters)
         print("Parameter String\n\(parametersString)\n")
         
-        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         let request = NSMutableURLRequest(URL: twitterEndpoint.url())
         request.HTTPMethod = twitterEndpoint.requestMethod()
         request.setValue(parametersString, forHTTPHeaderField: "Authorization")
         
+        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+        
+        return (request, session)
+    }
+    
+    func authenticate(completion: (String)->()) {
+
+        let (request, session) = signedRequestAndSession(TwitterEndpoint.RequestToken)
         let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if(error == nil) {
                 if let data = data, dataString = String(data: data, encoding: NSUTF8StringEncoding) {
@@ -272,7 +280,7 @@ class Twitter: NSObject {
                         print("Tokens!\n\(dataString)")
                         print("************************************************")
                         let tokens = self.tokenDictionaryFromResponse(dataString)
-                        if let oathToken = tokens["oauth_token"], authTokenSecret = tokens["oauth_token_secret"] {
+                        if let oathToken = tokens["oauth_token"] {
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                 completion(oathToken)
                             })                            
@@ -280,7 +288,7 @@ class Twitter: NSObject {
                     }
                 }
             } else {
-                print("Error: url:\(twitterEndpoint) error\(error)")
+                print("Error: url:\(TwitterEndpoint.RequestToken) error\(error)")
             }
             
         }
@@ -309,7 +317,7 @@ class Twitter: NSObject {
                 if let data = data, dataString = String(data: data, encoding: NSUTF8StringEncoding) {
                     do {
                         print("\n************************************************")
-
+                        print (dataString)
                     }
                 }
             } else {
