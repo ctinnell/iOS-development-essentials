@@ -44,7 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         if url.scheme == "myapp" {
             print(url.scheme)
-            if let query = url.query, viewController = self.window?.rootViewController as? ViewController {
+            if let query = url.query, navController = self.window?.rootViewController as? UINavigationController,
+                   viewController = navController.viewControllers[0] as? ViewController {
                 let responseDict = viewController.oauthapi.tokenDictionaryFromResponse(query)
                 if let verifier = responseDict["oauth_verifier"], let token = responseDict["oauth_token"] {
                     viewController.oauthapi.oauthRequestToken = token
