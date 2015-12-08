@@ -28,6 +28,7 @@ class Twitter: NSObject {
         case Authorize(String)
         case RequestToken
         case AccessToken
+        case HomeTimeline
         
         func baseURL() -> NSURL {
             return NSURL(string: "https://api.twitter.com")!
@@ -43,6 +44,8 @@ class Twitter: NSObject {
                return NSURL(string: urlString)!
             case .AccessToken:
                 return baseURL().URLByAppendingPathComponent("/oauth/access_token")
+            case .HomeTimeline:
+                return baseURL().URLByAppendingPathComponent("/statuses/home_timeline.json")
             }
         }
     }
@@ -259,6 +262,39 @@ class Twitter: NSObject {
                                 completion(oathToken)
                             })                            
                         }
+                    }
+                }
+            } else {
+                print("Error: url:\(twitterEndpoint) error\(error)")
+            }
+            
+        }
+        
+        task.resume()
+    }
+    
+    func homeTimeline(completion: (String)->()) {
+        var parameters = parametersByAddingOauthParameters([String : String]())
+        
+        let twitterEndpoint = TwitterEndpoint.HomeTimeline
+        let signature = oauthSignature(twitterEndpoint, parameters: parameters)
+        parameters["oauth_signature"] = signature
+        
+        //Need to generate header parameters
+        let parametersString = parameterStringForHeader(parameters)
+        print("Parameter String\n\(parametersString)\n")
+        
+        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+        let request = NSMutableURLRequest(URL: twitterEndpoint.url())
+        request.HTTPMethod = "POST"
+        request.setValue(parametersString, forHTTPHeaderField: "Authorization")
+        
+        let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+            if(error == nil) {
+                if let data = data, dataString = String(data: data, encoding: NSUTF8StringEncoding) {
+                    do {
+                        print("\n************************************************")
+
                     }
                 }
             } else {

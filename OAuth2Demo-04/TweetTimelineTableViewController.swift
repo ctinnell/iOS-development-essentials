@@ -14,6 +14,9 @@ class TweetTimelineTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        oauthapi?.homeTimeline({ (response) -> () in
+            self.tableView.reloadData()
+        })
     }
 
     override func didReceiveMemoryWarning() {
