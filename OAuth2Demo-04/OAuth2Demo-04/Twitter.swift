@@ -45,7 +45,7 @@ class Twitter: NSObject {
             case .AccessToken:
                 return baseURL().URLByAppendingPathComponent("/oauth/access_token")
             case .HomeTimeline:
-                return baseURL().URLByAppendingPathComponent("/statuses/home_timeline.json")
+                return baseURL().URLByAppendingPathComponent("/1.1/statuses/home_timeline.json")
             }
         }
     }
@@ -60,7 +60,6 @@ class Twitter: NSObject {
     // MARK: -
     private func parametersByAddingOauthParameters(parameters: [String:String]) -> [String:String]  {
         var updatedParms = parameters
-        updatedParms["oauth_callback"] = oauthCallback
         updatedParms["oauth_consumer_key"] = oauthConsumerKey
         updatedParms["oauth_nonce"] = NSUUID().UUIDString
         updatedParms["oauth_signature_method"] = "HMAC-SHA1"
@@ -72,6 +71,10 @@ class Twitter: NSObject {
         }
         else if let oauthRequestToken = oauthRequestToken {
             updatedParms["oauth_token"] = oauthRequestToken
+            updatedParms["oauth_callback"] = oauthCallback
+        }
+        else {
+            updatedParms["oauth_callback"] = oauthCallback
         }
         
         return updatedParms
@@ -286,7 +289,7 @@ class Twitter: NSObject {
         
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         let request = NSMutableURLRequest(URL: twitterEndpoint.url())
-        request.HTTPMethod = "POST"
+        request.HTTPMethod = "GET"
         request.setValue(parametersString, forHTTPHeaderField: "Authorization")
         
         let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in

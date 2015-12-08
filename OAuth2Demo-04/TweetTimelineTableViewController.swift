@@ -10,11 +10,11 @@ import UIKit
 
 class TweetTimelineTableViewController: UITableViewController {
     
-    var oauthapi: Twitter?
+    var twitterapi: Twitter?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        oauthapi?.homeTimeline({ (response) -> () in
+        twitterapi?.homeTimeline({ (response) -> () in
             self.tableView.reloadData()
         })
     }

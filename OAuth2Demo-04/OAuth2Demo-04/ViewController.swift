@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if let tweetTimelineViewController = segue.destinationViewController as? TweetTimelineTableViewController {
-            tweetTimelineViewController.oauthapi = oauthapi
+            tweetTimelineViewController.twitterapi = oauthapi
         }
     }
 
