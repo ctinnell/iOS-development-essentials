@@ -13,8 +13,6 @@ class Twitter: NSObject {
     var oauthConsumerKey: String
     var oauthConsumerSecret: String
     
-    var oauthTokenSecret: String?
-    
     var oauthCallback: String
     
     var oauthAccessToken: String?
@@ -34,6 +32,19 @@ class Twitter: NSObject {
             return NSURL(string: "https://api.twitter.com")!
         }
         
+        func requestMethod() -> String {
+            switch self {
+            case .RequestToken:
+                return "POST"
+            case .Authorize:
+                return "POST"
+            case .AccessToken:
+                return "POST"
+            case .HomeTimeline:
+                return "GET"
+            }
+        }
+        
         func url() -> NSURL {
             switch self {
             case .RequestToken:
@@ -48,6 +59,7 @@ class Twitter: NSObject {
                 return baseURL().URLByAppendingPathComponent("/1.1/statuses/home_timeline.json")
             }
         }
+        
     }
     
     // MARK: - Initialization
@@ -121,7 +133,7 @@ class Twitter: NSObject {
     
     private func oauthSignatureSigningKey() -> String {
         var signingKey = "\(encodedString(oauthConsumerSecret)!)&"
-        if let oauthTokenSecret = oauthTokenSecret, encodedSecret = encodedString(oauthTokenSecret) {
+        if let oauthAccessTokenSecret = oauthAccessTokenSecret, encodedSecret = encodedString(oauthAccessTokenSecret) {
             signingKey += encodedSecret
         }
         return signingKey
@@ -142,7 +154,7 @@ class Twitter: NSObject {
         //https://dev.twitter.com/oauth/overview/creating-signatures
 
         //Collecting the request method and URL
-        let requestMethod = "POST"
+        let requestMethod = endpoint.requestMethod()
         let urlString = "\(endpoint.url())"
         
         //Collecting parameters
@@ -249,7 +261,7 @@ class Twitter: NSObject {
         
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         let request = NSMutableURLRequest(URL: twitterEndpoint.url())
-        request.HTTPMethod = "POST"
+        request.HTTPMethod = twitterEndpoint.requestMethod()
         request.setValue(parametersString, forHTTPHeaderField: "Authorization")
         
         let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
@@ -257,10 +269,10 @@ class Twitter: NSObject {
                 if let data = data, dataString = String(data: data, encoding: NSUTF8StringEncoding) {
                     do {
                         print("\n************************************************")
-                        print("We got Tokens!\n\(dataString)")
+                        print("Tokens!\n\(dataString)")
                         print("************************************************")
                         let tokens = self.tokenDictionaryFromResponse(dataString)
-                        if let oathToken = tokens["oauth_token"] {
+                        if let oathToken = tokens["oauth_token"], authTokenSecret = tokens["oauth_token_secret"] {
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                 completion(oathToken)
                             })                            
@@ -289,7 +301,7 @@ class Twitter: NSObject {
         
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         let request = NSMutableURLRequest(URL: twitterEndpoint.url())
-        request.HTTPMethod = "GET"
+        request.HTTPMethod = twitterEndpoint.requestMethod()
         request.setValue(parametersString, forHTTPHeaderField: "Authorization")
         
         let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
