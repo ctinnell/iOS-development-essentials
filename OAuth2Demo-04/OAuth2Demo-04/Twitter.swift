@@ -278,7 +278,7 @@ class Twitter: NSObject {
         task.resume()
     }
     
-    func homeTimeline(completion: (String)->()) {
+    func homeTimeline(completion: (NSData, String)->()) {
         let (request, session) = signedRequestAndSession(TwitterEndpoint.HomeTimeline)
         let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if(error == nil) {
@@ -286,6 +286,7 @@ class Twitter: NSObject {
                     do {
                         print("\n************************************************")
                         print (dataString)
+                        completion(data, dataString)
                     }
                 }
             } else {
