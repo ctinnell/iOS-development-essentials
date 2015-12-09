@@ -53,9 +53,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     viewController.oauthapi.generateAccessToken(verifier) { (authToken, authSecret) in
                         print("Auth Token\n\(authToken)\n")
                         print("Auth Secret\n\(authSecret)\n")
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            viewController.authorizationViewController?.dismissViewControllerAnimated(true, completion: nil)
+                        })
                     }
                 }
-                
             }
         }
         return true

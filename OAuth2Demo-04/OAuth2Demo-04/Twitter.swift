@@ -69,7 +69,7 @@ class Twitter: NSObject {
         self.oauthCallback = oauthCallback
     }
     
-    // MARK: -
+    // MARK: - oAuth Functions
     private func parametersByAddingOauthParameters(parameters: [String:String]) -> [String:String]  {
         var updatedParms = parameters
         updatedParms["oauth_consumer_key"] = oauthConsumerKey
@@ -190,6 +190,30 @@ class Twitter: NSObject {
         return parameterString
     }
     
+    //MARK: - Signed Request Methods
+    private func signedRequestAndSession(endpoint: TwitterEndpoint, parameters:[String:String]) -> (NSURLRequest, NSURLSession) {
+        var parameters = parametersByAddingOauthParameters(parameters)
+        
+        let signature = oauthSignature(endpoint, parameters: parameters)
+        parameters["oauth_signature"] = signature
+        
+        //Need to generate header parameters
+        let parametersString = parameterStringForHeader(parameters)
+        print("Parameter String\n\(parametersString)\n")
+        
+        let request = NSMutableURLRequest(URL: endpoint.url())
+        request.HTTPMethod = endpoint.requestMethod()
+        request.setValue(parametersString, forHTTPHeaderField: "Authorization")
+        
+        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+        
+        return (request, session)
+    }
+    
+    private func signedRequestAndSession(endpoint: TwitterEndpoint) -> (NSURLRequest, NSURLSession) {
+        return signedRequestAndSession(endpoint, parameters: [String : String]())
+    }
+    
     //MARK: - Public
     func tokenDictionaryFromResponse(str: String) -> [String:String] {
         var dict = [String:String]()
@@ -202,22 +226,7 @@ class Twitter: NSObject {
     }
     
     func generateAccessToken(verifier: String, completion: (String,String)->()) {
-        var parameters = ["oauth_verifier":verifier]
-        parameters = parametersByAddingOauthParameters(parameters)
-        
-        let twitterEndpoint = TwitterEndpoint.AccessToken
-        let signature = oauthSignature(twitterEndpoint, parameters: parameters)
-        parameters["oauth_signature"] = signature
-        
-        //Need to generate header parameters
-        let parametersString = parameterStringForHeader(parameters)
-        print("Parameter String\n\(parametersString)\n")
-        
-        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-        let request = NSMutableURLRequest(URL: twitterEndpoint.url())
-        request.HTTPMethod = "POST"
-        request.setValue(parametersString, forHTTPHeaderField: "Authorization")
-        
+        let (request, session) = signedRequestAndSession(TwitterEndpoint.AccessToken, parameters: ["oauth_verifier":verifier])
         let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if(error == nil) {
                 if let data = data, dataString = String(data: data, encoding: NSUTF8StringEncoding) {
@@ -229,6 +238,7 @@ class Twitter: NSObject {
                         self.userId = dict["user_id"]
                         if let oauthAccessToken = self.oauthAccessToken, oauthAccessTokenSecret = self.oauthAccessTokenSecret,
                             screenName = self.screenName, userId = self.userId {
+                                completion(oauthAccessToken,oauthAccessTokenSecret)
                                 print("\n************************************************")
                                 print("Access Token\n\(oauthAccessToken)\n")
                                 print("Token Secret\n\(oauthAccessTokenSecret)\n")
@@ -240,78 +250,36 @@ class Twitter: NSObject {
                     }
                 }
             } else {
-                print("Error: url:\(twitterEndpoint) error\(error)")
+                print("Error: url:\(TwitterEndpoint.RequestToken.url()) error\(error)")
             }
-            
         }
-        
         task.resume()
-        
-    }
-    
-    private func signedRequestAndSession(endpoint: TwitterEndpoint) -> (NSURLRequest, NSURLSession) {
-        var parameters = parametersByAddingOauthParameters([String : String]())
-        
-        let twitterEndpoint = TwitterEndpoint.RequestToken
-        let signature = oauthSignature(twitterEndpoint, parameters: parameters)
-        parameters["oauth_signature"] = signature
-        
-        //Need to generate header parameters
-        let parametersString = parameterStringForHeader(parameters)
-        print("Parameter String\n\(parametersString)\n")
-        
-        let request = NSMutableURLRequest(URL: twitterEndpoint.url())
-        request.HTTPMethod = twitterEndpoint.requestMethod()
-        request.setValue(parametersString, forHTTPHeaderField: "Authorization")
-        
-        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-        
-        return (request, session)
     }
     
     func authenticate(completion: (String)->()) {
-
         let (request, session) = signedRequestAndSession(TwitterEndpoint.RequestToken)
         let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if(error == nil) {
                 if let data = data, dataString = String(data: data, encoding: NSUTF8StringEncoding) {
-                    do {
-                        print("\n************************************************")
-                        print("Tokens!\n\(dataString)")
-                        print("************************************************")
-                        let tokens = self.tokenDictionaryFromResponse(dataString)
-                        if let oathToken = tokens["oauth_token"] {
-                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                completion(oathToken)
-                            })                            
-                        }
+                    print("\n************************************************")
+                    print("Tokens!\n\(dataString)")
+                    print("************************************************")
+                    let tokens = self.tokenDictionaryFromResponse(dataString)
+                    if let oathToken = tokens["oauth_token"] {
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            completion(oathToken)
+                        })                            
                     }
                 }
             } else {
-                print("Error: url:\(TwitterEndpoint.RequestToken) error\(error)")
+                print("Error: url:\(TwitterEndpoint.RequestToken.url()) error\(error)")
             }
-            
         }
-        
         task.resume()
     }
     
     func homeTimeline(completion: (String)->()) {
-        var parameters = parametersByAddingOauthParameters([String : String]())
-        
-        let twitterEndpoint = TwitterEndpoint.HomeTimeline
-        let signature = oauthSignature(twitterEndpoint, parameters: parameters)
-        parameters["oauth_signature"] = signature
-        
-        //Need to generate header parameters
-        let parametersString = parameterStringForHeader(parameters)
-        print("Parameter String\n\(parametersString)\n")
-        
-        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-        let request = NSMutableURLRequest(URL: twitterEndpoint.url())
-        request.HTTPMethod = twitterEndpoint.requestMethod()
-        request.setValue(parametersString, forHTTPHeaderField: "Authorization")
-        
+        let (request, session) = signedRequestAndSession(TwitterEndpoint.HomeTimeline)
         let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if(error == nil) {
                 if let data = data, dataString = String(data: data, encoding: NSUTF8StringEncoding) {
@@ -321,12 +289,9 @@ class Twitter: NSObject {
                     }
                 }
             } else {
-                print("Error: url:\(twitterEndpoint) error\(error)")
+                print("Error: url:\(TwitterEndpoint.HomeTimeline.url()) error\(error)")
             }
-            
         }
-        
         task.resume()
     }
-    
 }
