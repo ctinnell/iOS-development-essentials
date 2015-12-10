@@ -18,7 +18,6 @@ class ViewController: UIViewController {
     //PRAGMA: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
@@ -37,8 +36,6 @@ class ViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         if let tweetTimelineViewController = segue.destinationViewController as? TweetTimelineTableViewController {
             tweetTimelineViewController.twitterapi = oauthapi
         }
@@ -47,11 +44,6 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    //PRAGMA: - Private
-    private func authenticate() {
-        
     }
     
     //PRAGMA: - IBActions
@@ -65,9 +57,5 @@ class ViewController: UIViewController {
             self.presentViewController(self.authorizationViewController!, animated: true, completion: nil)
         }
     }
-    
-    
-    
-    
 }
 

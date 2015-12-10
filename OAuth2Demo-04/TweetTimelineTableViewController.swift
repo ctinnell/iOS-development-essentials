@@ -19,6 +19,7 @@ class TweetTimelineTableViewController: UITableViewController {
 
     var timelineEntries: [TwitterTimelineEntry]?
     
+    //PRAGMA: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
         loadHomeTimeline()
@@ -50,6 +51,7 @@ class TweetTimelineTableViewController: UITableViewController {
         return cell
     }
     
+    // MARK: - Load Data
     func loadHomeTimeline() {
         timelineEntries = []
         twitterapi?.homeTimeline({ (data, response) -> () in
