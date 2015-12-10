@@ -59,7 +59,6 @@ class Twitter: NSObject {
                 return baseURL().URLByAppendingPathComponent("/1.1/statuses/home_timeline.json")
             }
         }
-        
     }
     
     // MARK: - Initialization
