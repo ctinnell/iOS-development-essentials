@@ -286,7 +286,9 @@ class Twitter: NSObject {
                     do {
                         print("\n************************************************")
                         print (dataString)
-                        completion(data, dataString)
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            completion(data, dataString)
+                        })
                     }
                 }
             } else {
