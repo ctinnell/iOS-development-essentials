@@ -39,7 +39,7 @@ class MenuTableViewController: UITableViewController {
         case 2:
             cell.textLabel?.text = "Login Keyframe Animation"
         case 3:
-            cell.textLabel?.text = "Falling Animation"
+            cell.textLabel?.text = "Custom Popover Animation"
         default:
             cell.textLabel?.text = " "
         }
@@ -57,7 +57,7 @@ class MenuTableViewController: UITableViewController {
         case 2:
             presentViewController("loginAnimationViewController")
         case 3:
-            presentViewController("fallingAnimationViewController")
+            presentViewController("customPopoverAnimationViewController")
         default:
             print("Unexpected: Index not found...")
         }

@@ -1,5 +1,5 @@
 //
-//  FallingAnimationViewController.swift
+//  CustomPopoverAnimationViewController.swift
 //  03-Core Animation
 //
 //  Created by Clay Tinnell on 11/30/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FallingAnimationViewController: UIViewController {
+class CustomPopoverAnimationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
