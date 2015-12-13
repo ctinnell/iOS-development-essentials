@@ -1,5 +1,8 @@
 # iOS-development-essentials
 
+## Purpose
+This is a place where I experiment outside of my normal project and client work in order to keep skills my polished and to demonstrate specific skills to potential clients. My current goal is to commit to this project daily, and there are already a number of interesting projects here.
+
 ## License
 Copyright (c) 2015 Clay Tinnell.
 
