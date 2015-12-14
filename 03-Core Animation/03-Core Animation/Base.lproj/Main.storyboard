@@ -282,7 +282,21 @@
                     <view key="view" contentMode="scaleToFill" id="Hzl-qk-mZB">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rnS-6P-pZs">
+                                <rect key="frame" x="200" y="225" width="200" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="9Kj-FN-Plm"/>
+                                    <constraint firstAttribute="height" constant="150" id="C1b-Hh-Qi5"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rnS-6P-pZs" firstAttribute="centerY" secondItem="Hzl-qk-mZB" secondAttribute="centerY" id="Snm-kc-AkH"/>
+                            <constraint firstItem="rnS-6P-pZs" firstAttribute="centerX" secondItem="Hzl-qk-mZB" secondAttribute="centerX" id="xhu-Ma-y1M"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u9O-CI-2Eu" userLabel="First Responder" sceneMemberID="firstResponder"/>
