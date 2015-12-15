@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Box View Controller-->
@@ -125,10 +126,10 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="UIW-KH-FPM">
-                                <rect key="frame" x="0.0" y="114" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UIW-KH-FPM" id="K5x-IU-f0K">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -264,7 +265,24 @@
                     <view key="view" contentMode="scaleToFill" id="yof-Kh-a9B">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gJq-Dc-dJw">
+                                <rect key="frame" x="251" y="285" width="99" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="99" id="R8i-PN-ONC"/>
+                                    <constraint firstAttribute="height" constant="30" id="jTj-t8-sAE"/>
+                                </constraints>
+                                <state key="normal" title="Show Popover"/>
+                                <connections>
+                                    <action selector="showPopover:" destination="nhf-LS-X44" eventType="touchUpInside" id="Mgt-01-MWO"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gJq-Dc-dJw" firstAttribute="centerX" secondItem="yof-Kh-a9B" secondAttribute="centerX" id="5t0-Pa-5ps"/>
+                            <constraint firstItem="gJq-Dc-dJw" firstAttribute="centerY" secondItem="yof-Kh-a9B" secondAttribute="centerY" id="gwR-Mb-nhw"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tsf-fE-aDP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -274,7 +292,7 @@
         <!--Custom Popover View Controller-->
         <scene sceneID="Fsm-NN-cfU">
             <objects>
-                <viewController id="lBl-fP-a4d" customClass="CustomPopoverViewController" customModule="_3_Core_Animation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="customPopoverViewController" id="lBl-fP-a4d" customClass="CustomPopoverViewController" customModule="_3_Core_Animation" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="G5S-c4-BjF"/>
                         <viewControllerLayoutGuide type="bottom" id="fiY-Tt-cAJ"/>
@@ -285,16 +303,39 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rnS-6P-pZs">
                                 <rect key="frame" x="200" y="225" width="200" height="150"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TH8-HT-olL">
+                                        <rect key="frame" x="9" y="112" width="90" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="KLC-cs-WyJ"/>
+                                            <constraint firstAttribute="height" constant="30" id="LjJ-OW-OAD"/>
+                                        </constraints>
+                                        <state key="normal" title="Ok"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVw-QG-msP">
+                                        <rect key="frame" x="103" y="112" width="90" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="TNT-a2-Djn"/>
+                                            <constraint firstAttribute="height" constant="30" id="n2a-xg-O5f"/>
+                                        </constraints>
+                                        <state key="normal" title="Cancel"/>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="UVw-QG-msP" firstAttribute="leading" secondItem="TH8-HT-olL" secondAttribute="trailing" constant="4" id="306-a4-7Qe"/>
                                     <constraint firstAttribute="width" constant="200" id="9Kj-FN-Plm"/>
                                     <constraint firstAttribute="height" constant="150" id="C1b-Hh-Qi5"/>
+                                    <constraint firstAttribute="bottom" secondItem="UVw-QG-msP" secondAttribute="bottom" constant="8" id="xR9-yg-tNG"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="UVw-QG-msP" secondAttribute="trailing" constant="187" id="HjO-3P-3X6"/>
                             <constraint firstItem="rnS-6P-pZs" firstAttribute="centerY" secondItem="Hzl-qk-mZB" secondAttribute="centerY" id="Snm-kc-AkH"/>
+                            <constraint firstItem="fiY-Tt-cAJ" firstAttribute="top" secondItem="TH8-HT-olL" secondAttribute="bottom" constant="233" id="Z97-FI-Isx"/>
+                            <constraint firstItem="TH8-HT-olL" firstAttribute="leading" secondItem="Hzl-qk-mZB" secondAttribute="leadingMargin" constant="189" id="rul-rd-Wgg"/>
                             <constraint firstItem="rnS-6P-pZs" firstAttribute="centerX" secondItem="Hzl-qk-mZB" secondAttribute="centerX" id="xhu-Ma-y1M"/>
                         </constraints>
                     </view>

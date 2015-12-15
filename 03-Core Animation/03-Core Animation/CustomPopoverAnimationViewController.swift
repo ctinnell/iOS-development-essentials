@@ -22,6 +22,13 @@ class CustomPopoverAnimationViewController: UIViewController {
     }
     
 
+    @IBAction func showPopover(sender: AnyObject) {
+        let popoverViewController = storyboard?.instantiateViewControllerWithIdentifier("customPopoverViewController") as! CustomPopoverViewController
+        popoverViewController.modalPresentationStyle = .OverCurrentContext
+        popoverViewController.view.backgroundColor = UIColor(red: 38/255, green: 41/255, blue: 44/255, alpha: 0.5)
+        presentViewController(popoverViewController, animated: true, completion: nil)
+    }
+
     /*
     // MARK: - Navigation
 
