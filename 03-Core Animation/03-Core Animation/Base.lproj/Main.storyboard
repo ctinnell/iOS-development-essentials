@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Box View Controller-->
@@ -304,38 +303,44 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rnS-6P-pZs">
                                 <rect key="frame" x="200" y="225" width="200" height="150"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TH8-HT-olL">
-                                        <rect key="frame" x="9" y="112" width="90" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eij-8A-BAm">
+                                        <rect key="frame" x="10" y="112" width="180" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TH8-HT-olL">
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="90" id="KLC-cs-WyJ"/>
+                                                    <constraint firstAttribute="height" constant="30" id="LjJ-OW-OAD"/>
+                                                </constraints>
+                                                <state key="normal" title="Ok"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVw-QG-msP">
+                                                <rect key="frame" x="90" y="0.0" width="90" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="90" id="TNT-a2-Djn"/>
+                                                    <constraint firstAttribute="height" constant="30" id="n2a-xg-O5f"/>
+                                                </constraints>
+                                                <state key="normal" title="Cancel"/>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="90" id="KLC-cs-WyJ"/>
-                                            <constraint firstAttribute="height" constant="30" id="LjJ-OW-OAD"/>
+                                            <constraint firstAttribute="height" constant="30" id="7e8-bq-dbE"/>
+                                            <constraint firstAttribute="width" constant="180" id="TYA-d2-dOx"/>
                                         </constraints>
-                                        <state key="normal" title="Ok"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVw-QG-msP">
-                                        <rect key="frame" x="103" y="112" width="90" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="90" id="TNT-a2-Djn"/>
-                                            <constraint firstAttribute="height" constant="30" id="n2a-xg-O5f"/>
-                                        </constraints>
-                                        <state key="normal" title="Cancel"/>
-                                    </button>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="UVw-QG-msP" firstAttribute="leading" secondItem="TH8-HT-olL" secondAttribute="trailing" constant="4" id="306-a4-7Qe"/>
                                     <constraint firstAttribute="width" constant="200" id="9Kj-FN-Plm"/>
                                     <constraint firstAttribute="height" constant="150" id="C1b-Hh-Qi5"/>
-                                    <constraint firstAttribute="bottom" secondItem="UVw-QG-msP" secondAttribute="bottom" constant="8" id="xR9-yg-tNG"/>
+                                    <constraint firstItem="eij-8A-BAm" firstAttribute="centerX" secondItem="rnS-6P-pZs" secondAttribute="centerX" id="PSo-g5-y4V"/>
+                                    <constraint firstAttribute="bottom" secondItem="eij-8A-BAm" secondAttribute="bottom" constant="8" id="RIJ-aN-qht"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="UVw-QG-msP" secondAttribute="trailing" constant="187" id="HjO-3P-3X6"/>
                             <constraint firstItem="rnS-6P-pZs" firstAttribute="centerY" secondItem="Hzl-qk-mZB" secondAttribute="centerY" id="Snm-kc-AkH"/>
-                            <constraint firstItem="fiY-Tt-cAJ" firstAttribute="top" secondItem="TH8-HT-olL" secondAttribute="bottom" constant="233" id="Z97-FI-Isx"/>
-                            <constraint firstItem="TH8-HT-olL" firstAttribute="leading" secondItem="Hzl-qk-mZB" secondAttribute="leadingMargin" constant="189" id="rul-rd-Wgg"/>
                             <constraint firstItem="rnS-6P-pZs" firstAttribute="centerX" secondItem="Hzl-qk-mZB" secondAttribute="centerX" id="xhu-Ma-y1M"/>
                         </constraints>
                     </view>
