@@ -277,7 +277,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="gJq-Dc-dJw" firstAttribute="centerX" secondItem="yof-Kh-a9B" secondAttribute="centerX" id="5t0-Pa-5ps"/>
                             <constraint firstItem="gJq-Dc-dJw" firstAttribute="centerY" secondItem="yof-Kh-a9B" secondAttribute="centerY" id="gwR-Mb-nhw"/>
@@ -329,7 +329,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="9Kj-FN-Plm"/>
                                     <constraint firstAttribute="height" constant="150" id="C1b-Hh-Qi5"/>
@@ -338,7 +338,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="rnS-6P-pZs" firstAttribute="centerY" secondItem="Hzl-qk-mZB" secondAttribute="centerY" id="Snm-kc-AkH"/>
                             <constraint firstItem="rnS-6P-pZs" firstAttribute="centerX" secondItem="Hzl-qk-mZB" secondAttribute="centerX" id="xhu-Ma-y1M"/>
