@@ -8,8 +8,10 @@
 
 import UIKit
 
-class CustomPopoverAnimationViewController: UIViewController {
+class CustomPopoverAnimationViewController: UIViewController, CustomPopoverViewControllerDelegate {
 
+    var popoverViewController: CustomPopoverViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,12 +25,24 @@ class CustomPopoverAnimationViewController: UIViewController {
     
 
     @IBAction func showPopover(sender: AnyObject) {
-        let popoverViewController = storyboard?.instantiateViewControllerWithIdentifier("customPopoverViewController") as! CustomPopoverViewController
-        popoverViewController.modalPresentationStyle = .OverCurrentContext
-        popoverViewController.view.backgroundColor = UIColor(red: 38/255, green: 41/255, blue: 44/255, alpha: 0.5)
-        presentViewController(popoverViewController, animated: true, completion: nil)
+        popoverViewController = storyboard?.instantiateViewControllerWithIdentifier("customPopoverViewController") as?CustomPopoverViewController
+        
+        if let popoverViewController = popoverViewController {
+            popoverViewController.delegate = self
+            popoverViewController.modalPresentationStyle = .OverCurrentContext
+            presentViewController(popoverViewController, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: - CustomPopoverViewControllerDelegate
+    func okButtonPressed() {
+        self.popoverViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 
+    func cancelButtonPressed() {
+        self.popoverViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -8,8 +8,15 @@
 
 import UIKit
 
+protocol CustomPopoverViewControllerDelegate {
+    func okButtonPressed()
+    func cancelButtonPressed()
+}
+
 class CustomPopoverViewController: UIViewController {
 
+    var delegate: CustomPopoverViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,5 +28,12 @@ class CustomPopoverViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func okButtonPressed(sender: AnyObject) {
+        delegate?.okButtonPressed()
+    }
+
+    @IBAction func cancelButtonPressed(sender: AnyObject) {
+        delegate?.cancelButtonPressed()
+    }
 
 }

@@ -313,6 +313,9 @@
                                                     <constraint firstAttribute="height" constant="30" id="LjJ-OW-OAD"/>
                                                 </constraints>
                                                 <state key="normal" title="Ok"/>
+                                                <connections>
+                                                    <action selector="okButtonPressed:" destination="lBl-fP-a4d" eventType="touchUpInside" id="cuy-TR-UxM"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVw-QG-msP">
                                                 <rect key="frame" x="90" y="0.0" width="90" height="30"/>
@@ -321,6 +324,9 @@
                                                     <constraint firstAttribute="height" constant="30" id="n2a-xg-O5f"/>
                                                 </constraints>
                                                 <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="cancelButtonPressed:" destination="lBl-fP-a4d" eventType="touchUpInside" id="4xo-BA-0af"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
