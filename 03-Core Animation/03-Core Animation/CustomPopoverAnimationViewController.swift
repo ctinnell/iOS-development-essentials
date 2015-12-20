@@ -14,6 +14,7 @@ class CustomPopoverAnimationViewController: UIViewController, CustomPopoverViewC
     private let presentationAnimationController = CustomPopoverPresentationAnimationTransition()
     private let dismissalAnimationController = CustomPopoverDismissalAnimationTransition()
 
+    //MARK: - ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,7 +26,7 @@ class CustomPopoverAnimationViewController: UIViewController, CustomPopoverViewC
         // Dispose of any resources that can be recreated.
     }
     
-
+    //MARK: - IBActions
     @IBAction func showPopover(sender: AnyObject) {
         popoverViewController = storyboard?.instantiateViewControllerWithIdentifier("customPopoverViewController") as?CustomPopoverViewController
         
@@ -48,6 +49,7 @@ class CustomPopoverAnimationViewController: UIViewController, CustomPopoverViewC
         self.popoverViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // MARK: - UIViewControllerTransitioningDelegate
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return presentationAnimationController
     }
@@ -55,6 +57,8 @@ class CustomPopoverAnimationViewController: UIViewController, CustomPopoverViewC
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return dismissalAnimationController
     }
+    
+    // MARK: - CustomPopoverPresentationAnimationTransition
     
     private class CustomPopoverPresentationAnimationTransition: NSObject, UIViewControllerAnimatedTransitioning {
         @objc private func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
@@ -79,6 +83,7 @@ class CustomPopoverAnimationViewController: UIViewController, CustomPopoverViewC
         }
     }
     
+    // MARK: - CustomPopoverDismissalAnimationTransition
     private class CustomPopoverDismissalAnimationTransition: NSObject, UIViewControllerAnimatedTransitioning {
         var animationMultiplier = -1.0
 
@@ -94,6 +99,8 @@ class CustomPopoverAnimationViewController: UIViewController, CustomPopoverViewC
             finalFrame = CGRectMake(finalFrame.origin.x, bounds.size.height, finalFrame.size.width, finalFrame.size.height)
             let containerView = transitionContext.containerView()!
             containerView.addSubview(fromViewController.view)
+            
+            // The view will animate either left or right on dismissal depending on which button is pressed.
             let radians = CGFloat((90.0 * animationMultiplier) * M_PI/180)
             let transform = CGAffineTransformRotate(CGAffineTransformIdentity, radians)
             
