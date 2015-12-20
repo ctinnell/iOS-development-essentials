@@ -10,9 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var textView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let parseButton = UIBarButtonItem(title: "Word Cloud", style: .Plain, target: self, action: "generateWordCloud")
+        self.navigationItem.rightBarButtonItem = parseButton
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +23,9 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    func generateWordCloud() {
+        let wordCloudItems = WordCloudParser.wordCloudElements(textView.text)
+        print(wordCloudItems)
+    }
 }
 

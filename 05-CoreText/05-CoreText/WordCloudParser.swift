@@ -28,12 +28,12 @@ class WordCloudParser: NSObject {
             else {
                 if let safeWordCloudElement = wordCloudElement {
                     wordCloudElements.append(safeWordCloudElement)
-                    wordCloudElement = WordCloudElement(word: word, count: 1)
                 }
+                wordCloudElement = WordCloudElement(word: word, count: 1)
                 previousWord = word
             }
         }
-        return wordCloudElements.sort{$1.count > $0.count}
+        return wordCloudElements.sort{$0.count > $1.count}
     }
 }
 
