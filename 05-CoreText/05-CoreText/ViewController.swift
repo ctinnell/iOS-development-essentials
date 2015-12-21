@@ -20,12 +20,13 @@ class ViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func generateWordCloud() {
         let wordCloudItems = WordCloudParser.wordCloudElements(textView.text)
-        print(wordCloudItems)
+        for item in wordCloudItems {
+            print("\(item.word) (\(item.count))")
+        }
     }
 }
 
