@@ -13,6 +13,7 @@
 		840A2D451C271A6A003639FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 840A2D441C271A6A003639FF /* Assets.xcassets */; };
 		840A2D481C271A6A003639FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 840A2D461C271A6A003639FF /* LaunchScreen.storyboard */; };
 		840A2D501C27352B003639FF /* WordCloudParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A2D4F1C27352B003639FF /* WordCloudParser.swift */; };
+		840A2D521C298085003639FF /* WordCloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A2D511C298085003639FF /* WordCloudViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		840A2D471C271A6A003639FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		840A2D491C271A6A003639FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		840A2D4F1C27352B003639FF /* WordCloudParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCloudParser.swift; sourceTree = "<group>"; };
+		840A2D511C298085003639FF /* WordCloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCloudViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				840A2D3F1C271A6A003639FF /* ViewController.swift */,
 				840A2D4F1C27352B003639FF /* WordCloudParser.swift */,
 				840A2D411C271A6A003639FF /* Main.storyboard */,
+				840A2D511C298085003639FF /* WordCloudViewController.swift */,
 				840A2D441C271A6A003639FF /* Assets.xcassets */,
 				840A2D461C271A6A003639FF /* LaunchScreen.storyboard */,
 				840A2D491C271A6A003639FF /* Info.plist */,
@@ -140,6 +143,7 @@
 			files = (
 				840A2D401C271A6A003639FF /* ViewController.swift in Sources */,
 				840A2D501C27352B003639FF /* WordCloudParser.swift in Sources */,
+				840A2D521C298085003639FF /* WordCloudViewController.swift in Sources */,
 				840A2D3E1C271A6A003639FF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
