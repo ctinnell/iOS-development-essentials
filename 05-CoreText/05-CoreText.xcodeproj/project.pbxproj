@@ -14,6 +14,7 @@
 		840A2D481C271A6A003639FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 840A2D461C271A6A003639FF /* LaunchScreen.storyboard */; };
 		840A2D501C27352B003639FF /* WordCloudParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A2D4F1C27352B003639FF /* WordCloudParser.swift */; };
 		840A2D521C298085003639FF /* WordCloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A2D511C298085003639FF /* WordCloudViewController.swift */; };
+		840A2D541C2B2A9E003639FF /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840A2D531C2B2A9E003639FF /* CoreText.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		840A2D491C271A6A003639FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		840A2D4F1C27352B003639FF /* WordCloudParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCloudParser.swift; sourceTree = "<group>"; };
 		840A2D511C298085003639FF /* WordCloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCloudViewController.swift; sourceTree = "<group>"; };
+		840A2D531C2B2A9E003639FF /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840A2D541C2B2A9E003639FF /* CoreText.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +61,7 @@
 		840A2D3C1C271A6A003639FF /* 05-CoreText */ = {
 			isa = PBXGroup;
 			children = (
+				840A2D551C2B2AAB003639FF /* Resources */,
 				840A2D3D1C271A6A003639FF /* AppDelegate.swift */,
 				840A2D3F1C271A6A003639FF /* ViewController.swift */,
 				840A2D4F1C27352B003639FF /* WordCloudParser.swift */,
@@ -68,6 +72,14 @@
 				840A2D491C271A6A003639FF /* Info.plist */,
 			);
 			path = "05-CoreText";
+			sourceTree = "<group>";
+		};
+		840A2D551C2B2AAB003639FF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				840A2D531C2B2A9E003639FF /* CoreText.framework */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
