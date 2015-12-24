@@ -27,6 +27,12 @@ class ViewController: UIViewController {
         for item in wordCloudItems {
             print("\(item.word) (\(item.count))")
         }
+        presentWordCloudViewController(wordCloudItems)
+    }
+    
+    func presentWordCloudViewController(words: [WordCloudParser.WordCloudElement]) {
+        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("wordCloudViewController") as! WordCloudViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

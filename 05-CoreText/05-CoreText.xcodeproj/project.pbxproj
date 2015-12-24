@@ -15,6 +15,7 @@
 		840A2D501C27352B003639FF /* WordCloudParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A2D4F1C27352B003639FF /* WordCloudParser.swift */; };
 		840A2D521C298085003639FF /* WordCloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A2D511C298085003639FF /* WordCloudViewController.swift */; };
 		840A2D541C2B2A9E003639FF /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840A2D531C2B2A9E003639FF /* CoreText.framework */; };
+		840A2D571C2C2CC3003639FF /* WordCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A2D561C2C2CC3003639FF /* WordCloudView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		840A2D4F1C27352B003639FF /* WordCloudParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCloudParser.swift; sourceTree = "<group>"; };
 		840A2D511C298085003639FF /* WordCloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCloudViewController.swift; sourceTree = "<group>"; };
 		840A2D531C2B2A9E003639FF /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		840A2D561C2C2CC3003639FF /* WordCloudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCloudView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				840A2D4F1C27352B003639FF /* WordCloudParser.swift */,
 				840A2D411C271A6A003639FF /* Main.storyboard */,
 				840A2D511C298085003639FF /* WordCloudViewController.swift */,
+				840A2D561C2C2CC3003639FF /* WordCloudView.swift */,
 				840A2D441C271A6A003639FF /* Assets.xcassets */,
 				840A2D461C271A6A003639FF /* LaunchScreen.storyboard */,
 				840A2D491C271A6A003639FF /* Info.plist */,
@@ -155,6 +158,7 @@
 			files = (
 				840A2D401C271A6A003639FF /* ViewController.swift in Sources */,
 				840A2D501C27352B003639FF /* WordCloudParser.swift in Sources */,
+				840A2D571C2C2CC3003639FF /* WordCloudView.swift in Sources */,
 				840A2D521C298085003639FF /* WordCloudViewController.swift in Sources */,
 				840A2D3E1C271A6A003639FF /* AppDelegate.swift in Sources */,
 			);
