@@ -10,11 +10,20 @@ import UIKit
 
 class WordCloudView: UIView {
 
+    var wordCloudItems: [WordCloudParser.WordCloudElement]?
+    
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         if let context = UIGraphicsGetCurrentContext() {
             flipCoordinateSystem(context)
-            drawText(context, text: NSAttributedString(string: "Word Number 1"), x: 100.0, y: 600.0)
+            drawItem(context, index: 0)
+        }
+    }
+    
+    func drawItem(context: CGContextRef, index: Int) {
+        if let wordCloudItems = wordCloudItems {
+            let text = NSAttributedString(string: wordCloudItems[index].word)
+            drawText(context, text: text, x: 100.0, y: 600.0)
         }
     }
     
@@ -26,11 +35,8 @@ class WordCloudView: UIView {
     }
     
     func drawText(context: CGContextRef, text: NSAttributedString, x: Double, y: Double) {
-        let text = NSAttributedString(string: "Word Number 1")
         let line = CTLineCreateWithAttributedString(text)
-        
         CGContextSetTextPosition(context, CGFloat(x), CGFloat(y));
         CTLineDraw(line, context);
-        
     }
 }

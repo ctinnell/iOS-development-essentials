@@ -55,6 +55,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="wordCloudView" destination="vPa-DQ-79e" id="ah4-4q-U6c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DY9-ez-m0g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

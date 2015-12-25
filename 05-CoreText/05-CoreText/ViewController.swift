@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var textView: UITextView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let parseButton = UIBarButtonItem(title: "Word Cloud", style: .Plain, target: self, action: "generateWordCloud")
@@ -32,6 +33,7 @@ class ViewController: UIViewController {
     
     func presentWordCloudViewController(words: [WordCloudParser.WordCloudElement]) {
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("wordCloudViewController") as! WordCloudViewController
+        vc.wordCloudItems = words
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

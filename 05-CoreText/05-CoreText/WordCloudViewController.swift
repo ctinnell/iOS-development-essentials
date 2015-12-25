@@ -10,9 +10,14 @@ import UIKit
 
 class WordCloudViewController: UIViewController {
 
+    var wordCloudItems: [WordCloudParser.WordCloudElement]?
+
+    @IBOutlet var wordCloudView: WordCloudView!
+     
     // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
+        wordCloudView.wordCloudItems = wordCloudItems
     }
 
     override func didReceiveMemoryWarning() {
