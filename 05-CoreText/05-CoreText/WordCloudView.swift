@@ -16,14 +16,21 @@ class WordCloudView: UIView {
         super.drawRect(rect)
         if let context = UIGraphicsGetCurrentContext() {
             flipCoordinateSystem(context)
-            drawItem(context, index: 0)
+            drawItems(context)
         }
     }
     
+    func drawItems(context: CGContextRef) {
+        drawItem(context, index: 0)
+    }
+    
     func drawItem(context: CGContextRef, index: Int) {
+        var positionX = Double(self.bounds.size.width / 2.0)
+        var positionY = Double(self.bounds.size.height / 2.0)
+        
         if let wordCloudItems = wordCloudItems {
             let text = NSAttributedString(string: wordCloudItems[index].word)
-            drawText(context, text: text, x: 100.0, y: 600.0)
+            drawText(context, text: text, x: positionX, y: positionY)
         }
     }
     
