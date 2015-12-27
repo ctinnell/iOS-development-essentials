@@ -15,6 +15,19 @@ class WordCloudView: UIView {
         case Right
         case Up
         case Down
+        
+        func switchDirction() -> WordCloudDrawingDirection {
+            switch self {
+            case .Left:
+                return .Up
+            case .Right:
+                return .Down
+            case .Up:
+                return .Right
+            case .Down:
+                return .Left
+            }
+        }
     }
     
     var drawingDirection = WordCloudDrawingDirection.Right
@@ -44,47 +57,61 @@ class WordCloudView: UIView {
                 switch drawingDirection {
                 case .Right:
                     if wordCount >= wordsPerLine {
-                        (x,y) = moveDown(x, y: y, factor: factor)
+                        (x,y) = moveInDirection(.Down,x: x, y: y, factor: factor)
                         wordCount = 0
                         wordsPerLine++
                     }
                     else {
-                        (x,y) = moveRight(x, y: y, factor: factor)
+                        (x,y) = moveInDirection(.Right,x: x, y: y, factor: factor)
                         wordCount++
                     }
                 case .Left:
                     if wordCount >= wordsPerLine {
-                        (x,y) = moveUp(x, y: y, factor: factor)
+                        (x,y) = moveInDirection(.Up,x: x, y: y, factor: factor)
                         wordCount = 0
                         wordsPerLine++
                     }
                     else {
-                        (x,y) = moveLeft(x, y: y, factor: factor)
+                        (x,y) = moveInDirection(.Left,x: x, y: y, factor: factor)
                         wordCount++
                     }
                 case .Down:
                     if wordCount >= wordsPerLine {
-                        (x,y) = moveLeft(x, y: y, factor: factor)
+                         (x,y) = moveInDirection(.Left,x: x, y: y, factor: factor)
                         wordCount = 0
                         wordsPerLine++
                     }
                     else {
-                        (x,y) = moveDown(x, y: y, factor: factor)
-                        wordCount++
+                        (x,y) = moveInDirection(.Down,x: x, y: y, factor: factor)
+                       wordCount++
                     }
                 case .Up:
                     if wordCount >= wordsPerLine {
-                        (x,y) = moveRight(x, y: y, factor: factor)
+                        (x,y) = moveInDirection(.Right,x: x, y: y, factor: factor)
                         wordCount = 0
                         wordsPerLine++
                     }
                     else {
-                        (x,y) = moveUp(x, y: y, factor: factor)
+                        (x,y) = moveInDirection(.Up,x: x, y: y, factor: factor)
                         wordCount++
                     }
                 }
         
             }
+        }
+    }
+    
+    func moveInDirection(direction: WordCloudDrawingDirection, x: Double, y: Double, factor: Double) -> (Double, Double) {
+        switch direction {
+        case .Right:
+            return moveRight(x, y: y, factor: factor)
+        case .Left:
+            return moveLeft(x, y: y, factor: factor)
+        case .Down:
+            return moveDown(x, y: y, factor: factor)
+        case .Up:
+            return moveUp(x, y: y, factor: factor)
+        
         }
     }
     
