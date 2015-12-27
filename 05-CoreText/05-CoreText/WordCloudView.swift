@@ -37,6 +37,7 @@ class WordCloudView: UIView {
 
     var wordCloudItems: [WordCloudParser.WordCloudElement]?
     
+    //MARK: - UIView
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         if let context = UIGraphicsGetCurrentContext() {
@@ -45,6 +46,7 @@ class WordCloudView: UIView {
         }
     }
     
+    //MARK: - Draw Items / Main Entry Point
     private func drawItems(context: CGContextRef) {
         var x = Double(self.bounds.size.width / 2.0)
         var y = Double(self.bounds.size.height / 2.0)
@@ -58,6 +60,7 @@ class WordCloudView: UIView {
         }
     }
     
+    //MARK: - Moving and Navigation
     private func move(x: Double, y: Double, factor: Double) -> (Double, Double) {
         var x=x, y=y
         if wordCount >= wordsPerLine {
@@ -87,11 +90,6 @@ class WordCloudView: UIView {
         }
     }
     
-    private func drawItem(context: CGContextRef, item: WordCloudParser.WordCloudElement, x: Double, y: Double) {
-        let text = NSAttributedString(string: item.word)
-        drawText(context, text: text, x: x, y: y)
-    }
-    
     private func moveRight(x: Double, y: Double, factor: Double) -> (Double,Double) {
         drawingDirection = .Right
         return (x+factor,y)
@@ -118,11 +116,18 @@ class WordCloudView: UIView {
 //        
 //    }
     
+    // MARK: - Core Text Drawing
     private func flipCoordinateSystem(context: CGContextRef) {
         // Flip the coordinate system
         CGContextSetTextMatrix(context, CGAffineTransformIdentity);
         CGContextTranslateCTM(context, 0, self.bounds.size.height);
         CGContextScaleCTM(context, 1.0, -1.0);
+    }
+    
+    
+    private func drawItem(context: CGContextRef, item: WordCloudParser.WordCloudElement, x: Double, y: Double) {
+        let text = NSAttributedString(string: item.word)
+        drawText(context, text: text, x: x, y: y)
     }
     
     private func drawText(context: CGContextRef, text: NSAttributedString, x: Double, y: Double) {
