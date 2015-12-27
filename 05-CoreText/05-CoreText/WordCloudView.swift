@@ -50,55 +50,27 @@ class WordCloudView: UIView {
         var y = Double(self.bounds.size.height / 2.0)
         let factor = 25.0
         
-        
         if let wordCloudItems = wordCloudItems {
             for item in wordCloudItems {
                 drawItem(context, item: item, x: x, y: y)
-                switch drawingDirection {
-                case .Right:
-                    if wordCount >= wordsPerLine {
-                        (x,y) = moveInDirection(.Down,x: x, y: y, factor: factor)
-                        wordCount = 0
-                        wordsPerLine++
-                    }
-                    else {
-                        (x,y) = moveInDirection(.Right,x: x, y: y, factor: factor)
-                        wordCount++
-                    }
-                case .Left:
-                    if wordCount >= wordsPerLine {
-                        (x,y) = moveInDirection(.Up,x: x, y: y, factor: factor)
-                        wordCount = 0
-                        wordsPerLine++
-                    }
-                    else {
-                        (x,y) = moveInDirection(.Left,x: x, y: y, factor: factor)
-                        wordCount++
-                    }
-                case .Down:
-                    if wordCount >= wordsPerLine {
-                         (x,y) = moveInDirection(.Left,x: x, y: y, factor: factor)
-                        wordCount = 0
-                        wordsPerLine++
-                    }
-                    else {
-                        (x,y) = moveInDirection(.Down,x: x, y: y, factor: factor)
-                       wordCount++
-                    }
-                case .Up:
-                    if wordCount >= wordsPerLine {
-                        (x,y) = moveInDirection(.Right,x: x, y: y, factor: factor)
-                        wordCount = 0
-                        wordsPerLine++
-                    }
-                    else {
-                        (x,y) = moveInDirection(.Up,x: x, y: y, factor: factor)
-                        wordCount++
-                    }
-                }
-        
+                (x,y) = move(x, y: y, factor: factor)
             }
         }
+    }
+    
+    func move(x: Double, y: Double, factor: Double) -> (Double, Double) {
+        var x=x, y=y
+        if wordCount >= wordsPerLine {
+            (x,y) = moveInDirection(drawingDirection.switchDirction(),x: x, y: y, factor: factor)
+            wordCount = 0
+            wordsPerLine++
+        }
+        else {
+            (x,y) = moveInDirection(drawingDirection,x: x, y: y, factor: factor)
+            wordCount++
+        }
+        
+        return (x,y)
     }
     
     func moveInDirection(direction: WordCloudDrawingDirection, x: Double, y: Double, factor: Double) -> (Double, Double) {
