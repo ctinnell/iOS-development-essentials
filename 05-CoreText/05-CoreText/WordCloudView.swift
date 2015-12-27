@@ -52,7 +52,7 @@ class WordCloudView: UIView {
         var y = Double(self.bounds.size.height / 2.0)
         let factor = 25.0
         
-        if let wordCloudItems = wordCloudItems {
+        if let wordCloudItems = wordCloudItems?[0..<100] {
             for item in wordCloudItems {
                 drawItem(context, item: item, x: x, y: y)
                 (x,y) = move(x, y: y, factor: factor)
