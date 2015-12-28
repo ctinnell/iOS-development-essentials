@@ -126,8 +126,10 @@ class WordCloudView: UIView {
     
     
     private func drawItem(context: CGContextRef, item: WordCloudParser.WordCloudElement, x: Double, y: Double) {
-        let text = NSAttributedString(string: item.word)
-        drawText(context, text: text, x: x, y: y)
+        if let font = UIFont(name: "Helvetica", size: CGFloat(10 * item.count)) {
+            let text = NSAttributedString(string: item.word, attributes: [NSFontAttributeName:font])
+            drawText(context, text: text, x: x, y: y)
+        }
     }
     
     private func drawText(context: CGContextRef, text: NSAttributedString, x: Double, y: Double) {
