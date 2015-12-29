@@ -12,6 +12,7 @@ class WordCloudParser: NSObject {
     struct WordCloudElement {
         var word: String
         var count: Int
+        var bounds: CGRect?
     }
     
     static func wordCloudElements(text: String) -> [WordCloudElement] {
@@ -29,7 +30,7 @@ class WordCloudParser: NSObject {
                 if let safeWordCloudElement = wordCloudElement {
                     wordCloudElements.append(safeWordCloudElement)
                 }
-                wordCloudElement = WordCloudElement(word: word, count: 1)
+                wordCloudElement = WordCloudElement(word: word, count: 1, bounds: nil)
                 previousWord = word
             }
         }

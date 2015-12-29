@@ -16,7 +16,7 @@ class WordCloudView: UIView {
         case Up
         case Down
         
-        func switchDirction() -> WordCloudDrawingDirection {
+        func switchDirection() -> WordCloudDrawingDirection {
             switch self {
             case .Left:
                 return .Up
@@ -48,29 +48,47 @@ class WordCloudView: UIView {
     
     //MARK: - Draw Items / Main Entry Point
     private func drawItems(context: CGContextRef) {
-        var x = Double(self.bounds.size.width / 2.0)
-        var y = Double(self.bounds.size.height / 2.0)
+        var (x,y) = center()
         let factor = 25.0
         
         if let wordCloudItems = wordCloudItems?[0..<100] {
-            for item in wordCloudItems {
-                drawItem(context, item: item, x: x, y: y)
-                (x,y) = move(x, y: y, factor: factor)
+            for (var index=0; index<wordCloudItems.count; index++) {
+                drawItem(context, itemIndex: index, x: x, y: y)
+                if let bounds = self.wordCloudItems?[index].bounds {
+                    if (movingHorizontally()) {
+                        (x,y) = move(x, y: y, factor: max(factor,Double(bounds.width + 20.0)))
+                    }
+                    else {
+                        (x,y) = move(x, y: y, factor: max(factor,Double(bounds.height + 5.0)))
+                   }
+                }
             }
         }
     }
     
     //MARK: - Moving and Navigation
+    
+    private func center() -> (Double, Double) {
+        return (Double(self.bounds.size.width / 2.0), Double(self.bounds.size.height / 2.0))
+    }
+    
+    private func movingHorizontally() -> Bool {
+        return (drawingDirection == .Left || drawingDirection == .Right)
+    }
+    
     private func move(x: Double, y: Double, factor: Double) -> (Double, Double) {
         var x=x, y=y
+        wordCount++
+
         if wordCount >= wordsPerLine {
-            (x,y) = moveInDirection(drawingDirection.switchDirction(),x: x, y: y, factor: factor)
             wordCount = 0
-            wordsPerLine++
+            if (movingHorizontally()) {
+                wordsPerLine++
+            }
+            (x,y) = moveInDirection(drawingDirection.switchDirection(),x: x, y: y, factor: factor)
         }
         else {
             (x,y) = moveInDirection(drawingDirection,x: x, y: y, factor: factor)
-            wordCount++
         }
         
         return (x,y)
@@ -125,10 +143,13 @@ class WordCloudView: UIView {
     }
     
     
-    private func drawItem(context: CGContextRef, item: WordCloudParser.WordCloudElement, x: Double, y: Double) {
-        if let font = UIFont(name: "Helvetica", size: CGFloat(10 * item.count)) {
-            let text = NSAttributedString(string: item.word, attributes: [NSFontAttributeName:font])
-            drawText(context, text: text, x: x, y: y)
+    private func drawItem(context: CGContextRef, itemIndex: Int, x: Double, y: Double) {
+        if let item = wordCloudItems?[itemIndex] {
+            if let font = UIFont(name: "Helvetica", size: CGFloat(10 * item.count)) {
+                let text = NSAttributedString(string: item.word, attributes: [NSFontAttributeName:font])
+                self.wordCloudItems?[itemIndex].bounds = CGRect(x: CGFloat(x), y: CGFloat(y), width: text.size().width, height: text.size().height)
+                drawText(context, text: text, x: x, y: y)
+            }
         }
     }
     
