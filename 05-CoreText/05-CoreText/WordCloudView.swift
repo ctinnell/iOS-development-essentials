@@ -31,6 +31,10 @@ class WordCloudView: UIView {
     }
     
     private var drawingDirection = WordCloudDrawingDirection.Right
+    
+    private var xAdjustmentDirection = WordCloudDrawingDirection.Right
+    private var yAdjustmentDirection = WordCloudDrawingDirection.Up
+    
     private var wordsPerLine = 1.0
     private var wordCount = 0.0
 
@@ -159,12 +163,26 @@ class WordCloudView: UIView {
             if let font = UIFont(name: "Helvetica", size: CGFloat(10 * item.count)) {
                 let text = NSAttributedString(string: item.word, attributes: [NSFontAttributeName:font])
                 var bounds = CGRect(x: CGFloat(x), y: CGFloat(y), width: text.size().width, height: text.size().height)
-                
+                configureXAdjustmentDirection(bounds.origin.x)
+                configureYAdjustmentDirection(bounds.origin.y)
                 var intersect = true
                 while intersect {
-                    intersect = boundsIntersectsAnotherItem(bounds)
+                    if xAdjustmentDirection == .Left {
+                        print("Left")
+                    }
+                    else {
+                        print("Right")
+                    }
+                    if yAdjustmentDirection == .Up {
+                        print("Up")
+                    }
+                    else {
+                        print("Down")
+                    }
+                   intersect = boundsIntersectsAnotherItem(bounds)
                     if intersect {
                         bounds = adjustedBoundsForIntersect(bounds)
+                        print("Item Index: \(itemIndex) (x=\(bounds.origin.x), y=\(bounds.origin.y)) ")
                     }
                     else {
                         self.wordCloudItems?[itemIndex].bounds = bounds
@@ -178,21 +196,77 @@ class WordCloudView: UIView {
     private func adjustedBoundsForIntersect(bounds: CGRect) -> CGRect {
         var newX = bounds.origin.x
         var newY = bounds.origin.y
-        let (centerX,centerY) = center()
-        if (bounds.origin.x > CGFloat(centerX)){
-            newX += 10.0
-        }
-        else {
-            newX -= 10.0
-        }
         
-        if (bounds.origin.y > CGFloat(centerY)) {
-            newY -= 10.0
+        let factor: CGFloat = 10.0
+        newX = adjustedXConstrainedToView(newX, factor: factor)
+        
+        newY = adjustedYConstrainedToView(newY, factor: factor)
+        
+        return CGRect(x: newX, y: newY, width: bounds.size.width, height: bounds.size.height)
+    }
+    
+    private func configureXAdjustmentDirection(x: CGFloat) {
+        let (centerX,_) = center()
+        var direction: WordCloudDrawingDirection = .Right
+        if x > CGFloat(centerX) {
+            direction = .Left
+        }
+        xAdjustmentDirection = direction
+    }
+    
+    private func configureYAdjustmentDirection(y: CGFloat) {
+        let (_,centerY) = center()
+        var direction: WordCloudDrawingDirection = .Down
+        if y > CGFloat(centerY) {
+            direction = .Up
+        }
+        yAdjustmentDirection = direction
+    }
+    
+    private func adjustedXConstrainedToView(x: CGFloat, factor: CGFloat) -> CGFloat {
+        var adjustedX = x
+        if xAdjustmentDirection == .Right {
+            if x+factor <= self.bounds.width - 25.0 {
+                adjustedX = x + factor
+            }
+            else {
+                adjustedX = x - factor
+                xAdjustmentDirection = .Left
+            }
         }
         else {
-            newY += 10.0
+            if x-factor > 0.0 {
+                adjustedX = x-factor
+            }
+            else {
+                adjustedX = x+factor
+                xAdjustmentDirection = .Right
+            }
         }
-        return CGRect(x: newX, y: newY, width: bounds.size.width, height: bounds.size.height)
+        return adjustedX
+    }
+    
+    private func adjustedYConstrainedToView(y: CGFloat, factor: CGFloat) -> CGFloat {
+        var adjustedY = y
+        if yAdjustmentDirection == .Up {
+            if y+factor <= self.bounds.height - 25.0 {
+                adjustedY = y + factor
+            }
+            else {
+                adjustedY = y - factor
+                yAdjustmentDirection = .Down
+            }
+        }
+        else {
+            if y-factor > 0 {
+                adjustedY = y - factor
+            }
+            else {
+                adjustedY = y + factor
+                yAdjustmentDirection = .Up
+            }
+        }
+        return adjustedY
     }
     
     private func drawText(context: CGContextRef, text: NSAttributedString, x: Double, y: Double) {
