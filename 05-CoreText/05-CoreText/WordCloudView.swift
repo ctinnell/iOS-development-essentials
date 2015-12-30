@@ -128,11 +128,22 @@ class WordCloudView: UIView {
         return (x,y+factor)
     }
 
-    
-//    func sizeForAttributedString(string: NSAttributedString) -> CGSize {
-//        let frameSetter = CTFramesetterCreateWithAttributedString(string)
-//        
-//    }
+    private func boundsIntersectsAnotherItem(bounds: CGRect) -> Bool {
+        var intersects = false
+        if let wordCloudItems = wordCloudItems {
+            for item in wordCloudItems {
+                if let otherItemBounds = item.bounds {
+                    if CGRectIntersectsRect(bounds, otherItemBounds) {
+                        intersects = true
+                        print("Overlap")
+                        break
+                    }
+                }
+            }
+            
+        }
+        return intersects
+    }
     
     // MARK: - Core Text Drawing
     private func flipCoordinateSystem(context: CGContextRef) {
@@ -147,7 +158,9 @@ class WordCloudView: UIView {
         if let item = wordCloudItems?[itemIndex] {
             if let font = UIFont(name: "Helvetica", size: CGFloat(10 * item.count)) {
                 let text = NSAttributedString(string: item.word, attributes: [NSFontAttributeName:font])
-                self.wordCloudItems?[itemIndex].bounds = CGRect(x: CGFloat(x), y: CGFloat(y), width: text.size().width, height: text.size().height)
+                let bounds = CGRect(x: CGFloat(x), y: CGFloat(y), width: text.size().width, height: text.size().height)
+                boundsIntersectsAnotherItem(bounds)
+                self.wordCloudItems?[itemIndex].bounds = bounds
                 drawText(context, text: text, x: x, y: y)
             }
         }
