@@ -158,12 +158,41 @@ class WordCloudView: UIView {
         if let item = wordCloudItems?[itemIndex] {
             if let font = UIFont(name: "Helvetica", size: CGFloat(10 * item.count)) {
                 let text = NSAttributedString(string: item.word, attributes: [NSFontAttributeName:font])
-                let bounds = CGRect(x: CGFloat(x), y: CGFloat(y), width: text.size().width, height: text.size().height)
-                boundsIntersectsAnotherItem(bounds)
-                self.wordCloudItems?[itemIndex].bounds = bounds
-                drawText(context, text: text, x: x, y: y)
+                var bounds = CGRect(x: CGFloat(x), y: CGFloat(y), width: text.size().width, height: text.size().height)
+                
+                var intersect = true
+                while intersect {
+                    intersect = boundsIntersectsAnotherItem(bounds)
+                    if intersect {
+                        bounds = adjustedBoundsForIntersect(bounds)
+                    }
+                    else {
+                        self.wordCloudItems?[itemIndex].bounds = bounds
+                        drawText(context, text: text, x: Double(bounds.origin.x), y: Double(bounds.origin.y))
+                    }
+                }
             }
         }
+    }
+    
+    private func adjustedBoundsForIntersect(bounds: CGRect) -> CGRect {
+        var newX = bounds.origin.x
+        var newY = bounds.origin.y
+        let (centerX,centerY) = center()
+        if (bounds.origin.x > CGFloat(centerX)){
+            newX += 10.0
+        }
+        else {
+            newX -= 10.0
+        }
+        
+        if (bounds.origin.y > CGFloat(centerY)) {
+            newY -= 10.0
+        }
+        else {
+            newY += 10.0
+        }
+        return CGRect(x: newX, y: newY, width: bounds.size.width, height: bounds.size.height)
     }
     
     private func drawText(context: CGContextRef, text: NSAttributedString, x: Double, y: Double) {
