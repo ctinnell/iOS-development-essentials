@@ -153,7 +153,7 @@ class WordCloudView: UIView {
             if let font = UIFont(name: "Helvetica", size: CGFloat(10 * item.count)) {
                 let text = NSMutableAttributedString(string: item.word, attributes: [NSFontAttributeName:font])
                 text.addAttribute(NSForegroundColorAttributeName, value: wordColor(), range:NSRange(location: 0, length: text.length))
-                var bounds = CGRect(x: CGFloat(max(x,22.0)), y: CGFloat(max(y, 22.0)), width: text.size().width, height: text.size().height)
+                var bounds = CGRect(x: CGFloat(min(max(x,22.0), Double(self.bounds.size.width - 25.0))), y: CGFloat(min(max(y, 22.0),Double(self.bounds.size.height - 25.0))), width: text.size().width, height: text.size().height)
                 configureXAdjustmentDirection(bounds.origin.x)
                 configureYAdjustmentDirection(bounds.origin.y)
                 var intersect = true
@@ -181,16 +181,21 @@ class WordCloudView: UIView {
     
     private func boundsIntersectsAnotherItem(bounds: CGRect) -> Bool {
         var intersects = false
+        var counter = 0
         if let wordCloudItems = wordCloudItems {
             for item in wordCloudItems {
+                counter++
                 if let otherItemBounds = item.bounds {
                     if CGRectIntersectsRect(bounds, otherItemBounds) {
                         intersects = true
                         break
                     }
+                    else if counter > 1000 {
+                        intersects = false
+                        break
+                    }
                 }
             }
-            
         }
         return intersects
     }
