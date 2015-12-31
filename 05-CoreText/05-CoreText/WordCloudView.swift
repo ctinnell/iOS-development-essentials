@@ -38,7 +38,6 @@ class WordCloudView: UIView {
     private var wordsPerLine = 1.0
     private var wordCount = 0.0
 
-
     var wordCloudItems: [WordCloudParser.WordCloudElement]?
     
     //MARK: - UIView
@@ -131,23 +130,6 @@ class WordCloudView: UIView {
         drawingDirection = .Up
         return (x,y+factor)
     }
-
-    private func boundsIntersectsAnotherItem(bounds: CGRect) -> Bool {
-        var intersects = false
-        if let wordCloudItems = wordCloudItems {
-            for item in wordCloudItems {
-                if let otherItemBounds = item.bounds {
-                    if CGRectIntersectsRect(bounds, otherItemBounds) {
-                        intersects = true
-                        print("Overlap")
-                        break
-                    }
-                }
-            }
-            
-        }
-        return intersects
-    }
     
     // MARK: - Core Text Drawing
     
@@ -176,22 +158,9 @@ class WordCloudView: UIView {
                 configureYAdjustmentDirection(bounds.origin.y)
                 var intersect = true
                 while intersect {
-                    if xAdjustmentDirection == .Left {
-                        print("Left")
-                    }
-                    else {
-                        print("Right")
-                    }
-                    if yAdjustmentDirection == .Up {
-                        print("Up")
-                    }
-                    else {
-                        print("Down")
-                    }
                    intersect = boundsIntersectsAnotherItem(bounds)
                     if intersect {
                         bounds = adjustedBoundsForIntersect(bounds)
-                        print("Item Index: \(itemIndex) (x=\(bounds.origin.x), y=\(bounds.origin.y)) ")
                     }
                     else {
                         self.wordCloudItems?[itemIndex].bounds = bounds
@@ -200,6 +169,30 @@ class WordCloudView: UIView {
                 }
             }
         }
+    }
+    
+    private func drawText(context: CGContextRef, text: NSAttributedString, x: Double, y: Double) {
+        let line = CTLineCreateWithAttributedString(text)
+        CGContextSetTextPosition(context, CGFloat(x), CGFloat(y));
+        CTLineDraw(line, context);
+    }
+    
+    // MARK: - Intersect detection and adjustment
+    
+    private func boundsIntersectsAnotherItem(bounds: CGRect) -> Bool {
+        var intersects = false
+        if let wordCloudItems = wordCloudItems {
+            for item in wordCloudItems {
+                if let otherItemBounds = item.bounds {
+                    if CGRectIntersectsRect(bounds, otherItemBounds) {
+                        intersects = true
+                        break
+                    }
+                }
+            }
+            
+        }
+        return intersects
     }
     
     private func adjustedBoundsForIntersect(bounds: CGRect) -> CGRect {
@@ -278,9 +271,4 @@ class WordCloudView: UIView {
         return adjustedY
     }
     
-    private func drawText(context: CGContextRef, text: NSAttributedString, x: Double, y: Double) {
-        let line = CTLineCreateWithAttributedString(text)
-        CGContextSetTextPosition(context, CGFloat(x), CGFloat(y));
-        CTLineDraw(line, context);
-    }
 }
