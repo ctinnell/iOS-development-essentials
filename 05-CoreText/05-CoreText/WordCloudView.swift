@@ -170,7 +170,7 @@ class WordCloudView: UIView {
         if let item = wordCloudItems?[itemIndex] {
             if let font = UIFont(name: "Helvetica", size: CGFloat(10 * item.count)) {
                 let text = NSMutableAttributedString(string: item.word, attributes: [NSFontAttributeName:font])
-                text.addAttribute("NSForegroundColorAttributeName", value: UIColor.redColor(), range:NSRange(location: 0, length: text.length))
+                text.addAttribute(NSForegroundColorAttributeName, value: wordColor(), range:NSRange(location: 0, length: text.length))
                 var bounds = CGRect(x: CGFloat(max(x,22.0)), y: CGFloat(max(y, 22.0)), width: text.size().width, height: text.size().height)
                 configureXAdjustmentDirection(bounds.origin.x)
                 configureYAdjustmentDirection(bounds.origin.y)
