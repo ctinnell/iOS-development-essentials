@@ -150,6 +150,14 @@ class WordCloudView: UIView {
     }
     
     // MARK: - Core Text Drawing
+    
+    private func wordColor() -> UIColor {
+        let red:CGFloat = CGFloat(drand48())
+        let green:CGFloat = CGFloat(drand48())
+        let blue:CGFloat = CGFloat(drand48())
+        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+    }
+    
     private func flipCoordinateSystem(context: CGContextRef) {
         // Flip the coordinate system
         CGContextSetTextMatrix(context, CGAffineTransformIdentity);
@@ -161,8 +169,9 @@ class WordCloudView: UIView {
     private func drawItem(context: CGContextRef, itemIndex: Int, x: Double, y: Double) {
         if let item = wordCloudItems?[itemIndex] {
             if let font = UIFont(name: "Helvetica", size: CGFloat(10 * item.count)) {
-                let text = NSAttributedString(string: item.word, attributes: [NSFontAttributeName:font])
-                var bounds = CGRect(x: CGFloat(x), y: CGFloat(y), width: text.size().width, height: text.size().height)
+                let text = NSMutableAttributedString(string: item.word, attributes: [NSFontAttributeName:font])
+                text.addAttribute("NSForegroundColorAttributeName", value: UIColor.redColor(), range:NSRange(location: 0, length: text.length))
+                var bounds = CGRect(x: CGFloat(max(x,22.0)), y: CGFloat(max(y, 22.0)), width: text.size().width, height: text.size().height)
                 configureXAdjustmentDirection(bounds.origin.x)
                 configureYAdjustmentDirection(bounds.origin.y)
                 var intersect = true
@@ -258,7 +267,7 @@ class WordCloudView: UIView {
             }
         }
         else {
-            if y-factor > 0 {
+            if y-factor > 75.0 {
                 adjustedY = y - factor
             }
             else {
