@@ -15,15 +15,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let parseButton = UIBarButtonItem(title: "Word Cloud", style: .Plain, target: self, action: "generateWordCloud")
-        self.navigationItem.rightBarButtonItem = parseButton
+        let actionSheetButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "presentActionSheet")
+        self.navigationItem.rightBarButtonItem = actionSheetButton
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    func generateWordCloud() {
+    func generateWordCloud(action: UIAlertAction) {
         let wordCloudItems = WordCloudParser.wordCloudElements(textView.text)
         for item in wordCloudItems {
             print("\(item.word) (\(item.count))")
@@ -32,9 +32,23 @@ class ViewController: UIViewController {
     }
     
     func presentWordCloudViewController(words: [WordCloudParser.WordCloudElement]) {
-        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("wordCloudViewController") as! WordCloudViewController
-        vc.wordCloudItems = words
-        self.navigationController?.pushViewController(vc, animated: true)
+        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("wordCloudViewController") as? WordCloudViewController {
+            vc.wordCloudItems = words
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func presentTwoColumnTextViewController(action: UIAlertAction) {
+        if let vc = storyboard?.instantiateViewControllerWithIdentifier("twoColumnTextViewController") as? TwoColumnTextViewController {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func presentActionSheet() {
+        let actionSheet = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .ActionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Word Cloud", style: .Default, handler: generateWordCloud))
+        actionSheet.addAction(UIAlertAction(title: "Two Column Text", style: .Default, handler: presentTwoColumnTextViewController))
+        presentViewController(actionSheet, animated: true, completion: nil)
     }
 }
 

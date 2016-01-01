@@ -63,6 +63,24 @@
             </objects>
             <point key="canvasLocation" x="1878" y="462"/>
         </scene>
+        <!--Two Column Text View Controller-->
+        <scene sceneID="fz5-jC-Vmc">
+            <objects>
+                <viewController storyboardIdentifier="twoColumnTextViewController" id="Wl1-sE-HaF" customClass="TwoColumnTextViewController" customModule="_5_CoreText" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Rx7-Ga-1DP"/>
+                        <viewControllerLayoutGuide type="bottom" id="z4K-Qy-bb7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CeC-wW-JlR">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g9J-8w-f4l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2630" y="459"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="t09-to-bi7">
             <objects>
