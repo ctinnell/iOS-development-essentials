@@ -71,11 +71,14 @@
                         <viewControllerLayoutGuide type="top" id="Rx7-Ga-1DP"/>
                         <viewControllerLayoutGuide type="bottom" id="z4K-Qy-bb7"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="CeC-wW-JlR">
+                    <view key="view" contentMode="scaleToFill" id="CeC-wW-JlR" customClass="TwoColumnTextView" customModule="_5_CoreText" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="twoColumnTextView" destination="CeC-wW-JlR" id="Z75-UT-GpX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g9J-8w-f4l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

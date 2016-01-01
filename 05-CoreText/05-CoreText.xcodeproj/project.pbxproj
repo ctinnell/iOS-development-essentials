@@ -17,6 +17,7 @@
 		840A2D541C2B2A9E003639FF /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840A2D531C2B2A9E003639FF /* CoreText.framework */; };
 		840A2D571C2C2CC3003639FF /* WordCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A2D561C2C2CC3003639FF /* WordCloudView.swift */; };
 		840A2D5B1C36B8C5003639FF /* TwoColumnTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A2D5A1C36B8C5003639FF /* TwoColumnTextViewController.swift */; };
+		840A2D5D1C36C87D003639FF /* TwoColumnTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A2D5C1C36C87D003639FF /* TwoColumnTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		840A2D531C2B2A9E003639FF /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		840A2D561C2C2CC3003639FF /* WordCloudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCloudView.swift; sourceTree = "<group>"; };
 		840A2D5A1C36B8C5003639FF /* TwoColumnTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwoColumnTextViewController.swift; path = "Two Column/TwoColumnTextViewController.swift"; sourceTree = "<group>"; };
+		840A2D5C1C36C87D003639FF /* TwoColumnTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwoColumnTextView.swift; path = "Two Column/TwoColumnTextView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				840A2D5A1C36B8C5003639FF /* TwoColumnTextViewController.swift */,
+				840A2D5C1C36C87D003639FF /* TwoColumnTextView.swift */,
 			);
 			name = "Two Column Text";
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				840A2D571C2C2CC3003639FF /* WordCloudView.swift in Sources */,
 				840A2D521C298085003639FF /* WordCloudViewController.swift in Sources */,
 				840A2D3E1C271A6A003639FF /* AppDelegate.swift in Sources */,
+				840A2D5D1C36C87D003639FF /* TwoColumnTextView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

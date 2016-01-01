@@ -10,10 +10,13 @@ import UIKit
 
 class TwoColumnTextViewController: UIViewController {
 
+    var text: String?
+    
+    @IBOutlet var twoColumnTextView: TwoColumnTextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        twoColumnTextView.text = text
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,15 +24,6 @@ class TwoColumnTextViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
 }

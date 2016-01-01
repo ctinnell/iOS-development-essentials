@@ -40,6 +40,7 @@ class ViewController: UIViewController {
     
     func presentTwoColumnTextViewController(action: UIAlertAction) {
         if let vc = storyboard?.instantiateViewControllerWithIdentifier("twoColumnTextViewController") as? TwoColumnTextViewController {
+            vc.text = textView.text
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
