@@ -70,7 +70,7 @@
 				840A2D3F1C271A6A003639FF /* ViewController.swift */,
 				840A2D411C271A6A003639FF /* Main.storyboard */,
 				840A2D581C36B854003639FF /* Word Cloud */,
-				840A2D591C36B88A003639FF /* Two Column */,
+				840A2D591C36B88A003639FF /* Two Column Text */,
 				840A2D441C271A6A003639FF /* Assets.xcassets */,
 				840A2D461C271A6A003639FF /* LaunchScreen.storyboard */,
 				840A2D491C271A6A003639FF /* Info.plist */,
@@ -96,12 +96,12 @@
 			name = "Word Cloud";
 			sourceTree = "<group>";
 		};
-		840A2D591C36B88A003639FF /* Two Column */ = {
+		840A2D591C36B88A003639FF /* Two Column Text */ = {
 			isa = PBXGroup;
 			children = (
 				840A2D5A1C36B8C5003639FF /* TwoColumnTextViewController.swift */,
 			);
-			name = "Two Column";
+			name = "Two Column Text";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
