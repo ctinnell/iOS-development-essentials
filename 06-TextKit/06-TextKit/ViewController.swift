@@ -12,14 +12,24 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let actionSheetButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "presentActionSheet")
+        self.navigationItem.rightBarButtonItem = actionSheetButton
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    func presentWordFlowViewController(action: UIAlertAction) {
+        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("wordFlowViewController") as? WordFlowViewController {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    func presentActionSheet() {
+        let actionSheet = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .ActionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Word Flow", style: .Default, handler: presentWordFlowViewController))
+        presentViewController(actionSheet, animated: true, completion: nil)
+    }
 }
 

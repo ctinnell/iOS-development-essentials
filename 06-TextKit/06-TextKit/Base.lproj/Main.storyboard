@@ -39,6 +39,24 @@
             </objects>
             <point key="canvasLocation" x="1109" y="1089"/>
         </scene>
+        <!--Word Flow View Controller-->
+        <scene sceneID="w1f-l4-LcW">
+            <objects>
+                <viewController storyboardIdentifier="wordFlowViewController" id="Vuc-fT-DR8" customClass="WordFlowViewController" customModule="_6_TextKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jRK-He-qJR"/>
+                        <viewControllerLayoutGuide type="bottom" id="IiL-d6-jNk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="N12-mI-qef">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nmk-8z-l5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1896" y="1096"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="6rG-fq-Dy4">
             <objects>
