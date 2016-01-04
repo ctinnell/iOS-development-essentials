@@ -12,6 +12,7 @@ class WordFlowViewController: UIViewController {
 
     var text: String?
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,11 @@ class WordFlowViewController: UIViewController {
     
     private func configureTextView() {
         textView.text = text
+        if let textView = textView, imageView = imageView {
+            let imageFrame = textView.convertRect(imageView.bounds, fromCoordinateSpace: self.imageView)
+            let path = UIBezierPath(rect: imageFrame)
+            self.textView.textContainer.exclusionPaths = [path]
+        }
     }
     
 

@@ -61,16 +61,27 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="parisPeace" translatesAutoresizingMaskIntoConstraints="NO" id="ZxJ-0D-7fo">
+                                <rect key="frame" x="175" y="175" width="180" height="180"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="Apg-0j-epz"/>
+                                    <constraint firstAttribute="width" constant="180" id="VUr-J2-a3R"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="IiL-d6-jNk" firstAttribute="top" secondItem="g8k-S7-phW" secondAttribute="bottom" id="J1L-YG-Cyc"/>
+                            <constraint firstItem="ZxJ-0D-7fo" firstAttribute="centerX" secondItem="N12-mI-qef" secondAttribute="centerX" constant="-35" id="Nue-o8-BfN"/>
                             <constraint firstItem="g8k-S7-phW" firstAttribute="top" secondItem="N12-mI-qef" secondAttribute="topMargin" id="Qf1-Hs-EcB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="g8k-S7-phW" secondAttribute="trailing" constant="-20" id="R8h-eo-QT5"/>
+                            <constraint firstItem="ZxJ-0D-7fo" firstAttribute="centerY" secondItem="N12-mI-qef" secondAttribute="centerY" constant="-35" id="V1c-I9-pqN"/>
                             <constraint firstItem="g8k-S7-phW" firstAttribute="leading" secondItem="N12-mI-qef" secondAttribute="leadingMargin" constant="-20" id="sKv-f3-NMI"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="imageView" destination="ZxJ-0D-7fo" id="ET6-0w-NhW"/>
                         <outlet property="textView" destination="g8k-S7-phW" id="kne-yo-p2j"/>
                     </connections>
                 </viewController>
@@ -97,4 +108,7 @@
             <point key="canvasLocation" x="336" y="1089"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="parisPeace" width="180" height="180"/>
+    </resources>
 </document>
