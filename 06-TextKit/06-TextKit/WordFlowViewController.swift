@@ -20,7 +20,8 @@ class WordFlowViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         configureTextView()
     }
 
@@ -32,7 +33,9 @@ class WordFlowViewController: UIViewController {
     private func configureTextView() {
         textView.text = text
         if let textView = textView, imageView = imageView {
-            let imageFrame = textView.convertRect(imageView.bounds, fromCoordinateSpace: self.imageView)
+            var imageFrame = textView.convertRect(imageView.bounds, fromCoordinateSpace: self.imageView)
+            imageFrame.origin.x -= textView.textContainerInset.left
+            imageFrame.origin.y -= textView.textContainerInset.top
             let path = UIBezierPath(rect: imageFrame)
             self.textView.textContainer.exclusionPaths = [path]
         }

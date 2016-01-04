@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -61,23 +60,26 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="parisPeace" translatesAutoresizingMaskIntoConstraints="NO" id="ZxJ-0D-7fo">
-                                <rect key="frame" x="175" y="175" width="180" height="180"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="parisPeace" translatesAutoresizingMaskIntoConstraints="NO" id="ZxJ-0D-7fo">
+                                <rect key="frame" x="210" y="210" width="180" height="180"/>
                                 <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="Apg-0j-epz"/>
                                     <constraint firstAttribute="width" constant="180" id="VUr-J2-a3R"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="180" id="aO5-eq-FSJ"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="xW4-pL-7ji"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ZxJ-0D-7fo" firstAttribute="centerX" secondItem="N12-mI-qef" secondAttribute="centerX" id="1R1-cy-kUT"/>
                             <constraint firstItem="IiL-d6-jNk" firstAttribute="top" secondItem="g8k-S7-phW" secondAttribute="bottom" id="J1L-YG-Cyc"/>
-                            <constraint firstItem="ZxJ-0D-7fo" firstAttribute="centerX" secondItem="N12-mI-qef" secondAttribute="centerX" constant="-35" id="Nue-o8-BfN"/>
-                            <constraint firstItem="g8k-S7-phW" firstAttribute="top" secondItem="N12-mI-qef" secondAttribute="topMargin" id="Qf1-Hs-EcB"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="g8k-S7-phW" secondAttribute="trailing" constant="-20" id="R8h-eo-QT5"/>
-                            <constraint firstItem="ZxJ-0D-7fo" firstAttribute="centerY" secondItem="N12-mI-qef" secondAttribute="centerY" constant="-35" id="V1c-I9-pqN"/>
-                            <constraint firstItem="g8k-S7-phW" firstAttribute="leading" secondItem="N12-mI-qef" secondAttribute="leadingMargin" constant="-20" id="sKv-f3-NMI"/>
+                            <constraint firstItem="IiL-d6-jNk" firstAttribute="top" secondItem="g8k-S7-phW" secondAttribute="bottom" id="aMw-eJ-2ny"/>
+                            <constraint firstItem="g8k-S7-phW" firstAttribute="leading" secondItem="N12-mI-qef" secondAttribute="leading" id="cvA-1Z-yqE"/>
+                            <constraint firstItem="ZxJ-0D-7fo" firstAttribute="centerY" secondItem="N12-mI-qef" secondAttribute="centerY" id="es8-T1-elg"/>
+                            <constraint firstAttribute="trailing" secondItem="g8k-S7-phW" secondAttribute="trailing" id="fam-Gi-cCF"/>
+                            <constraint firstItem="g8k-S7-phW" firstAttribute="top" secondItem="N12-mI-qef" secondAttribute="top" id="iaF-B1-0bK"/>
                         </constraints>
                     </view>
                     <connections>
