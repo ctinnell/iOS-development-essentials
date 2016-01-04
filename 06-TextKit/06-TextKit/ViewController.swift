@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var textView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let actionSheetButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "presentActionSheet")
@@ -23,6 +25,7 @@ class ViewController: UIViewController {
     
     func presentWordFlowViewController(action: UIAlertAction) {
         if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("wordFlowViewController") as? WordFlowViewController {
+            vc.text = textView.text
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
