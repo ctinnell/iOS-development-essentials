@@ -19,8 +19,11 @@ class MovableWordFlowViewController: UIViewController {
         let panGesture = UIPanGestureRecognizer(target: self, action: "imageViewMoved:")
         imageView.addGestureRecognizer(panGesture)
         imageView.userInteractionEnabled = true
-        
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        configureTextView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,20 +31,26 @@ class MovableWordFlowViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-   func imageViewMoved(gesture: UIPanGestureRecognizer) {
+    private func configureTextView() {
+        textView.text = text
+        setExclusionPath()
+    }
+    
+    private func setExclusionPath() {
+        if let textView = textView, imageView = imageView {
+            var imageFrame = textView.convertRect(imageView.bounds, fromCoordinateSpace: self.imageView)
+            imageFrame.origin.x -= textView.textContainerInset.left
+            imageFrame.origin.y -= textView.textContainerInset.top
+            let path = UIBezierPath(rect: imageFrame)
+            self.textView.textContainer.exclusionPaths = [path]
+        }
+    }
+    
+    func imageViewMoved(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translationInView(self.view)
         gesture.view!.center = CGPointMake(gesture.view!.center.x + translation.x, gesture.view!.center.y + translation.y)
         gesture.setTranslation(CGPointZero, inView: self.view)
+        setExclusionPath()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
