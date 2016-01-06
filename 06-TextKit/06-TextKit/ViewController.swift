@@ -29,9 +29,18 @@ class ViewController: UIViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
+
+    func presentMovableWordFlowViewController(action: UIAlertAction) {
+        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("movableWordFlowViewController") as? MovableWordFlowViewController {
+            vc.text = textView.text
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     func presentActionSheet() {
         let actionSheet = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .ActionSheet)
         actionSheet.addAction(UIAlertAction(title: "Word Flow", style: .Default, handler: presentWordFlowViewController))
+        actionSheet.addAction(UIAlertAction(title: "Movable Word Flow", style: .Default, handler: presentMovableWordFlowViewController))
         presentViewController(actionSheet, animated: true, completion: nil)
     }
 }
