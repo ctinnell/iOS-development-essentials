@@ -16,7 +16,10 @@ class MovableWordFlowViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let panGesture = UIPanGestureRecognizer(target: self, action: "imageViewMoved:")
+        imageView.addGestureRecognizer(panGesture)
+        imageView.userInteractionEnabled = true
+        
         // Do any additional setup after loading the view.
     }
 
@@ -25,6 +28,11 @@ class MovableWordFlowViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+   func imageViewMoved(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translationInView(self.view)
+        gesture.view!.center = CGPointMake(gesture.view!.center.x + translation.x, gesture.view!.center.y + translation.y)
+        gesture.setTranslation(CGPointZero, inView: self.view)
+    }
 
     /*
     // MARK: - Navigation
