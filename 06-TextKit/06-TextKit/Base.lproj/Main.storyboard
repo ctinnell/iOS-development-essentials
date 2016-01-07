@@ -158,6 +158,64 @@
             </objects>
             <point key="canvasLocation" x="2529" y="1089"/>
         </scene>
+        <!--Two Column View Controller-->
+        <scene sceneID="4cI-ec-dOf">
+            <objects>
+                <viewController storyboardIdentifier="twoColumnViewController" id="Q9c-Ov-E3t" customClass="TwoColumnViewController" customModule="_6_TextKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DIz-mV-RPI"/>
+                        <viewControllerLayoutGuide type="bottom" id="plq-z8-TIB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pri-aJ-0co">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="d0Q-M2-4sX">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WUz-Lp-CrO">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="600"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="Jg8-En-XIp"/>
+                                        </constraints>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XiO-X8-gpA">
+                                        <rect key="frame" x="300" y="0.0" width="300" height="600"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="XiO-X8-gpA" firstAttribute="top" secondItem="d0Q-M2-4sX" secondAttribute="top" id="FS9-gL-yM8"/>
+                                    <constraint firstAttribute="trailing" secondItem="XiO-X8-gpA" secondAttribute="trailing" id="O3X-xz-Tc7"/>
+                                    <constraint firstItem="WUz-Lp-CrO" firstAttribute="top" secondItem="d0Q-M2-4sX" secondAttribute="top" id="RAj-r6-VzK"/>
+                                    <constraint firstAttribute="bottom" secondItem="WUz-Lp-CrO" secondAttribute="bottom" id="eJ7-KQ-tdP"/>
+                                    <constraint firstItem="XiO-X8-gpA" firstAttribute="leading" secondItem="WUz-Lp-CrO" secondAttribute="trailing" id="rte-Zs-b9r"/>
+                                    <constraint firstItem="WUz-Lp-CrO" firstAttribute="leading" secondItem="d0Q-M2-4sX" secondAttribute="leading" id="yft-3o-4ou"/>
+                                    <constraint firstAttribute="bottom" secondItem="XiO-X8-gpA" secondAttribute="bottom" id="ykR-Aw-11v"/>
+                                    <constraint firstItem="XiO-X8-gpA" firstAttribute="leading" secondItem="WUz-Lp-CrO" secondAttribute="trailing" id="zdi-gT-Kxk"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="plq-z8-TIB" firstAttribute="top" secondItem="d0Q-M2-4sX" secondAttribute="bottom" id="JxM-DE-fRt"/>
+                            <constraint firstAttribute="trailing" secondItem="d0Q-M2-4sX" secondAttribute="trailing" id="agK-BB-Ge5"/>
+                            <constraint firstItem="d0Q-M2-4sX" firstAttribute="leading" secondItem="pri-aJ-0co" secondAttribute="leading" id="itL-QQ-Xqh"/>
+                            <constraint firstItem="d0Q-M2-4sX" firstAttribute="top" secondItem="pri-aJ-0co" secondAttribute="top" id="sPp-If-DZ7"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R9B-fE-2l5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3209" y="1089"/>
+        </scene>
     </scenes>
     <resources>
         <image name="parisPeace" width="180" height="180"/>

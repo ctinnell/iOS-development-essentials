@@ -37,10 +37,18 @@ class ViewController: UIViewController {
         }
     }
     
+    func presentTwoColumnViewController(action: UIAlertAction) {
+        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("twoColumnViewController") as? TwoColumnViewController {
+            vc.text = textView.text
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     func presentActionSheet() {
         let actionSheet = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .ActionSheet)
         actionSheet.addAction(UIAlertAction(title: "Word Flow", style: .Default, handler: presentWordFlowViewController))
         actionSheet.addAction(UIAlertAction(title: "Movable Word Flow", style: .Default, handler: presentMovableWordFlowViewController))
+        actionSheet.addAction(UIAlertAction(title: "Two Column Text", style: .Default, handler: presentTwoColumnViewController))
         presentViewController(actionSheet, animated: true, completion: nil)
     }
 }

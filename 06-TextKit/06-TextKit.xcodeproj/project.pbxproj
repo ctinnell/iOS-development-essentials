@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		84BBC71C1C3CB19900FB6A34 /* MovableWordFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBC71B1C3CB19900FB6A34 /* MovableWordFlowViewController.swift */; };
+		84BBC71E1C3DD9BC00FB6A34 /* TwoColumnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBC71D1C3DD9BC00FB6A34 /* TwoColumnViewController.swift */; };
 		84DD7B971C38777C004F4E4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD7B961C38777C004F4E4B /* AppDelegate.swift */; };
 		84DD7B991C38777C004F4E4B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD7B981C38777C004F4E4B /* ViewController.swift */; };
 		84DD7B9C1C38777C004F4E4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84DD7B9A1C38777C004F4E4B /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		84BBC71B1C3CB19900FB6A34 /* MovableWordFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableWordFlowViewController.swift; sourceTree = "<group>"; };
+		84BBC71D1C3DD9BC00FB6A34 /* TwoColumnViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoColumnViewController.swift; sourceTree = "<group>"; };
 		84DD7B931C38777C004F4E4B /* 06-TextKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "06-TextKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84DD7B961C38777C004F4E4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84DD7B981C38777C004F4E4B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				84DD7B981C38777C004F4E4B /* ViewController.swift */,
 				84DD7BA81C39E4D4004F4E4B /* WordFlowViewController.swift */,
 				84BBC71B1C3CB19900FB6A34 /* MovableWordFlowViewController.swift */,
+				84BBC71D1C3DD9BC00FB6A34 /* TwoColumnViewController.swift */,
 				84DD7B9A1C38777C004F4E4B /* Main.storyboard */,
 				84DD7B9D1C38777C004F4E4B /* Assets.xcassets */,
 				84DD7B9F1C38777C004F4E4B /* LaunchScreen.storyboard */,
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84DD7B991C38777C004F4E4B /* ViewController.swift in Sources */,
+				84BBC71E1C3DD9BC00FB6A34 /* TwoColumnViewController.swift in Sources */,
 				84DD7BA91C39E4D4004F4E4B /* WordFlowViewController.swift in Sources */,
 				84DD7B971C38777C004F4E4B /* AppDelegate.swift in Sources */,
 				84BBC71C1C3CB19900FB6A34 /* MovableWordFlowViewController.swift in Sources */,
