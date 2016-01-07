@@ -211,6 +211,10 @@
                             <constraint firstItem="d0Q-M2-4sX" firstAttribute="top" secondItem="pri-aJ-0co" secondAttribute="top" id="sPp-If-DZ7"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="leftTextView" destination="WUz-Lp-CrO" id="Lu7-6G-gKb"/>
+                        <outlet property="rightTextView" destination="XiO-X8-gpA" id="mnu-dG-gZ0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R9B-fE-2l5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
