@@ -11,19 +11,13 @@ import UIKit
 class TwoColumnViewController: UIViewController {
 
     var text: String?
-    
-    @IBOutlet weak var leftTextView: UITextView!
-    @IBOutlet weak var rightTextView: UITextView!
+    var leftTextView: UITextView?
+    var rightTextView: UITextView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
         initializeTextViews()
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,21 +31,22 @@ class TwoColumnViewController: UIViewController {
     }
 
     func initializeLeftTextView() {
-        leftTextView.text = text
-        leftTextView.scrollEnabled = false
+        let frame = CGRect(x: 0, y: 0, width: view.frame.width/2.0, height: view.frame.height)
+        leftTextView = UITextView(frame: frame)
+        leftTextView!.text = text
+        leftTextView!.scrollEnabled = false
+        leftTextView?.font = UIFont.systemFontOfSize(15)
+        view.addSubview(leftTextView!)
     }
     
     func initializeRightTextView() {
-        
-    }
-    /*
-    // MARK: - Navigation
+        let textContainer = NSTextContainer()
+        leftTextView?.layoutManager.addTextContainer(textContainer)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let frame = CGRect(x: view.frame.width/2.0, y: 0, width: view.frame.width/2.0, height: view.frame.height)
+        rightTextView = UITextView(frame: frame, textContainer: textContainer)
+        rightTextView?.font = UIFont.systemFontOfSize(15)
+        rightTextView?.scrollEnabled = false
+        view.addSubview(rightTextView!)
     }
-    */
-
 }
