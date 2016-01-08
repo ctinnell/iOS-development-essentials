@@ -14,6 +14,9 @@ class TwoColumnViewController: UIViewController {
     var leftTextView: UITextView?
     var rightTextView: UITextView?
     
+    var imageView = UIImageView(image: UIImage(named: "butterfly"))
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeTextViews()
@@ -52,12 +55,20 @@ class TwoColumnViewController: UIViewController {
     }
     
     func addImageToView(action: UIAlertAction) {
-        
+        removeImageFromView(nil)
+        imageView.center = CGPointMake(view.frame.size.width/2, view.frame.size.height/2)
+        view.addSubview(imageView)
+    }
+    
+    func removeImageFromView(action: UIAlertAction?) {
+        imageView.removeFromSuperview()
     }
     
     func presentActionSheet(sender: UIBarButtonItem) {
         let actionSheet = UIAlertController(title: "Select Action", message: nil, preferredStyle: .ActionSheet)
         actionSheet.addAction(UIAlertAction(title: "Add Image", style: .Default, handler: addImageToView))
+        actionSheet.addAction(UIAlertAction(title: "Remove Image", style: .Default, handler: removeImageFromView))
+        
         presentViewController(actionSheet, animated: true, completion: nil)
     }
 }
