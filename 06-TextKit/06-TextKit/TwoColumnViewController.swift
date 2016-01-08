@@ -17,6 +17,7 @@ class TwoColumnViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeTextViews()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "presentActionSheet:")
         // Do any additional setup after loading the view.
     }
 
@@ -48,5 +49,15 @@ class TwoColumnViewController: UIViewController {
         rightTextView?.font = UIFont.systemFontOfSize(15)
         rightTextView?.scrollEnabled = false
         view.addSubview(rightTextView!)
+    }
+    
+    func addImageToView(action: UIAlertAction) {
+        
+    }
+    
+    func presentActionSheet(sender: UIBarButtonItem) {
+        let actionSheet = UIAlertController(title: "Select Action", message: nil, preferredStyle: .ActionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Add Image", style: .Default, handler: addImageToView))
+        presentViewController(actionSheet, animated: true, completion: nil)
     }
 }
