@@ -21,7 +21,9 @@ class TwoColumnViewController: UIViewController {
         super.viewDidLoad()
         initializeTextViews()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "presentActionSheet:")
-        // Do any additional setup after loading the view.
+        let panGesture = UIPanGestureRecognizer(target: self, action: "imageViewMoved:")
+        imageView.addGestureRecognizer(panGesture)
+        imageView.userInteractionEnabled = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,12 +31,12 @@ class TwoColumnViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func initializeTextViews() {
+    private func initializeTextViews() {
         initializeLeftTextView()
         initializeRightTextView()
     }
 
-    func initializeLeftTextView() {
+    private func initializeLeftTextView() {
         let frame = CGRect(x: 0, y: 0, width: view.frame.width/2.0, height: view.frame.height)
         leftTextView = UITextView(frame: frame)
         leftTextView!.text = text
@@ -43,7 +45,7 @@ class TwoColumnViewController: UIViewController {
         view.addSubview(leftTextView!)
     }
     
-    func initializeRightTextView() {
+    private func initializeRightTextView() {
         let textContainer = NSTextContainer()
         leftTextView?.layoutManager.addTextContainer(textContainer)
 
@@ -54,14 +56,34 @@ class TwoColumnViewController: UIViewController {
         view.addSubview(rightTextView!)
     }
     
-    func addImageToView(action: UIAlertAction) {
+    private func addImageToView(action: UIAlertAction) {
         removeImageFromView(nil)
         imageView.center = CGPointMake(view.frame.size.width/2, view.frame.size.height/2)
         view.addSubview(imageView)
+        setExclusionPaths()
     }
     
-    func removeImageFromView(action: UIAlertAction?) {
+    private func setExclusionPaths() {
+        setExclusionPath(leftTextView!)
+        setExclusionPath(rightTextView!)
+    }
+    
+    private func setExclusionPath(textView: UITextView) {
+        var imageFrame = textView.convertRect(imageView.bounds, fromCoordinateSpace: self.imageView)
+        imageFrame.origin.x -= textView.textContainerInset.left
+        imageFrame.origin.y -= textView.textContainerInset.top
+        let path = UIBezierPath(ovalInRect: imageFrame)
+        textView.textContainer.exclusionPaths = [path]
+    }
+    
+    private func removeImageFromView(action: UIAlertAction?) {
         imageView.removeFromSuperview()
+        clearExclusionPaths()
+    }
+    
+    private func clearExclusionPaths() {
+        leftTextView?.textContainer.exclusionPaths = []
+        rightTextView?.textContainer.exclusionPaths = []
     }
     
     func presentActionSheet(sender: UIBarButtonItem) {
@@ -70,5 +92,12 @@ class TwoColumnViewController: UIViewController {
         actionSheet.addAction(UIAlertAction(title: "Remove Image", style: .Default, handler: removeImageFromView))
         
         presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
+    func imageViewMoved(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translationInView(self.view)
+        gesture.view!.center = CGPointMake(gesture.view!.center.x + translation.x, gesture.view!.center.y + translation.y)
+        gesture.setTranslation(CGPointZero, inView: self.view)
+        setExclusionPaths()
     }
 }
