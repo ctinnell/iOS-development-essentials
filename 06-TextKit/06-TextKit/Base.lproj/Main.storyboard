@@ -174,7 +174,42 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R9B-fE-2l5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3209" y="1089"/>
+            <point key="canvasLocation" x="1826" y="1774"/>
+        </scene>
+        <!--Letter Press View Controller-->
+        <scene sceneID="PFg-72-Via">
+            <objects>
+                <viewController storyboardIdentifier="letterPressViewController" id="HtJ-Rp-f34" customClass="LetterPressViewController" customModule="_6_TextKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Aeg-xQ-zOc"/>
+                        <viewControllerLayoutGuide type="bottom" id="SUg-z0-uon"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="h9l-4C-rXr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c91-P7-a6Y">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="c91-P7-a6Y" secondAttribute="trailing" id="CAQ-PX-Upe"/>
+                            <constraint firstItem="c91-P7-a6Y" firstAttribute="top" secondItem="h9l-4C-rXr" secondAttribute="top" id="KML-TH-gZt"/>
+                            <constraint firstItem="c91-P7-a6Y" firstAttribute="leading" secondItem="h9l-4C-rXr" secondAttribute="leading" id="RAW-uB-WW9"/>
+                            <constraint firstItem="SUg-z0-uon" firstAttribute="top" secondItem="c91-P7-a6Y" secondAttribute="bottom" id="cqm-mo-ua4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="c91-P7-a6Y" id="mf2-ns-doR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Va3-Mg-i0S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1824" y="2449"/>
         </scene>
     </scenes>
     <resources>

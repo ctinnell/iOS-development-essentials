@@ -43,9 +43,17 @@ class ViewController: UIViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
+
+    func presentLetterPressViewController(action: UIAlertAction) {
+        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("letterPressViewController") as? LetterPressViewController {
+            vc.text = "Pride & Prejudice"
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+
     func presentActionSheet() {
         let actionSheet = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .ActionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Letter Press Text Effect", style: .Default, handler: presentLetterPressViewController))
         actionSheet.addAction(UIAlertAction(title: "Word Flow", style: .Default, handler: presentWordFlowViewController))
         actionSheet.addAction(UIAlertAction(title: "Movable Word Flow", style: .Default, handler: presentMovableWordFlowViewController))
         actionSheet.addAction(UIAlertAction(title: "Two Column Text", style: .Default, handler: presentTwoColumnViewController))
