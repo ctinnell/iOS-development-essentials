@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		841EE7EF1C414B8C006B6C29 /* LetterPressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EE7EE1C414B8C006B6C29 /* LetterPressViewController.swift */; };
+		841EE7F11C42E299006B6C29 /* TextViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841EE7F01C42E299006B6C29 /* TextViewerViewController.swift */; };
 		84BBC71C1C3CB19900FB6A34 /* MovableWordFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBC71B1C3CB19900FB6A34 /* MovableWordFlowViewController.swift */; };
 		84BBC71E1C3DD9BC00FB6A34 /* TwoColumnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBC71D1C3DD9BC00FB6A34 /* TwoColumnViewController.swift */; };
 		84DD7B971C38777C004F4E4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DD7B961C38777C004F4E4B /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		841EE7EE1C414B8C006B6C29 /* LetterPressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LetterPressViewController.swift; sourceTree = "<group>"; };
+		841EE7F01C42E299006B6C29 /* TextViewerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewerViewController.swift; sourceTree = "<group>"; };
 		84BBC71B1C3CB19900FB6A34 /* MovableWordFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableWordFlowViewController.swift; sourceTree = "<group>"; };
 		84BBC71D1C3DD9BC00FB6A34 /* TwoColumnViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoColumnViewController.swift; sourceTree = "<group>"; };
 		84DD7B931C38777C004F4E4B /* 06-TextKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "06-TextKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,7 @@
 				84BBC71B1C3CB19900FB6A34 /* MovableWordFlowViewController.swift */,
 				84BBC71D1C3DD9BC00FB6A34 /* TwoColumnViewController.swift */,
 				841EE7EE1C414B8C006B6C29 /* LetterPressViewController.swift */,
+				841EE7F01C42E299006B6C29 /* TextViewerViewController.swift */,
 				84DD7B9A1C38777C004F4E4B /* Main.storyboard */,
 				84DD7B9D1C38777C004F4E4B /* Assets.xcassets */,
 				84DD7B9F1C38777C004F4E4B /* LaunchScreen.storyboard */,
@@ -152,6 +155,7 @@
 				84DD7BA91C39E4D4004F4E4B /* WordFlowViewController.swift in Sources */,
 				84DD7B971C38777C004F4E4B /* AppDelegate.swift in Sources */,
 				841EE7EF1C414B8C006B6C29 /* LetterPressViewController.swift in Sources */,
+				841EE7F11C42E299006B6C29 /* TextViewerViewController.swift in Sources */,
 				84BBC71C1C3CB19900FB6A34 /* MovableWordFlowViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

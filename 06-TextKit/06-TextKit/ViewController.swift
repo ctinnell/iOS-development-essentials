@@ -51,12 +51,21 @@ class ViewController: UIViewController {
         }
     }
 
+    func presentTextViewerViewController(action: UIAlertAction) {
+        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("textViewerViewController") as? TextViewerViewController {
+            vc.text = textView.text
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+
+
     func presentActionSheet() {
         let actionSheet = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .ActionSheet)
         actionSheet.addAction(UIAlertAction(title: "Letter Press Text Effect", style: .Default, handler: presentLetterPressViewController))
         actionSheet.addAction(UIAlertAction(title: "Word Flow", style: .Default, handler: presentWordFlowViewController))
         actionSheet.addAction(UIAlertAction(title: "Movable Word Flow", style: .Default, handler: presentMovableWordFlowViewController))
         actionSheet.addAction(UIAlertAction(title: "Two Column Text", style: .Default, handler: presentTwoColumnViewController))
+        actionSheet.addAction(UIAlertAction(title: "Text Viewer", style: .Default, handler: presentTextViewerViewController))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         presentViewController(actionSheet, animated: true, completion: nil)
     }
