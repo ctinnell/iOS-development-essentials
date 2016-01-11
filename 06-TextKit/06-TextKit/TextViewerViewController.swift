@@ -22,6 +22,7 @@ class TextViewerViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         configureTextView()
+        //addButton()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,6 +32,11 @@ class TextViewerViewController: UIViewController {
     
     private func configureTextView() {
         textView.text = text
+    }
+    
+    private func addButton() {
+        let button = RoundButtonView(frame: CGRectMake(100, 100, 25, 25), color: UIColor.blueColor(), text: "U", actionBlock: nil)
+        view.addSubview(button)
     }
 
 }
