@@ -13,6 +13,9 @@ class TextViewerViewController: UIViewController {
     var text: String?
     @IBOutlet weak var textView: UITextView!
     
+    private var buttons: [RoundButtonView] = []
+    private let buttonSize = CGFloat(25.0)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,7 +25,6 @@ class TextViewerViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         configureTextView()
-        //addButton()
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,9 +36,30 @@ class TextViewerViewController: UIViewController {
         textView.text = text
     }
     
-    private func addButton() {
-        let button = RoundButtonView(frame: CGRectMake(100, 100, 25, 25), color: UIColor.blueColor(), text: "U", actionBlock: nil)
+    private func addButton(text: String, color: UIColor, actionBlock: (()->())?) {
+        let button = RoundButtonView(frame: CGRectMake(100, 100, buttonSize, buttonSize), color: color, text: text, actionBlock: actionBlock)
         view.addSubview(button)
+        buttons.append(button)
+    }
+    
+    private func removeButtons() {
+        for button in buttons {
+            button.removeFromSuperview()
+        }
+        buttons = []
     }
 
+    func textViewDidChangeSelection(textView: UITextView) {
+        if let selectedRange = textView.selectedTextRange, selectedText = textView.textInRange(selectedRange) {
+            if selectedText.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > 0 {
+                print("text selected: \(selectedText)")
+                if buttons.count == 0 {
+                    addButton("U", color: UIColor.blueColor(), actionBlock: nil)
+                }
+            }
+            else if buttons.count > 0 {
+                removeButtons()
+            }
+        }
+    }
 }
