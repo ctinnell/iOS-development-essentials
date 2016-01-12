@@ -15,6 +15,7 @@ class TextViewerViewController: UIViewController {
     
     private var buttons: [RoundButtonView] = []
     private let buttonSize = CGFloat(25.0)
+    private let buttonPadding = CGFloat(20.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +37,18 @@ class TextViewerViewController: UIViewController {
         textView.text = text
     }
     
+    private func buttonXLocation() -> CGFloat {
+        return view.frame.size.width - (buttonSize + 25.0)
+    }
+    
+    private func buttonYLocation() -> CGFloat {
+        return (view.frame.size.height - (buttonSize / 2)) / 2
+    }
+    
     private func addButton(text: String, color: UIColor, actionBlock: (()->())?) {
-        let button = RoundButtonView(frame: CGRectMake(100, 100, buttonSize, buttonSize), color: color, text: text, actionBlock: actionBlock)
+        let yPosition = buttonYLocation() + ((buttonSize + buttonPadding) * CGFloat(buttons.count))
+        
+        let button = RoundButtonView(frame: CGRectMake(buttonXLocation(), yPosition, buttonSize, buttonSize), color: color, text: text, actionBlock: actionBlock)
         view.addSubview(button)
         buttons.append(button)
     }
@@ -55,6 +66,8 @@ class TextViewerViewController: UIViewController {
                 print("text selected: \(selectedText)")
                 if buttons.count == 0 {
                     addButton("U", color: UIColor.blueColor(), actionBlock: nil)
+                    addButton("I", color: UIColor.greenColor(), actionBlock: nil)
+                    addButton("B", color: UIColor.redColor(), actionBlock: nil)
                 }
             }
             else if buttons.count > 0 {
