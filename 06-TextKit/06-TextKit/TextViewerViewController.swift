@@ -59,12 +59,19 @@ class TextViewerViewController: UIViewController {
     }
     
     private func positionButtons() {
+        for (var index=0; index<self.buttons.count; index++) {
+            self.positionButton(index)
+        }
+    }
+    
+    private func animationButtons(animationBlock: (()->()), completionBlock: (()->())? ) {
         UIView.animateWithDuration(0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: [.CurveEaseIn], animations: { () -> Void in
-            for (var index=0; index<self.buttons.count; index++) {
-                self.positionButton(index)
-            }
-           
-        }, completion: nil)
+                animationBlock()
+            }, completion: { (animationsComleted) -> Void in
+                if let completionBlock = completionBlock {
+                    completionBlock()
+                }
+        })
     }
     
     private func removeButtons() {
@@ -82,7 +89,7 @@ class TextViewerViewController: UIViewController {
                     addButton("U", color: UIColor.blueColor(), actionBlock: nil)
                     addButton("I", color: UIColor.greenColor(), actionBlock: nil)
                     addButton("B", color: UIColor.redColor(), actionBlock: nil)
-                    positionButtons()
+                    animationButtons(positionButtons, completionBlock: nil)
                 }
             }
             else if buttons.count > 0 {
