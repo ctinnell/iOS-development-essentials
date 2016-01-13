@@ -46,11 +46,25 @@ class TextViewerViewController: UIViewController {
     }
     
     private func addButton(text: String, color: UIColor, actionBlock: (()->())?) {
-        let yPosition = buttonYLocation() + ((buttonSize + buttonPadding) * CGFloat(buttons.count))
-        
-        let button = RoundButtonView(frame: CGRectMake(buttonXLocation(), yPosition, buttonSize, buttonSize), color: color, text: text, actionBlock: actionBlock)
+        let buttonInitialOffset = CGFloat(view.frame.size.height + buttonSize + buttonPadding)
+        let button = RoundButtonView(frame: CGRectMake(buttonXLocation(), buttonInitialOffset, buttonSize, buttonSize), color: color, text: text, actionBlock: actionBlock)
         view.addSubview(button)
         buttons.append(button)
+    }
+    
+    private func positionButton(index: Int) {
+        let yPosition = buttonYLocation() + ((buttonSize + buttonPadding) * CGFloat(index + 1))
+        let button = buttons[index]
+        button.frame = CGRectMake(button.frame.origin.x, yPosition, button.frame.size.width, button.frame.size.height)
+    }
+    
+    private func positionButtons() {
+        UIView.animateWithDuration(0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: [.CurveEaseIn], animations: { () -> Void in
+            for (var index=0; index<self.buttons.count; index++) {
+                self.positionButton(index)
+            }
+           
+        }, completion: nil)
     }
     
     private func removeButtons() {
@@ -68,6 +82,7 @@ class TextViewerViewController: UIViewController {
                     addButton("U", color: UIColor.blueColor(), actionBlock: nil)
                     addButton("I", color: UIColor.greenColor(), actionBlock: nil)
                     addButton("B", color: UIColor.redColor(), actionBlock: nil)
+                    positionButtons()
                 }
             }
             else if buttons.count > 0 {
