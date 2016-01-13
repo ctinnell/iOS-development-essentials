@@ -45,22 +45,30 @@ class TextViewerViewController: UIViewController {
         return (view.frame.size.height - (buttonSize / 2)) / 2
     }
     
+    private func buttonInitialOffset() -> CGFloat {
+        return CGFloat(view.frame.size.height + buttonSize + buttonPadding)
+    }
     private func addButton(text: String, color: UIColor, actionBlock: (()->())?) {
-        let buttonInitialOffset = CGFloat(view.frame.size.height + buttonSize + buttonPadding)
-        let button = RoundButtonView(frame: CGRectMake(buttonXLocation(), buttonInitialOffset, buttonSize, buttonSize), color: color, text: text, actionBlock: actionBlock)
+        let button = RoundButtonView(frame: CGRectMake(buttonXLocation(), buttonInitialOffset(), buttonSize, buttonSize), color: color, text: text, actionBlock: actionBlock)
         view.addSubview(button)
         buttons.append(button)
     }
     
-    private func positionButton(index: Int) {
-        let yPosition = buttonYLocation() + ((buttonSize + buttonPadding) * CGFloat(index + 1))
+    private func positionButton(index: Int, yPosition: CGFloat) {
         let button = buttons[index]
         button.frame = CGRectMake(button.frame.origin.x, yPosition, button.frame.size.width, button.frame.size.height)
     }
     
     private func positionButtons() {
         for (var index=0; index<self.buttons.count; index++) {
-            self.positionButton(index)
+            let yPosition = buttonYLocation() + ((buttonSize + buttonPadding) * CGFloat(index + 1))
+            self.positionButton(index, yPosition: yPosition)
+        }
+    }
+    
+    private func hideButtons() {
+        for (var index=0; index<self.buttons.count; index++) {
+            self.positionButton(index, yPosition: buttonInitialOffset())
         }
     }
     
@@ -93,7 +101,7 @@ class TextViewerViewController: UIViewController {
                 }
             }
             else if buttons.count > 0 {
-                removeButtons()
+                animationButtons(hideButtons, completionBlock: removeButtons)
             }
         }
     }
