@@ -19,8 +19,6 @@ class TextViewerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -33,10 +31,7 @@ class TextViewerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    private func configureTextView() {
-        textView.text = text
-    }
-    
+    //MARK - Button Configuration
     private func buttonXLocation() -> CGFloat {
         return view.frame.size.width - (buttonSize + 25.0)
     }
@@ -89,14 +84,15 @@ class TextViewerViewController: UIViewController {
         buttons = []
     }
 
+    //MARK - UITextView Delegate
     func textViewDidChangeSelection(textView: UITextView) {
         if let selectedRange = textView.selectedTextRange, selectedText = textView.textInRange(selectedRange) {
             if selectedText.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > 0 {
-                print("text selected: \(selectedText)")
                 if buttons.count == 0 {
-                    addButton("U", color: UIColor.blueColor(), actionBlock: nil)
-                    addButton("I", color: UIColor.greenColor(), actionBlock: nil)
-                    addButton("B", color: UIColor.redColor(), actionBlock: nil)
+                    addButton("N", color: UIColor.blackColor(), actionBlock: removeAttributes)
+                    addButton("U", color: UIColor.blueColor(), actionBlock: applyUnderlineFormatting)
+                    addButton("I", color: UIColor.greenColor(), actionBlock: applyItalicsFormatting)
+                    addButton("B", color: UIColor.redColor(), actionBlock: applyBoldFormatting)
                     animationButtons(positionButtons, completionBlock: nil)
                 }
             }
@@ -104,5 +100,49 @@ class TextViewerViewController: UIViewController {
                 animationButtons(hideButtons, completionBlock: removeButtons)
             }
         }
+    }
+    
+    //MARK - Text Actions
+    private func applyAttribute(attributeName: String, attributeValue: AnyObject, range: NSRange) {
+        let mutableText = NSMutableAttributedString(attributedString: textView.attributedText)
+        mutableText.addAttribute(attributeName, value: attributeValue, range: range)
+        textView.attributedText = mutableText
+    }
+    
+    private func initializeAttributes() {
+        let range = NSMakeRange(0, textView.attributedText.length)
+        applyAttribute(NSFontAttributeName, attributeValue: UIFont.systemFontOfSize(14), range: range)
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.5
+        applyAttribute(NSParagraphStyleAttributeName, attributeValue: paragraphStyle, range: range)
+    }
+    
+    private func configureTextView() {
+        if let text = text {
+            textView.attributedText = NSAttributedString(string: text)
+            initializeAttributes()
+        }
+    }
+    
+    private func removeAttributes() {
+        let mutableText = NSMutableAttributedString(attributedString: textView.attributedText)
+        mutableText.removeAttribute(NSUnderlineStyleAttributeName, range: textView.selectedRange)
+        mutableText.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(15), range: textView.selectedRange)
+        textView.attributedText = mutableText
+    }
+    
+    private func applyBoldFormatting() {
+        let font = UIFont.boldSystemFontOfSize(14)
+        applyAttribute(NSFontAttributeName, attributeValue: font, range: textView.selectedRange)
+    }
+    
+    private func applyUnderlineFormatting() {
+        applyAttribute(NSUnderlineStyleAttributeName, attributeValue: 1, range: textView.selectedRange)
+    }
+    
+    private func applyItalicsFormatting() {
+        let font = UIFont.italicSystemFontOfSize(14)
+        applyAttribute(NSFontAttributeName, attributeValue: font, range: textView.selectedRange)
     }
 }

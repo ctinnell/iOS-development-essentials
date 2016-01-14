@@ -56,6 +56,5 @@ class RoundButtonView: UIView {
         if let actionBlock = actionBlock {
             actionBlock()
         }
-        print("button pressed")
     }
 }
