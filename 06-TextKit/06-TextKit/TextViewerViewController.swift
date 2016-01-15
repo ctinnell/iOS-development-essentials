@@ -24,11 +24,18 @@ class TextViewerViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         configureTextView()
+        presentInitialAlert()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK - Initial Alert
+    private func presentInitialAlert() {
+        let vc = UIAlertController(title: "Tip", message: "When you select text, you will be presented with formatting options.", preferredStyle: .Alert)
+        vc.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+        presentViewController(vc, animated: true, completion: nil)
     }
     
     //MARK - Button Configuration
