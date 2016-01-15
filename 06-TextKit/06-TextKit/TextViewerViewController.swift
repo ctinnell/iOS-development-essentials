@@ -16,6 +16,7 @@ class TextViewerViewController: UIViewController {
     private var buttons: [RoundButtonView] = []
     private let buttonSize = CGFloat(25.0)
     private let buttonPadding = CGFloat(20.0)
+    private var isInitalAppearance = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +34,12 @@ class TextViewerViewController: UIViewController {
     
     //MARK - Initial Alert
     private func presentInitialAlert() {
-        let vc = UIAlertController(title: "Tip", message: "When you select text, you will be presented with formatting options.", preferredStyle: .Alert)
-        vc.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-        presentViewController(vc, animated: true, completion: nil)
+        if isInitalAppearance {
+            let vc = UIAlertController(title: "Tip", message: "When you select text, you will be presented with formatting options.", preferredStyle: .Alert)
+            vc.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+            presentViewController(vc, animated: true, completion: nil)
+            isInitalAppearance = false
+        }
     }
     
     //MARK - Button Configuration

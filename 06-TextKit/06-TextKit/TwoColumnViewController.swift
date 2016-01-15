@@ -14,7 +14,8 @@ class TwoColumnViewController: UIViewController {
     var leftTextView: UITextView?
     var rightTextView: UITextView?
     
-    var imageView = UIImageView(image: UIImage(named: "butterfly"))
+    private var imageView = UIImageView(image: UIImage(named: "butterfly"))
+    private var isInitalAppearance = true
     
     
     override func viewDidLoad() {
@@ -24,10 +25,25 @@ class TwoColumnViewController: UIViewController {
         imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "imageViewMoved:"))
         imageView.userInteractionEnabled = true
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        presentInitialAlert()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK - Initial Alert
+    private func presentInitialAlert() {
+        if isInitalAppearance {
+            let vc = UIAlertController(title: "Tip", message: "Use the action button to add/remove a moveable image. Text will flow around the image as you move it.", preferredStyle: .Alert)
+            vc.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+            presentViewController(vc, animated: true, completion: nil)
+            isInitalAppearance = false
+        }
     }
     
     private func initializeTextViews() {
