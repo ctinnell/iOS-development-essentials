@@ -14,6 +14,7 @@
 		8494369E1C4A82A800B391DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8494369C1C4A82A800B391DE /* LaunchScreen.storyboard */; };
 		849436A91C4A8A9B00B391DE /* TestCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849436A81C4A8A9B00B391DE /* TestCall.swift */; };
 		849436AB1C4A8CF900B391DE /* TestCallResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849436AA1C4A8CF900B391DE /* TestCallResult.swift */; };
+		849436AD1C4CF6DF00B391DE /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849436AC1C4CF6DF00B391DE /* Observable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		8494369F1C4A82A800B391DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		849436A81C4A8A9B00B391DE /* TestCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCall.swift; sourceTree = "<group>"; };
 		849436AA1C4A8CF900B391DE /* TestCallResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCallResult.swift; sourceTree = "<group>"; };
+		849436AC1C4CF6DF00B391DE /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 			children = (
 				849436A81C4A8A9B00B391DE /* TestCall.swift */,
 				849436AA1C4A8CF900B391DE /* TestCallResult.swift */,
+				849436AC1C4CF6DF00B391DE /* Observable.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				849436961C4A82A800B391DE /* ViewController.swift in Sources */,
+				849436AD1C4CF6DF00B391DE /* Observable.swift in Sources */,
 				849436A91C4A8A9B00B391DE /* TestCall.swift in Sources */,
 				849436AB1C4A8CF900B391DE /* TestCallResult.swift in Sources */,
 				849436941C4A82A800B391DE /* AppDelegate.swift in Sources */,
