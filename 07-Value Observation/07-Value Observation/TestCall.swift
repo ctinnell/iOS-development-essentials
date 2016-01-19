@@ -35,10 +35,11 @@ class TestCall {
     }
     
     func execute(url: NSURL, index:Int) {
+        self.testCallResult = TestCallResult(url: url, index: -1)
         let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: sessionConfig)
         let request = NSURLRequest(URL: url)
-        let task = session.dataTaskWithRequest(request) { [weak self] (data, response, error) -> Void in
+        let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if(error == nil) {
                 if let data = data {
                     do {
@@ -50,8 +51,7 @@ class TestCall {
                     catch let jsonError as NSError {
                         print("Error serializing response. Error: \(jsonError)")
                     }
-                    
-                    self?.testCallResult = TestCallResult(url: url, index: index)
+                    self.testCallResult?.index = Observable(index)
                 }
             } else {
                 print("Error: url:\(url) error\(error)")

@@ -45,6 +45,11 @@ class ViewController: UIViewController {
             let testURL = TestCall.Endpoint.Delay(Int(arc4random_uniform(randomUnit))).url()
             let testCall = TestCall()
             testCall.execute(testURL, index: x)
+            testCall.testCallResult?.index.observe({(index) -> Void in
+                if index > -1 {
+                    self.stopAnimatingActivityIndicator(index)                    
+                }
+            })
         }
     }
 }

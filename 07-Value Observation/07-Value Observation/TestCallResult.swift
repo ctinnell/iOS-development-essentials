@@ -10,10 +10,10 @@ import UIKit
 
 class TestCallResult: NSObject {
     var url: NSURL
-    var index: Int
+    var index: Observable<Int>
     
     init (url: NSURL, index: Int) {
         self.url = url
-        self.index = index
+        self.index = Observable(index)
     }
 }
