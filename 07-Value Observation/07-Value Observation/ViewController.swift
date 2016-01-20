@@ -27,29 +27,24 @@ class ViewController: UIViewController {
     
     private func startAnimateActivityIndicator(tag: Int) {
         dispatch_async(dispatch_get_main_queue()) {
-            self.activityIndicator(tag)?.startAnimating()
+            self.activityIndicator(self.tagStart + tag)?.startAnimating()
         }
     }
     
     private func stopAnimatingActivityIndicator(tag: Int) {
         dispatch_async(dispatch_get_main_queue()) {
-            self.activityIndicator(tag)?.stopAnimating()
+            self.activityIndicator(self.tagStart + tag)?.stopAnimating()
         }
     }
 
     // MARK: - IBActions
     @IBAction func processRequests(sender: AnyObject) {
         for var x=1; x<=10; x++ {
-            startAnimateActivityIndicator(tagStart + x)
+            startAnimateActivityIndicator(x)
             let randomUnit: UInt32 = 11
             let testURL = TestCall.Endpoint.Delay(Int(arc4random_uniform(randomUnit))).url()
-            let testCall = TestCall()
-            testCall.execute(testURL, index: x)
-            testCall.testCallResult?.index.observe({(index) -> Void in
-                if index > -1 {
-                    self.stopAnimatingActivityIndicator(index)                    
-                }
-            })
+            
+            TestCall().execute(testURL, index: x, completion: stopAnimatingActivityIndicator)
         }
     }
 }

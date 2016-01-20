@@ -12,18 +12,17 @@ class Observable<T> {
     typealias Observer = T -> Void
     private var observer: Observer?
     
-    private var value: T {
+    var value: T {
         didSet {
             observer?(value)
         }
     }
     
-    init(_ value: T) {
-        self.value = value
+    init(_ initialValue: T) {
+        value = initialValue
     }
     
-    func observe(observer: Observer?) {
-        self.observer = observer
-        observer?(value)
-    }
+    func observe(newObserver: Observer?) {
+        observer = newObserver
+     }
 }
