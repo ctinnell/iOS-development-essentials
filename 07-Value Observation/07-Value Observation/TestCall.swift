@@ -35,14 +35,14 @@ class TestCall {
             let randomUnit: UInt32 = 11
             return Delay(Int(arc4random_uniform(randomUnit))).url()
         }
-        
-        
     }
     
     func execute(url: NSURL, index: Int, completion: (Int) -> ()) {
+        //set up result... add an observer for the completion closure
         self.testCallResult = TestCallResult(url: url, index: index)
         self.testCallResult?.index.observe(completion)
         
+        //just a dummy asynchronous call to simulate varying response times
         let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: sessionConfig)
         let request = NSURLRequest(URL: url)
@@ -50,6 +50,7 @@ class TestCall {
             if(error == nil) {
                 if let data = data {
                     do {
+                        // parse the resonse and review just for fun...
                         let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: [])
                         print("************************************************")
                         print("\(jsonData)")
@@ -58,6 +59,8 @@ class TestCall {
                     catch let jsonError as NSError {
                         print("Error serializing response. Error: \(jsonError)")
                     }
+                    
+                    // This just forces the observer to be notified, triggering the completion closure to be called.
                     self.testCallResult?.index.value = index
                 }
             } else {
