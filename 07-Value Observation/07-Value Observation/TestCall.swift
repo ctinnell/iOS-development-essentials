@@ -31,6 +31,11 @@ class TestCall {
             }
         }
         
+        static func randomURL() -> NSURL {
+            let randomUnit: UInt32 = 11
+            return Delay(Int(arc4random_uniform(randomUnit))).url()
+        }
+        
         
     }
     

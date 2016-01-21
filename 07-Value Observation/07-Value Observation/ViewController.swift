@@ -10,41 +10,32 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let tagStart = 1000
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    // MARK: - Stop/Start Activity Indicator
+    private func tagFromIndex(index: Int) -> Int {
+        return index + 1000
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-    // MARK: - Activity Indicator
+    
     private func activityIndicator(tag: Int) -> UIActivityIndicatorView? {
         return self.view.viewWithTag(tag) as? UIActivityIndicatorView
     }
     
-    private func startAnimateActivityIndicator(tag: Int) {
+    private func startAnimateActivityIndicator(index: Int) {
         dispatch_async(dispatch_get_main_queue()) {
-            self.activityIndicator(self.tagStart + tag)?.startAnimating()
+            self.activityIndicator(self.tagFromIndex(index))?.startAnimating()
         }
     }
     
-    private func stopAnimatingActivityIndicator(tag: Int) {
+    private func stopAnimatingActivityIndicator(index: Int) {
         dispatch_async(dispatch_get_main_queue()) {
-            self.activityIndicator(self.tagStart + tag)?.stopAnimating()
+            self.activityIndicator(self.tagFromIndex(index))?.stopAnimating()
         }
     }
 
-    // MARK: - IBActions
+    // MARK: - IBAction
     @IBAction func processRequests(sender: AnyObject) {
         for var x=1; x<=10; x++ {
             startAnimateActivityIndicator(x)
-            let randomUnit: UInt32 = 11
-            let testURL = TestCall.Endpoint.Delay(Int(arc4random_uniform(randomUnit))).url()
-            
-            TestCall().execute(testURL, index: x, completion: stopAnimatingActivityIndicator)
+            TestCall().execute(TestCall.Endpoint.randomURL(), index: x, completion: stopAnimatingActivityIndicator)
         }
     }
 }
