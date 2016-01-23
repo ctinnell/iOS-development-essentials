@@ -126,12 +126,10 @@
 		840B18431C523E700053D40B /* 08-WatchKit */ = {
 			isa = PBXGroup;
 			children = (
-				840B18441C523E700053D40B /* AppDelegate.swift */,
-				840B18461C523E700053D40B /* ViewController.swift */,
-				840B18481C523E700053D40B /* Main.storyboard */,
-				840B184B1C523E700053D40B /* Assets.xcassets */,
-				840B184D1C523E700053D40B /* LaunchScreen.storyboard */,
-				840B18501C523E700053D40B /* Info.plist */,
+				840B187F1C53AE190053D40B /* Model */,
+				840B18821C53AE810053D40B /* Services */,
+				840B18801C53AE1F0053D40B /* View */,
+				840B18811C53AE330053D40B /* Controller */,
 			);
 			path = "08-WatchKit";
 			sourceTree = "<group>";
@@ -165,6 +163,40 @@
 				840B18681C523E710053D40B /* PushNotificationPayload.apns */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		840B187F1C53AE190053D40B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		840B18801C53AE1F0053D40B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				840B18481C523E700053D40B /* Main.storyboard */,
+				840B184B1C523E700053D40B /* Assets.xcassets */,
+				840B184D1C523E700053D40B /* LaunchScreen.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		840B18811C53AE330053D40B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				840B18441C523E700053D40B /* AppDelegate.swift */,
+				840B18461C523E700053D40B /* ViewController.swift */,
+				840B18501C523E700053D40B /* Info.plist */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		840B18821C53AE810053D40B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
