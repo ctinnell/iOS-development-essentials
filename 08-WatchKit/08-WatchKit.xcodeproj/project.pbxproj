@@ -23,6 +23,7 @@
 		840B18841C53B57F0053D40B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B18831C53B57F0053D40B /* Photo.swift */; };
 		840B18861C53B6980053D40B /* PhotoServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B18851C53B6980053D40B /* PhotoServiceProtocol.swift */; };
 		840B18881C53B7110053D40B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B18871C53B7110053D40B /* Error.swift */; };
+		840B188A1C54F7240053D40B /* FlickrPhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B18891C54F7240053D40B /* FlickrPhotoService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		840B18831C53B57F0053D40B /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		840B18851C53B6980053D40B /* PhotoServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoServiceProtocol.swift; sourceTree = "<group>"; };
 		840B18871C53B7110053D40B /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		840B18891C54F7240053D40B /* FlickrPhotoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrPhotoService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				840B18851C53B6980053D40B /* PhotoServiceProtocol.swift */,
+				840B18891C54F7240053D40B /* FlickrPhotoService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				840B18841C53B57F0053D40B /* Photo.swift in Sources */,
+				840B188A1C54F7240053D40B /* FlickrPhotoService.swift in Sources */,
 				840B18471C523E700053D40B /* ViewController.swift in Sources */,
 				840B18861C53B6980053D40B /* PhotoServiceProtocol.swift in Sources */,
 				840B18881C53B7110053D40B /* Error.swift in Sources */,
