@@ -50,8 +50,9 @@ class FlickrPhotoService: PhotoServiceProtocol {
                 if let data = data {
                     do {
                         // parse the resonse and review just for fun...
-                        let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: [.AllowFragments])
+                        let dataString = NSString(data: data.correctedFlickrJSON()!, encoding: NSUTF8StringEncoding)
+                        
+                        let jsonData = try NSJSONSerialization.JSONObjectWithData(data.correctedFlickrJSON()!, options: [.AllowFragments])
                         print("************************************************")
                         print("\(jsonData)")
                         print("************************************************")
@@ -68,5 +69,20 @@ class FlickrPhotoService: PhotoServiceProtocol {
             }
         }
         task.resume()
+    }
+}
+
+extension NSData {
+    func correctedFlickrJSON() -> NSData? {
+        var correctedJSON: NSData?
+        if let invalidJSONString = String(data: self, encoding: NSUTF8StringEncoding) {
+            let startIndex = invalidJSONString.startIndex.advancedBy("jsonFlickrApi(".lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+            let endIndex = invalidJSONString.endIndex.advancedBy(-1)
+            let invalidRange = Range(start: startIndex, end: endIndex)
+            let correctedJSONString = invalidJSONString.substringWithRange(invalidRange)
+            let moreCorrectedJSONString = correctedJSONString.stringByReplacingOccurrencesOfString("\\'", withString: "'")
+            correctedJSON = moreCorrectedJSONString.dataUsingEncoding(NSUTF8StringEncoding)
+        }
+        return correctedJSON
     }
 }
