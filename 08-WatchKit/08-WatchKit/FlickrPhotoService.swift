@@ -14,19 +14,19 @@ class FlickrPhotoService: PhotoServiceProtocol {
         case InterestingPhotos
         case Photo(String,String)
         
-        func baseURL() -> NSURL {
+        private func baseURL() -> NSURL {
             return NSURL(string: "https://www.flickr.com")!
         }
         
-        func serviceURL() -> NSURL {
+        private func serviceURL() -> NSURL {
             return baseURL().URLByAppendingPathComponent("/services/rest?")
         }
         
-        func apiKey() -> String {
+        private func apiKey() -> String {
             return "147953d5e702d2f304704bb4d44a4377"
         }
         
-        func resultsPerPage() -> Int {
+        private func resultsPerPage() -> Int {
             return 50
         }
         
@@ -40,8 +40,33 @@ class FlickrPhotoService: PhotoServiceProtocol {
         }
     }
     
-    func fetchPhotos(completion:([Photo]?, Error?) -> Void) {
-        
+    func fetchPhotos(completion:([Photo]?, Error?) -> ()) {
+        let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: sessionConfig)
+        let url = Endpoint.InterestingPhotos.url()
+        let request = NSURLRequest(URL: url)
+        let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+            if(error == nil) {
+                if let data = data {
+                    do {
+                        // parse the resonse and review just for fun...
+                        let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: [.AllowFragments])
+                        print("************************************************")
+                        print("\(jsonData)")
+                        print("************************************************")
+                    }
+                    catch let jsonError as NSError {
+                        print("Error serializing response. Error: \(jsonError)")
+                    }
+                    
+                    // This just forces the observer to be notified, triggering the completion closure to be called.
+                    //TODO: Init new photo object arrays and Call completion block.
+                }
+            } else {
+                print("Error: url:\(url) error\(error)")
+            }
+        }
+        task.resume()
     }
-    
 }

@@ -9,5 +9,5 @@
 import Foundation
 
 protocol PhotoServiceProtocol {
-    func fetchPhotos(completion:([Photo]?, Error?) -> Void)
+    func fetchPhotos(completion:([Photo]?, Error?) -> ())
 }
