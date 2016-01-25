@@ -27,7 +27,7 @@ class FlickrPhotoService: PhotoServiceProtocol {
         }
         
         private func resultsPerPage() -> Int {
-            return 50
+            return 25
         }
         
         func url() -> NSURL {
