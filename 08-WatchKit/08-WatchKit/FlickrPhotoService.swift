@@ -60,9 +60,6 @@ class FlickrPhotoService: PhotoServiceProtocol {
                     catch let jsonError as NSError {
                         print("Error serializing response. Error: \(jsonError)")
                     }
-                    
-                    // This just forces the observer to be notified, triggering the completion closure to be called.
-                    //TODO: Init new photo object arrays and Call completion block.
                 }
             } else {
                 print("Error: url:\(url) error\(error)")
