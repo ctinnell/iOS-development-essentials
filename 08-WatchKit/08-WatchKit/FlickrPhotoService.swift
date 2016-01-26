@@ -43,9 +43,9 @@ class FlickrPhotoService: PhotoServiceProtocol {
     private func parsePhotos(photoData: NSData) {
         do {
             let jsonData = try NSJSONSerialization.JSONObjectWithData(photoData.correctedFlickrJSON()!, options: [.AllowFragments])
-            if let photosDict = jsonData["photos"],
-                photos = photosDict?["photo"] {
-                    print(photos)
+            if let photosDict = jsonData["photos"] as? [String:AnyObject],
+                   photos = photosDict["photo"] as? [[String:AnyObject]] {
+                print(photos)
             }
         }
         catch let jsonError as NSError {
