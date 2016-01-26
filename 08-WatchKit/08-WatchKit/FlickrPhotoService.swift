@@ -40,6 +40,19 @@ class FlickrPhotoService: PhotoServiceProtocol {
         }
     }
     
+    private func parsePhotos(photoData: NSData) {
+        do {
+            let jsonData = try NSJSONSerialization.JSONObjectWithData(photoData.correctedFlickrJSON()!, options: [.AllowFragments])
+            if let photosDict = jsonData["photos"],
+                photos = photosDict?["photo"] {
+                    print(photos)
+            }
+        }
+        catch let jsonError as NSError {
+            print("Error serializing response. Error: \(jsonError)")
+        }
+    }
+    
     func fetchPhotos(completion:([Photo]?, Error?) -> ()) {
         let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: sessionConfig)
@@ -48,18 +61,7 @@ class FlickrPhotoService: PhotoServiceProtocol {
         let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if(error == nil) {
                 if let data = data {
-                    do {
-                        // parse the resonse and review just for fun...
-                        let dataString = NSString(data: data.correctedFlickrJSON()!, encoding: NSUTF8StringEncoding)
-                        
-                        let jsonData = try NSJSONSerialization.JSONObjectWithData(data.correctedFlickrJSON()!, options: [.AllowFragments])
-                        print("************************************************")
-                        print("\(jsonData)")
-                        print("************************************************")
-                    }
-                    catch let jsonError as NSError {
-                        print("Error serializing response. Error: \(jsonError)")
-                    }
+                    self.parsePhotos(data)
                 }
             } else {
                 print("Error: url:\(url) error\(error)")
