@@ -76,9 +76,8 @@ extension NSData {
             let startIndex = invalidJSONString.startIndex.advancedBy("jsonFlickrApi(".lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
             let endIndex = invalidJSONString.endIndex.advancedBy(-1)
             let invalidRange = Range(start: startIndex, end: endIndex)
-            let correctedJSONString = invalidJSONString.substringWithRange(invalidRange)
-            let moreCorrectedJSONString = correctedJSONString.stringByReplacingOccurrencesOfString("\\'", withString: "'")
-            correctedJSON = moreCorrectedJSONString.dataUsingEncoding(NSUTF8StringEncoding)
+            let correctedJSONString = invalidJSONString.substringWithRange(invalidRange).stringByReplacingOccurrencesOfString("\\'", withString: "'")
+             correctedJSON = correctedJSONString.dataUsingEncoding(NSUTF8StringEncoding)
         }
         return correctedJSON
     }
