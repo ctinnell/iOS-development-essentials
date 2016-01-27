@@ -43,8 +43,18 @@ class FlickrPhotoService: PhotoServiceProtocol {
     private func parsePhotos(photoData: NSData) {
         do {
             let jsonData = try NSJSONSerialization.JSONObjectWithData(photoData.correctedFlickrJSON()!, options: [.AllowFragments])
+            
+            var photos = [Photo]()
             if let photosDict = jsonData["photos"] as? [String:AnyObject],
-                   photos = photosDict["photo"] as? [[String:AnyObject]] {
+                    photoDict = photosDict["photo"] as? [[String:AnyObject]] {
+                
+                for item in photoDict {
+                    if let title = item["title"] as? String, id = item["id"] as? String, owner = item["owner"] as? String {
+                        let photo = Photo(title: title, id: id, url: Endpoint.Photo(owner, id).url())
+                        photos.append(photo)
+                        // this url will not work... need to do this: https://www.flickr.com/services/api/flickr.photos.getSizes.html
+                    }
+                }
                 print(photos)
             }
         }
