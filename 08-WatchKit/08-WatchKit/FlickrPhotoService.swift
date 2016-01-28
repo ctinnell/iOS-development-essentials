@@ -10,9 +10,14 @@ import Foundation
 
 class FlickrPhotoService: PhotoServiceProtocol {
    
+    let session = NSURLSession(configuration:  NSURLSessionConfiguration.defaultSessionConfiguration())
+    var photos = [Photo]()
+
+    
     enum Endpoint {
         case InterestingPhotos
         case Photo(String,String)
+        case PhotoSizes(String)
         
         private func baseURL() -> NSURL {
             return NSURL(string: "https://www.flickr.com")!
@@ -36,26 +41,42 @@ class FlickrPhotoService: PhotoServiceProtocol {
                 return serviceURL().URLByAppendingPathComponent("&method=flickr.interestingness.getList&api_key=\(apiKey())&format=json&per_page=\(resultsPerPage())")
             case .Photo(let owner, let id):
                 return baseURL().URLByAppendingPathComponent("/photos/\(owner)/\(id)")
+            case .PhotoSizes(let id):
+                return serviceURL().URLByAppendingPathComponent("&method=flickr.photos.getSizes&api_key=\(apiKey())&format=json&photo_id=\(id)")
             }
         }
+    }
+    
+    private func fetchPhotoSizes(photo: Photo) {
+        let url = Endpoint.PhotoSizes(photo.id).url()
+        print(url)
+        let request = NSURLRequest(URL: url)
+        let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+            if(error == nil) {
+                if let data = data {
+                    self.photos.append(photo)
+                }
+            } else {
+                print("Error: url:\(url) error\(error)")
+            }
+        }
+        task.resume()
     }
     
     private func parsePhotos(photoData: NSData) {
         do {
             let jsonData = try NSJSONSerialization.JSONObjectWithData(photoData.correctedFlickrJSON()!, options: [.AllowFragments])
             
-            var photos = [Photo]()
             if let photosDict = jsonData["photos"] as? [String:AnyObject],
                     photoDict = photosDict["photo"] as? [[String:AnyObject]] {
                 
                 for item in photoDict {
                     if let title = item["title"] as? String, id = item["id"] as? String, owner = item["owner"] as? String {
                         let photo = Photo(title: title, id: id, url: Endpoint.Photo(owner, id).url())
-                        photos.append(photo)
+                        fetchPhotoSizes(photo)
                         // this url will not work... need to do this: https://www.flickr.com/services/api/flickr.photos.getSizes.html
                     }
                 }
-                print(photos)
             }
         }
         catch let jsonError as NSError {
@@ -64,8 +85,6 @@ class FlickrPhotoService: PhotoServiceProtocol {
     }
     
     func fetchPhotos(completion:([Photo]?, Error?) -> ()) {
-        let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: sessionConfig)
         let url = Endpoint.InterestingPhotos.url()
         let request = NSURLRequest(URL: url)
         let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
