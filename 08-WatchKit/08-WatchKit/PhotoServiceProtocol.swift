@@ -7,7 +7,8 @@
 //
 
 import Foundation
+typealias PhotoServiceCompletionHandler = ([Photo]?, Error?) -> ()
 
 protocol PhotoServiceProtocol {
-    func fetchPhotos(completion:([Photo]?, Error?) -> ())
+    func fetchPhotos(completion:PhotoServiceCompletionHandler)
 }

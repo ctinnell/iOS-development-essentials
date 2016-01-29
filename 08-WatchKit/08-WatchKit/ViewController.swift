@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     }
 
     func processPhotos(photos: [Photo]?, error: Error?) {
-        
+        print("Photos Processed!!!")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

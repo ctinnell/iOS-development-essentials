@@ -8,11 +8,13 @@
 
 import Foundation
 
-class FlickrPhotoService: PhotoServiceProtocol {
+class FlickrPhotoService: NSObject, PhotoServiceProtocol {
    
-    let session = NSURLSession(configuration:  NSURLSessionConfiguration.defaultSessionConfiguration())
+    var session: NSURLSession?
+    
     var photos = [Photo]()
-
+    
+    var completionHandler: PhotoServiceCompletionHandler?
     
     enum Endpoint {
         case InterestingPhotos
@@ -74,7 +76,7 @@ class FlickrPhotoService: PhotoServiceProtocol {
         let url = Endpoint.PhotoSizes(photo.id).url()
         print(url)
         let request = NSURLRequest(URL: url)
-        let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+        let task = session!.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if(error == nil) {
                 if let data = data {
                     self.parsePhotoSizes(data, photo: photo)
@@ -107,19 +109,34 @@ class FlickrPhotoService: PhotoServiceProtocol {
         }
     }
     
-    func fetchPhotos(completion:([Photo]?, Error?) -> ()) {
+    func fetchPhotos(completion:PhotoServiceCompletionHandler) {
+        completionHandler = completion
+        session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: nil)
         let url = Endpoint.InterestingPhotos.url()
         let request = NSURLRequest(URL: url)
-        let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+        let task = session!.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if(error == nil) {
                 if let data = data {
                     self.parsePhotos(data)
+                    self.session!.finishTasksAndInvalidate()
                 }
             } else {
                 print("Error: url:\(url) error\(error)")
             }
         }
         task.resume()
+    }
+}
+
+extension FlickrPhotoService:NSURLSessionDelegate {
+    func URLSession(session: NSURLSession, didBecomeInvalidWithError error: NSError?) {
+        print("URLs Retrieved")
+        if photos.count > 0 {
+            completionHandler?(photos, nil)
+        }
+        else {
+            completionHandler?(nil,Error(code:"100", name:"Error Retrieving Photos"))
+        }
     }
 }
 
