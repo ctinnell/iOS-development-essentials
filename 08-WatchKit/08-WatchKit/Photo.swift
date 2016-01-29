@@ -9,8 +9,8 @@
 import Foundation
 
 struct Photo {
-    let title: String
-    let id: String
-    let url: NSURL
+    var title: String
+    var id: String
+    var url: NSURL
 }
 

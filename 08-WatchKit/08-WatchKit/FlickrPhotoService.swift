@@ -47,6 +47,29 @@ class FlickrPhotoService: PhotoServiceProtocol {
         }
     }
     
+    private func parsePhotoSizes(data: NSData, photo: Photo) {
+        do {
+            var updatedPhoto = photo
+            let json = try NSJSONSerialization.JSONObjectWithData(data.correctedFlickrJSON()!, options: [.AllowFragments])
+            if let sizesDict = json["sizes"] as? [String:AnyObject],
+                sizes = sizesDict["size"] as? [[String:AnyObject]] {
+                    for size in sizes {
+                        if let height = size["height"] as? Int, url = size["source"] as? String {
+                            if height > 500 {
+                                updatedPhoto.url = NSURL(string: url)!
+                                self.photos.append(photo)
+                                print(url)
+                                break
+                            }
+                        }
+                    }
+            }
+        }
+        catch let jsonError as NSError {
+            print("Error serializing response. Error: \(jsonError)")
+        }
+    }
+    
     private func fetchPhotoSizes(photo: Photo) {
         let url = Endpoint.PhotoSizes(photo.id).url()
         print(url)
@@ -54,7 +77,7 @@ class FlickrPhotoService: PhotoServiceProtocol {
         let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if(error == nil) {
                 if let data = data {
-                    self.photos.append(photo)
+                    self.parsePhotoSizes(data, photo: photo)
                 }
             } else {
                 print("Error: url:\(url) error\(error)")
@@ -68,9 +91,9 @@ class FlickrPhotoService: PhotoServiceProtocol {
             let jsonData = try NSJSONSerialization.JSONObjectWithData(photoData.correctedFlickrJSON()!, options: [.AllowFragments])
             
             if let photosDict = jsonData["photos"] as? [String:AnyObject],
-                    photoDict = photosDict["photo"] as? [[String:AnyObject]] {
+                    photoArray = photosDict["photo"] as? [[String:AnyObject]] {
                 
-                for item in photoDict {
+                for item in photoArray {
                     if let title = item["title"] as? String, id = item["id"] as? String, owner = item["owner"] as? String {
                         let photo = Photo(title: title, id: id, url: Endpoint.Photo(owner, id).url())
                         fetchPhotoSizes(photo)
@@ -107,7 +130,7 @@ extension NSData {
             let startIndex = invalidJSONString.startIndex.advancedBy("jsonFlickrApi(".lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
             let endIndex = invalidJSONString.endIndex.advancedBy(-1)
             let invalidRange = Range(start: startIndex, end: endIndex)
-            let correctedJSONString = invalidJSONString.substringWithRange(invalidRange).stringByReplacingOccurrencesOfString("\\'", withString: "'")
+            let correctedJSONString = invalidJSONString.substringWithRange(invalidRange).stringByReplacingOccurrencesOfString("\\'", withString: "'").stringByRemovingPercentEncoding!
              correctedJSON = correctedJSONString.dataUsingEncoding(NSUTF8StringEncoding)
         }
         return correctedJSON
