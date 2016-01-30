@@ -55,9 +55,13 @@ class PhotoListViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PhotoCell
-        
-        // Configure the cell
-        cell.label?.text = self.photos[indexPath.row].title
+        cell.imageView?.image = nil
+        cell.label?.text = nil
+        let photo = self.photos[indexPath.row]
+        cell.label?.text = photo.title
+        if let image = photo.image {
+            cell.imageView?.image = image
+        }
         return cell
     }
 
@@ -97,18 +101,18 @@ class PhotoListViewController: UICollectionViewController {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.collectionView?.reloadData()
         }
-        print("Photos Processed!!!")
         if let photos = photos {
             self.photos = photos
             photoService.fetchImagesForPhotos(photos, completion: imageRetrieved)
         }
      }
     
-    func imageRetrieved(photo: Photo, image: UIImage) {
+    func imageRetrieved(photo: Photo) {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 if let index = self.photos.indexOf({$0.id == photo.id}) {
-                    if let cell = self.collectionView?.cellForItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as? PhotoCell {
-                        cell.imageView?.image = image
+                   self.photos[index] = photo
+                   if let cell = self.collectionView?.cellForItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as? PhotoCell {
+                         cell.imageView?.image = photo.image
                     }
                 }
             })

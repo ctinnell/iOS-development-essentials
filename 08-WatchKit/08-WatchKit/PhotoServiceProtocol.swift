@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 typealias PhotoServiceCompletionHandler = ([Photo]?, Error?) -> ()
-typealias PhotoServiceImageRetrievalCompletionHandler = (Photo, UIImage) -> ()
+typealias PhotoServiceImageRetrievalCompletionHandler = (Photo) -> ()
 
 protocol PhotoServiceProtocol {
     func fetchPhotos(completion:PhotoServiceCompletionHandler)

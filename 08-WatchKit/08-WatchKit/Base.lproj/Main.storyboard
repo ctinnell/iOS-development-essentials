@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -43,18 +44,31 @@
                                     <rect key="frame" x="0.0" y="0.0" width="165" height="159"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0iZ-J8-yEJ">
-                                            <rect key="frame" x="-5" y="0.0" width="170" height="123"/>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Text Here Please" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBr-eg-g6S">
-                                            <rect key="frame" x="0.0" y="123" width="165" height="36"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="x9T-HG-hfm">
+                                            <rect key="frame" x="-5" y="0.0" width="170" height="139"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0iZ-J8-yEJ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="170" height="123"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="170" id="Z8d-X9-OiA"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text Here Please" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBr-eg-g6S">
+                                                    <rect key="frame" x="0.0" y="123" width="170" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="x9T-HG-hfm" firstAttribute="top" secondItem="mS6-RP-QM8" secondAttribute="top" id="MYA-cG-LAJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="x9T-HG-hfm" secondAttribute="trailing" id="Vjm-cd-R7g"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="x9T-HG-hfm" secondAttribute="bottom" constant="12" id="up7-tl-6Os"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="imageView" destination="0iZ-J8-yEJ" id="G4p-ge-AC3"/>
                                     <outlet property="label" destination="PBr-eg-g6S" id="eP6-PK-AWs"/>

@@ -12,7 +12,7 @@ import UIKit
 class FlickrPhotoService: NSObject, PhotoServiceProtocol {
    
     var session: NSURLSession?
-    
+    let minPhotoHeight = 200
     var photos = [Photo]()
     
     var completionHandler: PhotoServiceCompletionHandler?
@@ -59,10 +59,10 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
                 sizes = sizesDict["size"] as? [[String:AnyObject]] {
                     for size in sizes {
                         if let height = size["height"] as? Int, url = size["source"] as? String {
-                            if height > 500 {
+                            if height > minPhotoHeight {
                                 updatedPhoto.url = NSURL(string: url)!
                                 self.photos.append(updatedPhoto)
-                                print(url)
+                                //print(photo.title, " ", url)
                                 break
                             }
                         }
@@ -76,7 +76,7 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
     
     private func fetchPhotoSizes(photo: Photo) {
         let url = Endpoint.PhotoSizes(photo.id).url()
-        print(url)
+        //print(url)
         let request = NSURLRequest(URL: url)
         let task = session!.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if(error == nil) {
@@ -99,7 +99,7 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
                 
                 for item in photoArray {
                     if let title = item["title"] as? String, id = item["id"] as? String, owner = item["owner"] as? String {
-                        let photo = Photo(title: title, id: id, url: Endpoint.Photo(owner, id).url())
+                        let photo = Photo(title: title, id: id, url: Endpoint.Photo(owner, id).url(), image: nil)
                         fetchPhotoSizes(photo)
                         // this url will not work... need to do this: https://www.flickr.com/services/api/flickr.photos.getSizes.html
                     }
@@ -134,11 +134,13 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
     func fetchImagesForPhotos(photos:[Photo], completion:PhotoServiceImageRetrievalCompletionHandler) {
         session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: nil)
         for photo in photos {
+            var updatedPhoto = photo
             let request = NSURLRequest(URL: photo.url)
             let task = session!.dataTaskWithRequest(request) { (data, response, error) -> Void in
                 if(error == nil) {
                     if let data = data, image = UIImage(data: data) {
-                        completion(photo, image)
+                        updatedPhoto.image = image
+                        completion(updatedPhoto)
                     }
                 } else {
                     print("Error: url:\(photo.url) error\(error)")

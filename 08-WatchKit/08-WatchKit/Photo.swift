@@ -7,10 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
 struct Photo {
     var title: String
     var id: String
     var url: NSURL
+    var image: UIImage?
 }
 
