@@ -587,6 +587,7 @@
 				840B18761C523E710053D40B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		840B18781C523E710053D40B /* Build configuration list for PBXNativeTarget "08-WatchKit WatchKit App" */ = {
 			isa = XCConfigurationList;
@@ -595,6 +596,7 @@
 				840B187A1C523E710053D40B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		840B187C1C523E710053D40B /* Build configuration list for PBXNativeTarget "08-WatchKit" */ = {
 			isa = XCConfigurationList;
@@ -603,6 +605,7 @@
 				840B187E1C523E710053D40B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

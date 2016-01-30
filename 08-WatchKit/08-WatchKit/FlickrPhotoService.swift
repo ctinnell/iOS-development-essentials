@@ -49,6 +49,7 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
         }
     }
     
+    //MARK: - Photo Retrieval
     private func parsePhotoSizes(data: NSData, photo: Photo) {
         do {
             var updatedPhoto = photo
@@ -126,11 +127,17 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
         }
         task.resume()
     }
+    
+    //MARK: - Photo Image Retrieval
+
+    func fetchImagesForPhotos(photos:[Photo], completion:PhotoServiceImageRetrievalCompletionHandler) {
+        
+    }
+
 }
 
 extension FlickrPhotoService:NSURLSessionDelegate {
     func URLSession(session: NSURLSession, didBecomeInvalidWithError error: NSError?) {
-        print("URLs Retrieved")
         if photos.count > 0 {
             completionHandler?(photos, nil)
         }

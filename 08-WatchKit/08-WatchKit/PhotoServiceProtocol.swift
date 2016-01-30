@@ -7,8 +7,12 @@
 //
 
 import Foundation
+import UIKit
+
 typealias PhotoServiceCompletionHandler = ([Photo]?, Error?) -> ()
+typealias PhotoServiceImageRetrievalCompletionHandler = (Photo, UIImage) -> ()
 
 protocol PhotoServiceProtocol {
     func fetchPhotos(completion:PhotoServiceCompletionHandler)
+    func fetchImagesForPhotos(photos:[Photo], completion:PhotoServiceImageRetrievalCompletionHandler)
 }
