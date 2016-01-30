@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FlickrPhotoService: NSObject, PhotoServiceProtocol {
    
@@ -60,7 +61,7 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
                         if let height = size["height"] as? Int, url = size["source"] as? String {
                             if height > 500 {
                                 updatedPhoto.url = NSURL(string: url)!
-                                self.photos.append(photo)
+                                self.photos.append(updatedPhoto)
                                 print(url)
                                 break
                             }
@@ -131,9 +132,21 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
     //MARK: - Photo Image Retrieval
 
     func fetchImagesForPhotos(photos:[Photo], completion:PhotoServiceImageRetrievalCompletionHandler) {
-        
+        session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: nil)
+        for photo in photos {
+            let request = NSURLRequest(URL: photo.url)
+            let task = session!.dataTaskWithRequest(request) { (data, response, error) -> Void in
+                if(error == nil) {
+                    if let data = data, image = UIImage(data: data) {
+                        completion(photo, image)
+                    }
+                } else {
+                    print("Error: url:\(photo.url) error\(error)")
+                }
+            }
+            task.resume()
+        }
     }
-
 }
 
 extension FlickrPhotoService:NSURLSessionDelegate {

@@ -17,10 +17,18 @@ class ViewController: UIViewController {
         photoService.fetchPhotos(processPhotos)
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     func processPhotos(photos: [Photo]?, error: Error?) {
         print("Photos Processed!!!")
+        if let photos = photos {
+            photoService.fetchImagesForPhotos(photos, completion: imageRetrieved)
+        }
     }
+    
+    func imageRetrieved(photo: Photo, image: UIImage) {
+        
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
