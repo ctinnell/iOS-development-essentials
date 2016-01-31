@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SafariServices
 
 class PhotoListViewController: UICollectionViewController {
     private let reuseIdentifier = "PhotoCell"
@@ -30,16 +30,6 @@ class PhotoListViewController: UICollectionViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -73,12 +63,17 @@ class PhotoListViewController: UICollectionViewController {
     }
     */
 
-    /*
+    
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
-    */
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let photo = photos[indexPath.row]
+        presentPhotoDetailViewController(photo.urlDetail)
+    }
+
 
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
@@ -94,6 +89,11 @@ class PhotoListViewController: UICollectionViewController {
     
     }
     */
+    
+    func presentPhotoDetailViewController(url: NSURL) {
+        let vc = SFSafariViewController(URL: url)
+        presentViewController(vc, animated: true, completion: nil)
+    }
     
     func processPhotos(photos: [Photo]?, error: Error?) {
        
