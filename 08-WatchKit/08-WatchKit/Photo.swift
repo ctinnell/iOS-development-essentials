@@ -13,6 +13,7 @@ struct Photo {
     var title: String
     var id: String
     var url: NSURL
+    var urlDetail: NSURL
     var image: UIImage?
 }
 
