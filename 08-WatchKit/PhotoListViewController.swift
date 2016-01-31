@@ -17,7 +17,6 @@ class PhotoListViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         photoService.fetchPhotos(processPhotos)
-
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
