@@ -102,7 +102,6 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
                     if let title = item["title"] as? String, id = item["id"] as? String, owner = item["owner"] as? String {
                         let photo = Photo(title: title, id: id, url: Endpoint.Photo(owner, id).url(), urlDetail: Endpoint.Photo(owner, id).url(), image: nil)
                         fetchPhotoSizes(photo)
-                        // this url will not work... need to do this: https://www.flickr.com/services/api/flickr.photos.getSizes.html
                     }
                 }
             }
