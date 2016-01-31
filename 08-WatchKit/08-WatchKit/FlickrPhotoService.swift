@@ -17,6 +17,7 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
     
     var completionHandler: PhotoServiceCompletionHandler?
     
+    //MARK: - Endpoint Enumeration
     enum Endpoint {
         case InterestingPhotos
         case Photo(String,String)
@@ -150,6 +151,9 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
         }
     }
 }
+//MARK: - Class Extensions
+
+//MARK: NSURLSessionDelegate
 
 extension FlickrPhotoService:NSURLSessionDelegate {
     func URLSession(session: NSURLSession, didBecomeInvalidWithError error: NSError?) {
@@ -162,6 +166,7 @@ extension FlickrPhotoService:NSURLSessionDelegate {
     }
 }
 
+//MARK: NSData Class Extenstion
 extension NSData {
     func correctedFlickrJSON() -> NSData? {
         var correctedJSON: NSData?
