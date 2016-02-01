@@ -12,6 +12,8 @@ import Foundation
 
 class InterfaceController: WKInterfaceController {
 
+    @IBOutlet var photoImage: WKInterfaceImage!
+    
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
         
