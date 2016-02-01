@@ -15,5 +15,13 @@ struct Photo {
     var url: NSURL
     var urlDetail: NSURL
     var image: UIImage?
+    
+    func toDictionary() -> Dictionary<String,AnyObject> {
+        var dict = ["title":title, "id":id, "url":url, "urlDetail":urlDetail]
+        if let image = image {
+            dict["image"] = image
+        }
+        return dict
+    }
 }
 

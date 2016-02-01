@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import WatchConnectivity
 
 class PhotoListViewController: UICollectionViewController {
     private let reuseIdentifier = "PhotoCell"
@@ -118,5 +119,27 @@ class PhotoListViewController: UICollectionViewController {
             
         
     }
+    
+    func updateWatchPhotos() {
+        let session = WCSession.defaultSession()
+        session.delegate = self
+        session.activateSession()
+        
+        var context = session.applicationContext
+        var array = [[String:AnyObject]]()
+        for photo in photos {
+            array.append(photo.toDictionary())
+        }
+        context["photos"] = array
+        
+        do {
+            try session.updateApplicationContext(context)
+        } catch let error {
+            print ("Error updating Watch Photos: ", error)
+        }
+    }
+}
 
+extension PhotoListViewController:WCSessionDelegate {
+    
 }
