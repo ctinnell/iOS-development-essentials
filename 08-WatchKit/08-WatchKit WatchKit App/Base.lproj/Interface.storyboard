@@ -12,12 +12,16 @@
                     <items>
                         <group width="1" height="150" alignment="left" id="JLX-qI-Qgj">
                             <items>
-                                <imageView height="150" alignment="left" id="EuF-CE-vhE"/>
+                                <picker height="150" alignment="left" id="cp9-yN-OEI">
+                                    <connections>
+                                        <action selector="pickerDidChange:" destination="AgC-eL-Hgc" id="j7X-vp-zNo"/>
+                                    </connections>
+                                </picker>
                             </items>
                         </group>
                     </items>
                     <connections>
-                        <outlet property="photoImage" destination="EuF-CE-vhE" id="lVX-aS-R0a"/>
+                        <outlet property="photoPicker" destination="cp9-yN-OEI" id="5hw-FT-1QS"/>
                     </connections>
                 </controller>
             </objects>

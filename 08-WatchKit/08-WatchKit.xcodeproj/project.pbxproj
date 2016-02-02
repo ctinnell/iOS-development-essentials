@@ -24,6 +24,7 @@
 		840B18881C53B7110053D40B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B18871C53B7110053D40B /* Error.swift */; };
 		840B188A1C54F7240053D40B /* FlickrPhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B18891C54F7240053D40B /* FlickrPhotoService.swift */; };
 		842AD4131C5D475900EF19E8 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AD4121C5D475900EF19E8 /* PhotoCell.swift */; };
+		842AD4191C60C21F00EF19E8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B18831C53B57F0053D40B /* Photo.swift */; };
 		844CD2F01C5D43C8005A2079 /* PhotoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844CD2EF1C5D43C8005A2079 /* PhotoListViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -360,6 +361,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842AD4191C60C21F00EF19E8 /* Photo.swift in Sources */,
 				840B186E1C523E710053D40B /* NotificationController.swift in Sources */,
 				840B186C1C523E710053D40B /* ExtensionDelegate.swift in Sources */,
 				840B186A1C523E710053D40B /* InterfaceController.swift in Sources */,

@@ -135,7 +135,7 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
         session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: nil)
         for photo in photos {
             var updatedPhoto = photo
-            let request = NSURLRequest(URL: photo.url)
+            let request = NSURLRequest(URL: photo.url!)
             let task = session!.dataTaskWithRequest(request) { (data, response, error) -> Void in
                 if(error == nil) {
                     if let data = data, image = UIImage(data: data) {

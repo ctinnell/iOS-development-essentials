@@ -72,7 +72,9 @@ class PhotoListViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let photo = photos[indexPath.row]
-        presentPhotoDetailViewController(photo.urlDetail)
+        if let urlDetail = photo.urlDetail {
+            presentPhotoDetailViewController(urlDetail)
+        }
     }
 
 
