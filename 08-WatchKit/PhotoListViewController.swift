@@ -102,6 +102,7 @@ class PhotoListViewController: UICollectionViewController {
        
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.collectionView?.reloadData()
+            self.updateWatchPhotos()
         }
         if let photos = photos {
             self.photos = photos

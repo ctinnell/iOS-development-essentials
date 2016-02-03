@@ -36,6 +36,22 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         super.didDeactivate()
     }
     
+    func updatePicker() {
+        var pickerItems = [WKPickerItem]()
+        
+        for photo in photos {
+            let item = WKPickerItem()
+            item.title = photo.title
+            if let image = photo.image {
+                item.contentImage = WKImage(image: image)
+            }
+            pickerItems.append(item)
+        }
+        
+        photoPicker.setItems(pickerItems)
+        pickerDidChange(0)
+    }
+    
     func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
         if let array = applicationContext["photos"] as? [[String:AnyObject]] {
             photos.removeAll()
@@ -44,6 +60,8 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
                 let photo = Photo(dictionary: item)
                 photos.append(photo)
             }
+            
+            updatePicker()
         }
     }
 
