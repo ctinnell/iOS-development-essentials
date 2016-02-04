@@ -39,23 +39,15 @@ struct Photo {
             self.id = " "
         }
         
-        if let url = dictionary["url"] as? NSURL {
-            self.url = url
-        }
-        
-        if let urlDetail = dictionary["urlDetail"] as? NSURL {
-            self.urlDetail = urlDetail
-        }
-        
-        if let image = dictionary["image"] as? UIImage {
-            self.image = image
+        if let image = dictionary["image"] as? NSData {
+            self.image = UIImage(data: image)
         }
     }
     
     func toDictionary() -> [String:AnyObject] {
-        var dict = ["title":title, "id":id, "url":url!, "urlDetail":urlDetail!]
+        var dict: [String:AnyObject] = ["title":title, "id":id]
         if let image = image {
-            dict["image"] = image
+            dict["image"] = UIImageJPEGRepresentation(image, 0.5)
         }
         return dict
     }
