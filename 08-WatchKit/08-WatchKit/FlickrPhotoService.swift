@@ -14,7 +14,6 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
     var session: NSURLSession?
     let minPhotoHeight = 200
     var photos = [Photo]()
-    
     var completionHandler: PhotoServiceCompletionHandler?
     
     //MARK: - Endpoint Enumeration
@@ -131,7 +130,8 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
     
     //MARK: - Photo Image Retrieval
 
-    func fetchImagesForPhotos(photos:[Photo], completion:PhotoServiceImageRetrievalCompletionHandler) {
+    func fetchImagesForPhotos(photos:[Photo], imageCompletion:PhotoServiceImageRetrievalCompletionHandler, completion:PhotoServiceCompletionHandler) {
+        self.completionHandler = completion
         session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: nil)
         for photo in photos {
             var updatedPhoto = photo
@@ -140,7 +140,7 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
                 if(error == nil) {
                     if let data = data, image = UIImage(data: data) {
                         updatedPhoto.image = image
-                        completion(updatedPhoto)
+                        imageCompletion(updatedPhoto)
                     }
                 } else {
                     print("Error: url:\(photo.url) error\(error)")
@@ -148,6 +148,7 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
             }
             task.resume()
         }
+        session!.finishTasksAndInvalidate()
     }
 }
 //MARK: - Class Extensions

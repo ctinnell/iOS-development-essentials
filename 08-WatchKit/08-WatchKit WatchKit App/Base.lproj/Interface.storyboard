@@ -12,7 +12,7 @@
                     <items>
                         <group width="1" height="150" alignment="left" id="JLX-qI-Qgj">
                             <items>
-                                <picker height="150" alignment="left" id="cp9-yN-OEI">
+                                <picker height="150" alignment="left" style="sequence" id="cp9-yN-OEI">
                                     <connections>
                                         <action selector="pickerDidChange:" destination="AgC-eL-Hgc" id="j7X-vp-zNo"/>
                                     </connections>

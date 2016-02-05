@@ -14,5 +14,5 @@ typealias PhotoServiceImageRetrievalCompletionHandler = (Photo) -> ()
 
 protocol PhotoServiceProtocol {
     func fetchPhotos(completion:PhotoServiceCompletionHandler)
-    func fetchImagesForPhotos(photos:[Photo], completion:PhotoServiceImageRetrievalCompletionHandler)
+    func fetchImagesForPhotos(photos:[Photo], imageCompletion:PhotoServiceImageRetrievalCompletionHandler, completion:PhotoServiceCompletionHandler)
 }

@@ -18,6 +18,7 @@ class PhotoListViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         photoService.fetchPhotos(processPhotos)
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -99,28 +100,28 @@ class PhotoListViewController: UICollectionViewController {
     }
     
     func processPhotos(photos: [Photo]?, error: Error?) {
-       
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.collectionView?.reloadData()
-            self.updateWatchPhotos()
         }
         if let photos = photos {
             self.photos = photos
-            photoService.fetchImagesForPhotos(photos, completion: imageRetrieved)
+            photoService.fetchImagesForPhotos(photos, imageCompletion: imageDidLoad, completion: imagesDidLoad)
         }
      }
     
-    func imageRetrieved(photo: Photo) {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                if let index = self.photos.indexOf({$0.id == photo.id}) {
-                   self.photos[index] = photo
-                   if let cell = self.collectionView?.cellForItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as? PhotoCell {
-                         cell.imageView?.image = photo.image
-                    }
+    func imageDidLoad(photo: Photo) {
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            if let index = self.photos.indexOf({$0.id == photo.id}) {
+               self.photos[index] = photo
+               if let cell = self.collectionView?.cellForItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as? PhotoCell {
+                     cell.imageView?.image = photo.image
                 }
-            })
-            
-        
+            }
+        })
+    }
+    
+    func imagesDidLoad(photos: [Photo]?, error: Error?) {
+        self.updateWatchPhotos()
     }
     
     func updateWatchPhotos() {
@@ -130,7 +131,7 @@ class PhotoListViewController: UICollectionViewController {
         
         var context = session.applicationContext
         var array = [[String:AnyObject]]()
-        for photo in photos {
+        for photo in self.photos[0..<10] {
             array.append(photo.toDictionary())
         }
         context["photos"] = array
