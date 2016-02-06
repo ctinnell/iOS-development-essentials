@@ -21,14 +21,13 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        let session = WCSession.defaultSession()
-        session.delegate = self
-        session.activateSession()
+        initializeWCSession()
     }
 
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        requestUpdatedWatchPhotos()
     }
 
     override func didDeactivate() {
@@ -52,6 +51,23 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         pickerDidChange(0)
     }
     
+    func initializeWCSession() {
+        let session = WCSession.defaultSession()
+        session.delegate = self
+        session.activateSession()
+    }
+    
+    func requestUpdatedWatchPhotos() {
+        let session = WCSession.defaultSession()
+        session.delegate = self
+        session.activateSession()
+        
+        session.sendMessage(["message":"requestPhotos"], replyHandler: nil) { (error) -> Void in
+            print("Error requesting photos: \(error)")
+        }
+    }
+
+    //MARK: - WCSessionDelegate
     func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
         if let array = applicationContext["photos"] as? [[String:AnyObject]] {
             photos.removeAll()

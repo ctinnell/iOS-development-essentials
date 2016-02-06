@@ -47,7 +47,7 @@ struct Photo {
     func toDictionary() -> [String:AnyObject] {
         var dict: [String:AnyObject] = ["title":title, "id":id]
         if let image = image {
-            dict["image"] = UIImageJPEGRepresentation(image, 0.5)
+            dict["image"] = UIImageJPEGRepresentation(image, 0.1)
         }
         return dict
     }

@@ -145,5 +145,7 @@ class PhotoListViewController: UICollectionViewController {
 }
 
 extension PhotoListViewController:WCSessionDelegate {
-    
+    func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
+        updateWatchPhotos()
+    }
 }
