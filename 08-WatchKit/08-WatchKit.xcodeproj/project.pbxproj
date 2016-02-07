@@ -26,6 +26,7 @@
 		842AD4131C5D475900EF19E8 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842AD4121C5D475900EF19E8 /* PhotoCell.swift */; };
 		842AD4191C60C21F00EF19E8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B18831C53B57F0053D40B /* Photo.swift */; };
 		844CD2F01C5D43C8005A2079 /* PhotoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844CD2EF1C5D43C8005A2079 /* PhotoListViewController.swift */; };
+		847E28BB1C67D1B800B2451C /* PhotoListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847E28BA1C67D1B800B2451C /* PhotoListDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		840B18891C54F7240053D40B /* FlickrPhotoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrPhotoService.swift; sourceTree = "<group>"; };
 		842AD4121C5D475900EF19E8 /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		844CD2EF1C5D43C8005A2079 /* PhotoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoListViewController.swift; path = ../PhotoListViewController.swift; sourceTree = "<group>"; };
+		847E28BA1C67D1B800B2451C /* PhotoListDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoListDataSource.swift; path = ../PhotoListDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,7 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				840B18441C523E700053D40B /* AppDelegate.swift */,
-				844CD2EF1C5D43C8005A2079 /* PhotoListViewController.swift */,
+				847E28B91C67D17200B2451C /* PhotoList */,
 				840B18501C523E700053D40B /* Info.plist */,
 			);
 			name = Controller;
@@ -213,6 +215,15 @@
 				840B18891C54F7240053D40B /* FlickrPhotoService.swift */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		847E28B91C67D17200B2451C /* PhotoList */ = {
+			isa = PBXGroup;
+			children = (
+				844CD2EF1C5D43C8005A2079 /* PhotoListViewController.swift */,
+				847E28BA1C67D1B800B2451C /* PhotoListDataSource.swift */,
+			);
+			name = PhotoList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,6 +363,7 @@
 				840B188A1C54F7240053D40B /* FlickrPhotoService.swift in Sources */,
 				840B18861C53B6980053D40B /* PhotoServiceProtocol.swift in Sources */,
 				840B18881C53B7110053D40B /* Error.swift in Sources */,
+				847E28BB1C67D1B800B2451C /* PhotoListDataSource.swift in Sources */,
 				840B18451C523E700053D40B /* AppDelegate.swift in Sources */,
 				842AD4131C5D475900EF19E8 /* PhotoCell.swift in Sources */,
 			);
