@@ -14,18 +14,23 @@ class PhotoListViewController: UICollectionViewController {
 
     private let photoService = FlickrPhotoService()
     private let dataSource = PhotoListDataSource()
+    private var refreshOnAppear = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView?.dataSource = dataSource
         photoService.fetchPhotos(processPhotos)
    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if refreshOnAppear {
+            photoService.fetchPhotos(processPhotos)
+        }
+        else {
+            refreshOnAppear = true
+        }
     }
-
 
     // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -35,6 +40,7 @@ class PhotoListViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let photo = dataSource.photos[indexPath.row]
         if let urlDetail = photo.urlDetail {
+            refreshOnAppear = false
             presentPhotoDetailViewController(urlDetail)
         }
     }
@@ -45,12 +51,14 @@ class PhotoListViewController: UICollectionViewController {
     }
     
     func processPhotos(photos: [Photo]?, error: Error?) {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.collectionView?.reloadData()
-        }
         if let photos = photos {
             self.dataSource.photos = photos
             photoService.fetchImagesForPhotos(photos, imageCompletion: imageDidLoad, completion: imagesDidLoad)
+            print("fetch photos")
+        }
+        
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.collectionView?.reloadData()
         }
      }
     
