@@ -55,17 +55,20 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
         do {
             var updatedPhoto = photo
             let json = try NSJSONSerialization.JSONObjectWithData(data.correctedFlickrJSON()!, options: [.AllowFragments])
-            if let sizesDict = json["sizes"] as? [String:AnyObject],
-                sizes = sizesDict["size"] as? [[String:AnyObject]] {
-                    for size in sizes {
-                        if let height = size["height"] as? Int, url = size["source"] as? String {
-                            if height > minPhotoHeight {
-                                updatedPhoto.url = NSURL(string: url)!
-                                self.photos.append(updatedPhoto)
-                                 break
-                            }
-                        }
-                    }
+            guard let sizesDict = json["sizes"] as? [String:AnyObject], sizes = sizesDict["size"] as? [[String:AnyObject]] else {
+                return
+            }
+            
+            for size in sizes {
+                guard let height = size["height"] as? Int, url = size["source"] as? String else {
+                    continue
+                }
+                
+                if height > minPhotoHeight {
+                    updatedPhoto.url = NSURL(string: url)!
+                    self.photos.append(updatedPhoto)
+                    break
+                }
             }
         }
         catch let jsonError as NSError {
