@@ -63,13 +63,14 @@ class PhotoListViewController: UICollectionViewController {
      }
     
     func imageDidLoad(photo: Photo) {
+        guard let index = self.dataSource.photos.indexOf({$0.id == photo.id}),
+            cell = self.collectionView?.cellForItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as? PhotoCell else {
+                return
+        }
+        
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            if let index = self.dataSource.photos.indexOf({$0.id == photo.id}) {
-               self.dataSource.photos[index] = photo
-               if let cell = self.collectionView?.cellForItemAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as? PhotoCell {
-                     cell.imageView?.image = photo.image
-                }
-            }
+            self.dataSource.photos[index] = photo
+            cell.imageView?.image = photo.image
         })
     }
     
