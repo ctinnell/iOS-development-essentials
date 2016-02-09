@@ -95,16 +95,16 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
         do {
             let jsonData = try NSJSONSerialization.JSONObjectWithData(photoData.correctedFlickrJSON()!, options: [.AllowFragments])
             
-            if let photosDict = jsonData["photos"] as? [String:AnyObject],
-                    photoArray = photosDict["photo"] as? [[String:AnyObject]] {
-                
-                for item in photoArray {
-                    if let title = item["title"] as? String, id = item["id"] as? String, owner = item["owner"] as? String {
-                        let photo = Photo(title: title, id: id, url: Endpoint.Photo(owner, id).url(), urlDetail: Endpoint.Photo(owner, id).url(), image: nil)
-                        fetchPhotoSizes(photo)
-                    }
-                }
+            guard let photosDict = jsonData["photos"] as? [String:AnyObject], photoArray = photosDict["photo"] as? [[String:AnyObject]] else {
+                return
             }
+            
+            for item in photoArray {
+                if let title = item["title"] as? String, id = item["id"] as? String, owner = item["owner"] as? String {
+                    let photo = Photo(title: title, id: id, url: Endpoint.Photo(owner, id).url(), urlDetail: Endpoint.Photo(owner, id).url(), image: nil)
+                    fetchPhotoSizes(photo)
+                }
+            }            
         }
         catch let jsonError as NSError {
             print("Error serializing response. Error: \(jsonError)")
