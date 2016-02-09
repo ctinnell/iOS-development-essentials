@@ -62,8 +62,7 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
                             if height > minPhotoHeight {
                                 updatedPhoto.url = NSURL(string: url)!
                                 self.photos.append(updatedPhoto)
-                                //print(photo.title, " ", url)
-                                break
+                                 break
                             }
                         }
                     }
@@ -76,7 +75,6 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
     
     private func fetchPhotoSizes(photo: Photo) {
         let url = Endpoint.PhotoSizes(photo.id).url()
-        //print(url)
         let request = NSURLRequest(URL: url)
         let task = session!.dataTaskWithRequest(request) { (data, response, error) -> Void in
             if(error == nil) {
@@ -157,7 +155,7 @@ class FlickrPhotoService: NSObject, PhotoServiceProtocol {
 
 extension FlickrPhotoService:NSURLSessionDelegate {
     func URLSession(session: NSURLSession, didBecomeInvalidWithError error: NSError?) {
-        if photos.count > 0 {
+         if photos.count > 0 {
             completionHandler?(photos, nil)
         }
         else {

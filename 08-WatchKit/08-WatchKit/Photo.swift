@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Photo {
+struct Photo {
     var title: String
     var id: String
     var url: NSURL?
