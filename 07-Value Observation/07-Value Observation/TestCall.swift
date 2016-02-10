@@ -47,25 +47,27 @@ class TestCall {
         let session = NSURLSession(configuration: sessionConfig)
         let request = NSURLRequest(URL: url)
         let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
-            if(error == nil) {
-                if let data = data {
-                    do {
-                        // parse the resonse and review just for fun...
-                        let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-                        print("************************************************")
-                        print("\(jsonData)")
-                        print("************************************************")
-                    }
-                    catch let jsonError as NSError {
-                        print("Error serializing response. Error: \(jsonError)")
-                    }
-                    
-                    // This just forces the observer to be notified, triggering the completion closure to be called.
-                    self.testCallResult?.index.value = index
-                }
-            } else {
+            // validate response
+            guard let data = data else { return }
+            if error != nil {
                 print("Error: url:\(url) error\(error)")
+                return
             }
+            
+            // searialize json response
+            do {
+                // parse the resonse and review just for fun...
+                let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                print("************************************************")
+                print("\(jsonData)")
+                print("************************************************")
+            }
+            catch let jsonError as NSError {
+                print("Error serializing response. Error: \(jsonError)")
+            }
+            
+            // This just forces the observer to be notified, triggering the completion closure to be called.
+            self.testCallResult?.index.value = index
         }
         task.resume()
     }
