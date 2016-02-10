@@ -105,12 +105,14 @@ class TwoColumnViewController: UIViewController {
     
     func presentActionSheet(sender: UIBarButtonItem) {
         let actionSheet = UIAlertController(title: "Select Action", message: nil, preferredStyle: .ActionSheet)
-        if viewContainsImage() {
+        
+        switch viewContainsImage() {
+        case true:
             actionSheet.addAction(UIAlertAction(title: "Remove Image", style: .Default, handler: removeImageFromView))
-        }
-        else {
+        case false:
             actionSheet.addAction(UIAlertAction(title: "Add Image", style: .Default, handler: addImageToView))
         }
+        
         presentViewController(actionSheet, animated: true, completion: nil)
     }
     

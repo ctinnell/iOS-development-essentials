@@ -25,11 +25,6 @@ class MovableWordFlowViewController: UIViewController {
         super.viewDidAppear(animated)
         configureTextView()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     private func configureTextView() {
         textView.text = text
@@ -37,13 +32,11 @@ class MovableWordFlowViewController: UIViewController {
     }
     
     private func setExclusionPath() {
-        if let textView = textView, imageView = imageView {
-            var imageFrame = textView.convertRect(imageView.bounds, fromCoordinateSpace: self.imageView)
-            imageFrame.origin.x -= textView.textContainerInset.left
-            imageFrame.origin.y -= textView.textContainerInset.top
-            let path = UIBezierPath(rect: imageFrame)
-            self.textView.textContainer.exclusionPaths = [path]
-        }
+        var imageFrame = textView.convertRect(imageView.bounds, fromCoordinateSpace: self.imageView)
+        imageFrame.origin.x -= textView.textContainerInset.left
+        imageFrame.origin.y -= textView.textContainerInset.top
+        let path = UIBezierPath(rect: imageFrame)
+        self.textView.textContainer.exclusionPaths = [path]
     }
     
     func imageViewMoved(gesture: UIPanGestureRecognizer) {

@@ -12,61 +12,64 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var textView: UITextView!
     
+    enum TextViewControllerType: String {
+        case LetterPress = "letterPressViewController"
+        case WordFlow = "wordFlowViewController"
+        case MovableWord = "movableWordFlowViewController"
+        case TwoColumn = "twoColumnViewController"
+        case TextViewer = "textViewerViewController"
+        
+        static let values: [TextViewControllerType] = [.LetterPress, .WordFlow, .MovableWord, .TwoColumn, .TextViewer]
+        
+        func title() -> String {
+            var title = " "
+            switch self {
+            case .LetterPress:
+                title = "Letter Press Text Effect"
+            case .WordFlow:
+                title = "Word Flow"
+            case .MovableWord:
+                title = "Movable Word Flow"
+            case .TwoColumn:
+                title = "Two Column Text"
+            case .TextViewer:
+                title = "Text Viewer"
+            }
+            
+            return title
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let actionSheetButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "presentActionSheet")
         self.navigationItem.rightBarButtonItem = actionSheetButton
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    func presentWordFlowViewController(action: UIAlertAction) {
-        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("wordFlowViewController") as? WordFlowViewController {
-            vc.text = textView.text
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-
-    func presentMovableWordFlowViewController(action: UIAlertAction) {
-        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("movableWordFlowViewController") as? MovableWordFlowViewController {
-            vc.text = textView.text
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
     
-    func presentTwoColumnViewController(action: UIAlertAction) {
-        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("twoColumnViewController") as? TwoColumnViewController {
-            vc.text = textView.text
-            self.navigationController?.pushViewController(vc, animated: true)
+    func presentTextDisplayViewController(textViewController: TextViewControllerType) {
+        guard let vc = storyboard?.instantiateViewControllerWithIdentifier(textViewController.rawValue) else { return }
+        
+        if vc.respondsToSelector(Selector("setText:")) {
+           vc.performSelector(Selector("setText:"), withObject: textView.text)
         }
-    }
-
-    func presentLetterPressViewController(action: UIAlertAction) {
-        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("letterPressViewController") as? LetterPressViewController {
-            vc.text = "Pride & Prejudice"
-            self.navigationController?.pushViewController(vc, animated: true)
+        
+        if vc.respondsToSelector(Selector("setTextTitle:")) {
+            vc.performSelector(Selector("setTextTitle:"), withObject: textViewController.title())
         }
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
-
-    func presentTextViewerViewController(action: UIAlertAction) {
-        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("textViewerViewController") as? TextViewerViewController {
-            vc.text = textView.text
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-
 
     func presentActionSheet() {
         let actionSheet = UIAlertController(title: "Choose Action", message: nil, preferredStyle: .ActionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Letter Press Text Effect", style: .Default, handler: presentLetterPressViewController))
-        actionSheet.addAction(UIAlertAction(title: "Word Flow", style: .Default, handler: presentWordFlowViewController))
-        actionSheet.addAction(UIAlertAction(title: "Movable Word Flow", style: .Default, handler: presentMovableWordFlowViewController))
-        actionSheet.addAction(UIAlertAction(title: "Two Column Text", style: .Default, handler: presentTwoColumnViewController))
-        actionSheet.addAction(UIAlertAction(title: "Text Viewer", style: .Default, handler: presentTextViewerViewController))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        
+        for vcType in TextViewControllerType.values {
+            let action = UIAlertAction(title: vcType.title(), style: .Default, handler: { (action) -> Void in
+                self.presentTextDisplayViewController(vcType)
+            })
+            actionSheet.addAction(action)
+        }
         presentViewController(actionSheet, animated: true, completion: nil)
     }
 }

@@ -32,24 +32,12 @@ class WordFlowViewController: UIViewController {
     
     private func configureTextView() {
         textView.text = text
-        if let textView = textView, imageView = imageView {
-            var imageFrame = textView.convertRect(imageView.bounds, fromCoordinateSpace: self.imageView)
-            imageFrame.origin.x -= textView.textContainerInset.left
-            imageFrame.origin.y -= textView.textContainerInset.top
-            let path = UIBezierPath(rect: imageFrame)
-            self.textView.textContainer.exclusionPaths = [path]
-        }
+        
+        var imageFrame = textView.convertRect(imageView.bounds, fromCoordinateSpace: self.imageView)
+        imageFrame.origin.x -= textView.textContainerInset.left
+        imageFrame.origin.y -= textView.textContainerInset.top
+        
+        let path = UIBezierPath(rect: imageFrame)
+        self.textView.textContainer.exclusionPaths = [path]
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

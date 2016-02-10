@@ -10,15 +10,12 @@ import UIKit
 
 class LetterPressViewController: UIViewController {
     
-    var text: String?
+    var textTitle: String?
     @IBOutlet weak var textView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    
+    }    
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -26,16 +23,11 @@ class LetterPressViewController: UIViewController {
     }
     
     private func configureTextView() {
-        if let text = text {
-            let attributedString = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName:UIColor.blueColor(), NSFontAttributeName:UIFont.preferredFontForTextStyle(UIFontTextStyleTitle1), NSTextEffectAttributeName:NSTextEffectLetterpressStyle])
-            textView.attributedText = attributedString
-            textView.backgroundColor = UIColor.brownColor()
-        }
-    }
+        guard let text = textTitle else { return }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        let attributedString = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName:UIColor.blueColor(), NSFontAttributeName:UIFont.preferredFontForTextStyle(UIFontTextStyleTitle1), NSTextEffectAttributeName:NSTextEffectLetterpressStyle])
+        
+        textView.attributedText = attributedString
+        textView.backgroundColor = UIColor.brownColor()
     }
-
 }
