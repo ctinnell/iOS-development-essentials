@@ -18,12 +18,4 @@ class TwoColumnTextViewController: UIViewController {
         super.viewDidLoad()
         twoColumnTextView.text = text
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-
 }

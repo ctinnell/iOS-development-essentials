@@ -43,28 +43,29 @@ class WordCloudView: UIView {
     //MARK: - UIView
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
-        if let context = UIGraphicsGetCurrentContext() {
-            flipCoordinateSystem(context)
-            drawItems(context)
-        }
+        
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        
+        flipCoordinateSystem(context)
+        drawItems(context)
     }
     
     //MARK: - Draw Items / Main Entry Point
     private func drawItems(context: CGContextRef) {
+        guard let wordCloudItems = wordCloudItems?[0..<100] else { return }
+        
         var (x,y) = center()
         let factor = 25.0
         
-        if let wordCloudItems = wordCloudItems?[0..<100] {
-            for (var index=0; index<wordCloudItems.count; index++) {
-                drawItem(context, itemIndex: index, x: x, y: y)
-                if let bounds = self.wordCloudItems?[index].bounds {
-                    if (movingHorizontally()) {
-                        (x,y) = move(x, y: y, factor: max(factor,Double(bounds.width + 20.0)))
-                    }
-                    else {
-                        (x,y) = move(x, y: y, factor: max(factor,Double(bounds.height + 5.0)))
-                   }
+        for (var index=0; index<wordCloudItems.count; index++) {
+            drawItem(context, itemIndex: index, x: x, y: y)
+            if let bounds = self.wordCloudItems?[index].bounds {
+                if (movingHorizontally()) {
+                    (x,y) = move(x, y: y, factor: max(factor,Double(bounds.width + 20.0)))
                 }
+                else {
+                    (x,y) = move(x, y: y, factor: max(factor,Double(bounds.height + 5.0)))
+               }
             }
         }
     }
@@ -149,38 +150,40 @@ class WordCloudView: UIView {
     
     
     private func drawItem(context: CGContextRef, itemIndex: Int, x: Double, y: Double) {
-        if let item = wordCloudItems?[itemIndex] {
-            if let font = UIFont(name: "Helvetica", size: min(CGFloat(10 * item.count),80.0)) {
-                let text = NSMutableAttributedString(string: item.word, attributes: [NSFontAttributeName:font])
-                text.addAttribute(NSForegroundColorAttributeName, value: wordColor(), range:NSRange(location: 0, length: text.length))
-                var bounds = CGRect(x: CGFloat(min(max(x,22.0), Double(self.bounds.size.width - 75.0))), y: CGFloat(min(max(y, 22.0),Double(self.bounds.size.height - 25.0))), width: text.size().width, height: text.size().height)
-                configureXAdjustmentDirection(bounds.origin.x)
+        guard let item = wordCloudItems?[itemIndex],
+            let font = UIFont(name: "Helvetica", size: min(CGFloat(10 * item.count),80.0)) else {
+                return
+        }
+        
+        let text = NSMutableAttributedString(string: item.word, attributes: [NSFontAttributeName:font])
+        text.addAttribute(NSForegroundColorAttributeName, value: wordColor(), range:NSRange(location: 0, length: text.length))
+        var bounds = CGRect(x: CGFloat(min(max(x,22.0), Double(self.bounds.size.width - 75.0))), y: CGFloat(min(max(y, 22.0),Double(self.bounds.size.height - 25.0))), width: text.size().width, height: text.size().height)
+        configureXAdjustmentDirection(bounds.origin.x)
+        configureYAdjustmentDirection(bounds.origin.y)
+        var intersect = true
+        var counter = 0
+        while intersect {
+            counter++
+            intersect = boundsIntersectsAnotherItem(bounds)
+            if counter > 500 {
+                //punt to avoid infinite loop
+                intersect = false
+                break
+            }
+            else if counter > 250 {
+                // rechart course
                 configureYAdjustmentDirection(bounds.origin.y)
-                var intersect = true
-                var counter = 0
-                while intersect {
-                    counter++
-                    intersect = boundsIntersectsAnotherItem(bounds)
-                    if counter > 500 {
-                        //punt to avoid infinite loop
-                        intersect = false
-                        break
-                    }
-                    else if counter > 250 {
-                        // rechart course
-                        configureYAdjustmentDirection(bounds.origin.y)
-                        configureXAdjustmentDirection(bounds.origin.x)
-                    }
-                    else if intersect {
-                        bounds = adjustedBoundsForIntersect(bounds)
-                    }
-                    else {
-                        self.wordCloudItems?[itemIndex].bounds = bounds
-                        drawText(context, text: text, x: Double(bounds.origin.x), y: Double(bounds.origin.y))
-                    }
-                }
+                configureXAdjustmentDirection(bounds.origin.x)
+            }
+            else if intersect {
+                bounds = adjustedBoundsForIntersect(bounds)
+            }
+            else {
+                self.wordCloudItems?[itemIndex].bounds = bounds
+                drawText(context, text: text, x: Double(bounds.origin.x), y: Double(bounds.origin.y))
             }
         }
+
     }
     
     private func drawText(context: CGContextRef, text: NSAttributedString, x: Double, y: Double) {
@@ -193,14 +196,14 @@ class WordCloudView: UIView {
     
     private func boundsIntersectsAnotherItem(bounds: CGRect) -> Bool {
         var intersects = false
-        if let wordCloudItems = wordCloudItems {
-            for item in wordCloudItems {
-                if let otherItemBounds = item.bounds {
-                    if CGRectIntersectsRect(bounds, otherItemBounds) {
-                        intersects = true
-                        break
-                    }
-                }
+        guard let wordCloudItems = wordCloudItems else { return intersects }
+        
+        for item in wordCloudItems {
+            guard let otherItemBounds = item.bounds else { continue }
+            
+            if CGRectIntersectsRect(bounds, otherItemBounds) {
+                intersects = true
+                break
             }
         }
         return intersects

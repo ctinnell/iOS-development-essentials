@@ -27,26 +27,26 @@ class TwoColumnTextView: UIView {
     }
     
     private func drawText(context: CGContextRef) {
-        if let text = text, font = UIFont(name: "Helvetica", size: 15.0) {
-            let attributedText = NSAttributedString(string: text, attributes: [NSFontAttributeName:font])
-            let frameSetter = CTFramesetterCreateWithAttributedString(attributedText)
+        guard let text = text, font = UIFont(name: "Helvetica", size: 15.0) else { return }
+        
+        let attributedText = NSAttributedString(string: text, attributes: [NSFontAttributeName:font])
+        let frameSetter = CTFramesetterCreateWithAttributedString(attributedText)
 
-            //Configure Left Column
-            let leftColumnPath = CGPathCreateMutable()
-            let leftColumnRect = CGRectMake(0, 0, self.bounds.size.width / 2.0, self.bounds.size.height - 75.0)
-            CGPathAddRect(leftColumnPath, nil, leftColumnRect)
-            let leftFame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, 0), leftColumnPath, nil)
-            
-            //Configure Right Column
-            let rightColumnPath = CGPathCreateMutable()
-            let rightColumnRect = CGRectMake(self.bounds.size.width / 2.0, 0, self.bounds.size.width/2.0, self.bounds.size.height - 75.0)
-            CGPathAddRect(rightColumnPath, nil, rightColumnRect)
-            let rightFrame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(CTFrameGetVisibleStringRange(leftFame).length,0), rightColumnPath, nil)
-            
-            flipCoordinateSystem(context)
-            
-            CTFrameDraw(leftFame, context)
-            CTFrameDraw(rightFrame, context)
-        }
+        //Configure Left Column
+        let leftColumnPath = CGPathCreateMutable()
+        let leftColumnRect = CGRectMake(0, 0, self.bounds.size.width / 2.0, self.bounds.size.height - 75.0)
+        CGPathAddRect(leftColumnPath, nil, leftColumnRect)
+        let leftFame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, 0), leftColumnPath, nil)
+        
+        //Configure Right Column
+        let rightColumnPath = CGPathCreateMutable()
+        let rightColumnRect = CGRectMake(self.bounds.size.width / 2.0, 0, self.bounds.size.width/2.0, self.bounds.size.height - 75.0)
+        CGPathAddRect(rightColumnPath, nil, rightColumnRect)
+        let rightFrame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(CTFrameGetVisibleStringRange(leftFame).length,0), rightColumnPath, nil)
+        
+        flipCoordinateSystem(context)
+        
+        CTFrameDraw(leftFame, context)
+        CTFrameDraw(rightFrame, context)
     }
 }

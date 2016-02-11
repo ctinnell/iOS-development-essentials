@@ -70,6 +70,7 @@ class ViewController: UIViewController {
             })
             actionSheet.addAction(action)
         }
+        
         presentViewController(actionSheet, animated: true, completion: nil)
     }
 }

@@ -19,10 +19,6 @@ class ViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = actionSheetButton
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
     func generateWordCloud(action: UIAlertAction) {
         let wordCloudItems = WordCloudParser.wordCloudElements(textView.text)
         for item in wordCloudItems {
@@ -32,17 +28,17 @@ class ViewController: UIViewController {
     }
     
     func presentWordCloudViewController(words: [WordCloudParser.WordCloudElement]) {
-        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("wordCloudViewController") as? WordCloudViewController {
-            vc.wordCloudItems = words
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+        guard let vc = self.storyboard?.instantiateViewControllerWithIdentifier("wordCloudViewController") as? WordCloudViewController else { return }
+        
+        vc.wordCloudItems = words
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func presentTwoColumnTextViewController(action: UIAlertAction) {
-        if let vc = storyboard?.instantiateViewControllerWithIdentifier("twoColumnTextViewController") as? TwoColumnTextViewController {
-            vc.text = textView.text
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+        guard let vc = storyboard?.instantiateViewControllerWithIdentifier("twoColumnTextViewController") as? TwoColumnTextViewController else { return }
+
+        vc.text = textView.text
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func presentActionSheet() {
