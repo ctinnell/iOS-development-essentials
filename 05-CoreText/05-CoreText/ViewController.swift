@@ -21,9 +21,6 @@ class ViewController: UIViewController {
 
     func generateWordCloud(action: UIAlertAction) {
         let wordCloudItems = WordCloudParser.wordCloudElements(textView.text)
-        for item in wordCloudItems {
-            print("\(item.word) (\(item.count))")
-        }
         presentWordCloudViewController(wordCloudItems)
     }
     
