@@ -46,45 +46,45 @@ class FoldingViewController: UIViewController {
     }
     
     private func addCoverImage() {
-        if let view = topView {
-            viewHasCoverImage = true
-            topImage = view.layer.contents
-            view.addSubview(coverImageView)
-            view.layer.backgroundColor = UIColor.whiteColor().CGColor
-            view.clipsToBounds = true
-            coverImageView.contentMode = .ScaleAspectFit
-            coverImageView.frame = CGRectMake(0, 0, containerView.bounds.size.width, containerView.bounds.size.height/2)
-            coverImageView.center = CGPoint(x: view.frame.size.width / 2, y: coverImageView.center.y)
-            let transform = CATransform3DMakeTranslation(0, 0, 0)
-            coverImageView.layer.transform = CATransform3DRotate(transform, CGFloat(180 * M_PI/180), 1, 0, 0)
-            view.layer.contents = nil
-        }
+        guard let view = topView else { return }
+
+        viewHasCoverImage = true
+        topImage = view.layer.contents
+        view.addSubview(coverImageView)
+        view.layer.backgroundColor = UIColor.whiteColor().CGColor
+        view.clipsToBounds = true
+        coverImageView.contentMode = .ScaleAspectFit
+        coverImageView.frame = CGRectMake(0, 0, containerView.bounds.size.width, containerView.bounds.size.height/2)
+        coverImageView.center = CGPoint(x: view.frame.size.width / 2, y: coverImageView.center.y)
+        let transform = CATransform3DMakeTranslation(0, 0, 0)
+        coverImageView.layer.transform = CATransform3DRotate(transform, CGFloat(180 * M_PI/180), 1, 0, 0)
+        view.layer.contents = nil
     }
     
     private func removeCoverImage() {
-        if let view = topView {
-            view.layer.contents = topImage
-            coverImageView.removeFromSuperview()
-            viewHasCoverImage = false
-        }
+        guard let view = topView else { return }
+
+        view.layer.contents = topImage
+        coverImageView.removeFromSuperview()
+        viewHasCoverImage = false
     }
     
     private func foldTopView(degrees: Double) {
-        if let view = topView {
-            //only add the cover image when it becomes visible
-            if degrees >= 90 && !viewHasCoverImage {
-                addCoverImage()
-            }
-            //remove the cover image when it passes the visibility point
-            else if degrees < 90 && viewHasCoverImage  {
-                removeCoverImage()
-            }
-            
-            //Convert degrees to radians and incrementally fold the view.
-            let radians = CGFloat(degrees * M_PI/180)
-            let transform = CATransform3DMakeTranslation(0, 0, 0)
-            view.layer.transform = CATransform3DRotate(transform, radians, -1, 0, 0)
+        guard let view = topView else { return }
+        
+        //only add the cover image when it becomes visible
+        if degrees >= 90 && !viewHasCoverImage {
+            addCoverImage()
         }
+        //remove the cover image when it passes the visibility point
+        else if degrees < 90 && viewHasCoverImage  {
+            removeCoverImage()
+        }
+        
+        //Convert degrees to radians and incrementally fold the view.
+        let radians = CGFloat(degrees * M_PI/180)
+        let transform = CATransform3DMakeTranslation(0, 0, 0)
+        view.layer.transform = CATransform3DRotate(transform, radians, -1, 0, 0)
     }
     
     private func setHorizontalAnchorPoint(anchorPoint: CGPoint, forView view: UIView) {
@@ -105,31 +105,31 @@ class FoldingViewController: UIViewController {
     }
     
     private func removeSplitImages() {
-        if let topView = topView, bottomView = bottomView {
-            topView.removeFromSuperview()
-            bottomView.removeFromSuperview()
-        }
+        guard let topView = topView, bottomView = bottomView else { return }
+        
+        topView.removeFromSuperview()
+        bottomView.removeFromSuperview()
     }
     
     private func splitImagesAcrossHorizontalAxis() {
-        if let image = towerImageView.image {
-            removeSplitImages()
-            let frame = topFrameFromImage(towerImageView)
-            let bottomFrame = bottomFrameFromImage(towerImageView)
-            
-            topView = viewFromImage(image, frame: frame, coordinates: CGRectMake(0.0, 0.0, 1.0, 0.5))
+        guard let image = towerImageView.image else { return }
+        
+        removeSplitImages()
+        let frame = topFrameFromImage(towerImageView)
+        let bottomFrame = bottomFrameFromImage(towerImageView)
+        
+        topView = viewFromImage(image, frame: frame, coordinates: CGRectMake(0.0, 0.0, 1.0, 0.5))
 
-            bottomView = viewFromImage(image, frame: bottomFrame, coordinates: CGRectMake(0.0, 0.5, 1.0, 0.5))
-            containerView.addSubview(bottomView!)
-            containerView.addSubview(topView!)
+        bottomView = viewFromImage(image, frame: bottomFrame, coordinates: CGRectMake(0.0, 0.5, 1.0, 0.5))
+        containerView.addSubview(bottomView!)
+        containerView.addSubview(topView!)
+        
+        topView?.layer.borderColor = UIColor.blackColor().CGColor
+        bottomView?.layer.borderColor = UIColor.blackColor().CGColor
+        topView?.layer.borderWidth = 1.0
+        bottomView?.layer.borderWidth = 1.0
+        setHorizontalAnchorPoint(CGPoint(x: 1.0, y: 1.0), forView: topView!)
             
-            topView?.layer.borderColor = UIColor.blackColor().CGColor
-            bottomView?.layer.borderColor = UIColor.blackColor().CGColor
-            topView?.layer.borderWidth = 1.0
-            bottomView?.layer.borderWidth = 1.0
-            setHorizontalAnchorPoint(CGPoint(x: 1.0, y: 1.0), forView: topView!)
-            
-        }
     }
     
     private func viewFromImage(image: UIImage, frame: CGRect, coordinates: CGRect) -> UIView {
