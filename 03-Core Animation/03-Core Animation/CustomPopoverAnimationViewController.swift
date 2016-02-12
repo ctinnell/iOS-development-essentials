@@ -17,25 +17,17 @@ class CustomPopoverAnimationViewController: UIViewController, CustomPopoverViewC
     //MARK: - ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     //MARK: - IBActions
     @IBAction func showPopover(sender: AnyObject) {
-        popoverViewController = storyboard?.instantiateViewControllerWithIdentifier("customPopoverViewController") as?CustomPopoverViewController
+        popoverViewController = storyboard?.instantiateViewControllerWithIdentifier("customPopoverViewController") as? CustomPopoverViewController
+        guard let popoverViewController = popoverViewController else { return }
         
-        if let popoverViewController = popoverViewController {
-            popoverViewController.delegate = self
-            popoverViewController.modalPresentationStyle = .OverCurrentContext
-            popoverViewController.transitioningDelegate = self
-            presentViewController(popoverViewController, animated: true, completion: nil)
-        }
+        popoverViewController.delegate = self
+        popoverViewController.modalPresentationStyle = .OverCurrentContext
+        popoverViewController.transitioningDelegate = self
+        presentViewController(popoverViewController, animated: true, completion: nil)
     }
     
     // MARK: - CustomPopoverViewControllerDelegate
