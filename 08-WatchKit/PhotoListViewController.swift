@@ -53,8 +53,12 @@ class PhotoListViewController: UICollectionViewController {
     func processPhotos(photos: [Photo]?, error: Error?) {
         if let photos = photos {
             self.dataSource.photos = photos
-            photoService.fetchImagesForPhotos(photos, imageCompletion: imageDidLoad, completion: imagesDidLoad)
-            print("fetch photos")
+            photoService.fetchImagesForPhotos(photos, imageCompletion: { [unowned self] (photo) -> () in
+                    self.imageDidLoad(photo)
+                }, completion: { [unowned self] (photos, error) -> () in
+                    self.imagesDidLoad(photos, error: error)
+            
+            })
         }
         
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
