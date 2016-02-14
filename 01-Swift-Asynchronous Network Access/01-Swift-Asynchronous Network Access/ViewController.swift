@@ -40,7 +40,7 @@ class ViewController: UIViewController {
             startAnimateActivityIndicator(tagStart + x)
             let randomUnit: UInt32 = 11 
             let testURL = TestCall.Endpoint.Delay(Int(arc4random_uniform(randomUnit))).url()
-            TestCall.execute(testURL, index:x) {(result, index) in
+            TestCall.execute(testURL, index:x) {[unowned self](result, index) in
                 print("Result: \(result.url)")
                 self.stopAnimatingActivityIndicator(self.tagStart + index)
             }
