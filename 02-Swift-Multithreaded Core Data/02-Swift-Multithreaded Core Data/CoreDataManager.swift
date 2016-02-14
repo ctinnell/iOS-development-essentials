@@ -34,35 +34,37 @@ public class CoreDataManager {
     }
     
     public func save(completion: (()->())?) {
-        if let privateManagedObjectContext = privateManagedObjectContext, managedObjectContext = managedObjectContext {
-            if privateManagedObjectContext.hasChanges || managedObjectContext.hasChanges {
-                managedObjectContext.performBlockAndWait({ () -> Void in
-                    do {
-                        try managedObjectContext.save()
+        guard let privateManagedObjectContext = privateManagedObjectContext,
+                    managedObjectContext = managedObjectContext
+                where privateManagedObjectContext.hasChanges || managedObjectContext.hasChanges else {
+            return
+        }
+        
+        managedObjectContext.performBlockAndWait({ () -> Void in
+            do {
+                try managedObjectContext.save()
+            }
+            catch let saveError as NSError {
+                print("Error with managed object context: \(saveError)")
+                return
+            }
+        })
+        
+        privateManagedObjectContext.performBlock({ () -> Void in
+            do {
+                try privateManagedObjectContext.save()
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    if let completion = completion {
+                        completion()
                     }
-                    catch let saveError as NSError {
-                        print("Error with managed object context: \(saveError)")
-                        return
-                    }
-                })
-                
-                privateManagedObjectContext.performBlock({ () -> Void in
-                    do {
-                        try privateManagedObjectContext.save()
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            if let completion = completion {
-                                completion()
-                            }
-                        })
-                    }
-                    catch let asynchSaveError as NSError {
-                        print("Error with managed object context: \(asynchSaveError)")
-                        return
-                    }
-                    
                 })
             }
-        }
+            catch let asynchSaveError as NSError {
+                print("Error with managed object context: \(asynchSaveError)")
+                return
+            }
+            
+        })
     }
     
     // MARK: - Private
@@ -76,34 +78,33 @@ public class CoreDataManager {
     
     private func initializePersistentStoreCoordinator() -> NSPersistentStoreCoordinator? {
         let url = NSURL.fileURLWithPath((self.applicationDocumentsDirectory() as NSString).stringByAppendingPathComponent("\(modelName).sqlite"))
+        
+        guard let mom = managedObjectModel, let urlPath = url.path else {
+            print("Unable to create Persistent Store Coordator - managed object context is nil!!!")
+            return nil
+        }
+        
         let options = [NSMigratePersistentStoresAutomaticallyOption:1, NSInferMappingModelAutomaticallyOption:1]
         var storeCoordinator: NSPersistentStoreCoordinator?
         
-        if let mom = managedObjectModel {
-            storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: mom)
-            do {
-                try storeCoordinator?.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options)
-            }
-            catch let persistentStoreError as NSError {
-                print("Unable to add Persistent Store!!!")
-                print("\(persistentStoreError)")
-                return nil
-            }
+        storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: mom)
+        do {
+            try storeCoordinator?.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options)
         }
-        else {
-            print("Unable to create Persistent Store Coordator - managed object context is nil!!!")
+        catch let persistentStoreError as NSError {
+            print("Unable to add Persistent Store!!!")
+            print("\(persistentStoreError)")
+            return nil
         }
         
         //encrypt data store
         let fileAttributes = [NSFileProtectionKey:NSFileProtectionComplete]
-        if let urlPath = url.path {
-            do {
-                try NSFileManager.defaultManager().setAttributes(fileAttributes, ofItemAtPath: urlPath)
-            }
-            catch let error as NSError {
-                print("Unable to encrypt database: \(error): \(error.userInfo)")
-                return nil
-            }
+        do {
+            try NSFileManager.defaultManager().setAttributes(fileAttributes, ofItemAtPath: urlPath)
+        }
+        catch let error as NSError {
+            print("Unable to encrypt database: \(error): \(error.userInfo)")
+            return nil
         }
         return storeCoordinator
     }
