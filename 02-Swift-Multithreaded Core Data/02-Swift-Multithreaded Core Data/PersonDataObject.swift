@@ -16,41 +16,43 @@ extension Person {
     }
     
     class func loadTestData(coreDataManager: CoreDataManager, completion:(()->())?) {
-        if let context = coreDataManager.managedObjectContext, privateContext = coreDataManager.privateManagedObjectContext {
-            let (results, fetchError) = allObjects(context)
-            if let error = fetchError {
-                print("Error with Fetch Request: \(error.description)")
-            }
-            else if results?.count == 0 {
-                createPerson("Bill Gates", email: "billgates@microsoft.com", managedObjectContext: privateContext)
-                createPerson("Jimmy John", email: "jimmyjohn@gmail.com", managedObjectContext: privateContext)
-                createPerson("Clark Kent", email: "clarkkent@gmail.com", managedObjectContext: privateContext)
-                createPerson("Luke Skywalker", email: "skywalker@gmail.com", managedObjectContext: privateContext)
-                createPerson("Rocky Balboa", email: "rockyb@gmail.com", managedObjectContext: privateContext)
-                createPerson("Yoda", email: "yoda@gmail.com", managedObjectContext: privateContext)
-                createPerson("Jason Stephens", email: "jasonstephens@gmail.com", managedObjectContext: privateContext)
-                createPerson("Luke Bryan", email: "lukebryan@gmail.com", managedObjectContext: privateContext)
-                createPerson("Bryan Adams", email: "bryanadams@gmail.com", managedObjectContext: privateContext)
-                createPerson("Jim Smith", email: "jimsmith@gmail.com", managedObjectContext: privateContext)
-                createPerson("Dawn Day", email: "dawnday@gmail.com", managedObjectContext: privateContext)
-                createPerson("Alana Coryn", email: "alanacoryn@gmail.com", managedObjectContext: privateContext)
-                createPerson("Elizabeth Deluth", email: "elizabethdeluth@gmail.com", managedObjectContext: privateContext)
-                createPerson("Brandon Cooker", email: "brandoncooker@gmail.com", managedObjectContext: privateContext)
-               coreDataManager.save(completion)
-            }
-            else {
-                print("data already loaded")
-            }
+        guard let context = coreDataManager.managedObjectContext, privateContext = coreDataManager.privateManagedObjectContext else {
+            print("Error obtaining contexts")
+            return
+        }
+        
+        let (results, fetchError) = allObjects(context)
+        if let error = fetchError {
+            print("Error with Fetch Request: \(error.description)")
+        }
+        else if results?.count == 0 {
+            createPerson("Bill Gates", email: "billgates@microsoft.com", managedObjectContext: privateContext)
+            createPerson("Jimmy John", email: "jimmyjohn@gmail.com", managedObjectContext: privateContext)
+            createPerson("Clark Kent", email: "clarkkent@gmail.com", managedObjectContext: privateContext)
+            createPerson("Luke Skywalker", email: "skywalker@gmail.com", managedObjectContext: privateContext)
+            createPerson("Rocky Balboa", email: "rockyb@gmail.com", managedObjectContext: privateContext)
+            createPerson("Yoda", email: "yoda@gmail.com", managedObjectContext: privateContext)
+            createPerson("Jason Stephens", email: "jasonstephens@gmail.com", managedObjectContext: privateContext)
+            createPerson("Luke Bryan", email: "lukebryan@gmail.com", managedObjectContext: privateContext)
+            createPerson("Bryan Adams", email: "bryanadams@gmail.com", managedObjectContext: privateContext)
+            createPerson("Jim Smith", email: "jimsmith@gmail.com", managedObjectContext: privateContext)
+            createPerson("Dawn Day", email: "dawnday@gmail.com", managedObjectContext: privateContext)
+            createPerson("Alana Coryn", email: "alanacoryn@gmail.com", managedObjectContext: privateContext)
+            createPerson("Elizabeth Deluth", email: "elizabethdeluth@gmail.com", managedObjectContext: privateContext)
+            createPerson("Brandon Cooker", email: "brandoncooker@gmail.com", managedObjectContext: privateContext)
+           coreDataManager.save(completion)
+        }
+        else {
+            print("data already loaded")
         }
     }
     
     class func createPerson(name: String, email: String, managedObjectContext: NSManagedObjectContext?) {
-        if let moc = managedObjectContext {
-            let person = NSEntityDescription.insertNewObjectForEntityForName(entityName(), inManagedObjectContext: moc) as! Person
+        guard let moc = managedObjectContext else { return }
 
-            person.name = name
-            person.email = email
-        }
+        let person = NSEntityDescription.insertNewObjectForEntityForName(entityName(), inManagedObjectContext: moc) as! Person
+        person.name = name
+        person.email = email
     }
     
     class func allObjects(moc: NSManagedObjectContext) -> ([Person]?, NSError?) {
@@ -68,22 +70,21 @@ extension Person {
     }
     
     class func deleteAllObjects(coreDataManager: CoreDataManager, completion:(()->())?) -> NSError? {
-        if let privateContext = coreDataManager.privateManagedObjectContext {
-            let (objects, error) = allObjects(privateContext)
-            if error == nil && objects?.count > 0 {
-                for object in objects! {
-                    privateContext.deleteObject(object)
-                }
-                coreDataManager.save(completion)
+        guard let privateContext = coreDataManager.privateManagedObjectContext else { return nil }
+        
+        let (objects, error) = allObjects(privateContext)
+        if error == nil && objects?.count > 0 {
+            for object in objects! {
+                privateContext.deleteObject(object)
             }
-            else {
-                if let completion = completion {
-                    completion()
-                }
-            }
-            return error
+            coreDataManager.save(completion)
         }
-        return nil
+        else {
+            if let completion = completion {
+                completion()
+            }
+        }
+        return error
     }
 
 }
