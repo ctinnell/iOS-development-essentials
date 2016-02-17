@@ -1,4 +1,12 @@
-//
+//: __ARC (Automatic Reference Counting)__ manages memory at compile time, and only frees up object memory when there 
+//: are zero remaining strong references.
+//:
+//: __Strong Reference__: A normal reference that protects the referenced object from being deallocated.
+//:
+//: __Weak Reference__: A reference that doesn't protect the referenced object from being deallocated. In Swift, weak references are Optionals.
+//:
+//: __Unowned Reference__: Similar to weak references, however the references is not optional and guaranteed to not be nil.
+
 class VideoDownloader {
 
     deinit {
@@ -27,6 +35,7 @@ class Video {
         case weak
         case unowned
         case none
+        case asFunction
     }
     
     init(id: Int, name: String,captureType: CaptureType) {
@@ -57,30 +66,45 @@ class Video {
                 print("Unowned Self - The Best Option Here")
                 print("Video Downloaded: ", self.name)
             }
+        case .asFunction:
+            videoDownloader.downloadComplete = downloadCompletion
+
         }
+
         videoDownloader.download()
     }
     
     deinit {
         print(__FUNCTION__, " deinit")
     }
+    
+    func downloadCompletion() {
+        print("Passed as function:")
+        print("Video Downloaded: ", self.name)
+    }
 }
 
-var video2: Video? = Video(id: 1234, name: "Video 1234", captureType: .none)
-video2 = nil
+var video1: Video? = Video(id: 1234, name: "Video 1234", captureType: .none)
+video1 = nil
 print("Notice that deinit was called here because no reference to self was captured. \n")
 
-var video: Video? = Video(id: 1234, name: "Video 1234", captureType: .strong)
-video = nil
+var video2: Video? = Video(id: 1234, name: "Video 1234", captureType: .strong)
+video2 = nil
 print("Notice that deinit wasn't called on either class. \n")
 
-var video3: Video? = Video(id: 1234, name: "Video 1234", captureType: .weak)
+var video3: Video? = Video(id: 1234, name: "Video 1234", captureType: .asFunction)
 video3 = nil
-print("Notice that deinit was called here because we captured a weak reference to self here. \n")
+print("Notice that deinit was not called here because a function is just a closure, and we passed a strong reference to self. \n")
 
-var video4: Video? = Video(id: 1234, name: "Video 1234", captureType: .unowned)
+var video4: Video? = Video(id: 1234, name: "Video 1234", captureType: .weak)
 video4 = nil
 print("Notice that deinit was called here because we captured a weak reference to self here. \n")
+
+var video5: Video? = Video(id: 1234, name: "Video 1234", captureType: .unowned)
+video5 = nil
+print("Notice that deinit was called here because we captured an unowned reference to self here. \n")
+
+
 
 
 
